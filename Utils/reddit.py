@@ -47,11 +47,11 @@ def fetchUpdates():
 
 
     # Debug
-    # print("UPDATE DEBUG")
-    # print(f"Today: {today}")
-    # print(f"Delta: {datetime.timedelta(days=(today.weekday()+4)%7)}")
-    # print(f"Stamp: {stamp}")
-    # print((f"Unix: {unix_stamp}"))
+    print("UPDATE DEBUG")
+    print(f"Today: {today}")
+    print(f"Delta: {datetime.timedelta(days=(today.weekday()+4)%7)}")
+    print(f"Stamp: {stamp}")
+    print((f"Unix: {unix_stamp}"))
 
     subreddit = getSubreddit()
 
