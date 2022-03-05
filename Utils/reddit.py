@@ -43,19 +43,23 @@ def fetchUpdates():
     stamp = today - datetime.timedelta(days=(today.weekday()+4)%7)
 
     # convert to Unix
-    unix_stamp = time.mktime(stamp.timetuple()) + 43200
+    unix_stamp = time.mktime(stamp.timetuple()) + 10.800
 
 
-    # # Debug
-    print(f"Today: {today}")
-    print(f"Delta: {datetime.timedelta(days=(today.weekday()+4)%7)}")
-    print(f"Stamp: {stamp}")
-    print((f"Unix: {unix_stamp}"))
+    # Debug
+    # print("UPDATE DEBUG")
+    # print(f"Today: {today}")
+    # print(f"Delta: {datetime.timedelta(days=(today.weekday()+4)%7)}")
+    # print(f"Stamp: {stamp}")
+    # print((f"Unix: {unix_stamp}"))
 
     subreddit = getSubreddit()
 
     posts= []
     for post in subreddit.top(time_filter="week"):
+        # Debug
+        # print(post.title)
+        # print(post.created)
         if("[Update]" in post.title and post.created > unix_stamp):
             posts.append(post)
 
@@ -69,7 +73,7 @@ def fetchCards():
     stamp = today - datetime.timedelta(days=(today.weekday() + 4) % 7)
 
     # convert to Unix
-    unix_stamp = time.mktime(stamp.timetuple())
+    unix_stamp = time.mktime(stamp.timetuple()) + 10.800
 
     subreddit = getSubreddit()
 
