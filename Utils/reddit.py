@@ -1,3 +1,4 @@
+import calendar
 import re
 import requests
 import os
@@ -43,7 +44,7 @@ def fetchUpdates():
     stamp = today - datetime.timedelta(days=(today.weekday()+4)%7)
 
     # convert to Unix
-    unix_stamp = time.mktime(stamp.timetuple()) + 10.800
+    unix_stamp = calendar.timegm(stamp.timetuple()) - 32400
 
 
     # Debug
@@ -73,7 +74,7 @@ def fetchCards():
     stamp = today - datetime.timedelta(days=(today.weekday() + 4) % 7)
 
     # convert to Unix
-    unix_stamp = time.mktime(stamp.timetuple()) + 10.800
+    unix_stamp = calendar.timegm(stamp.timetuple()) - 32400
 
     subreddit = getSubreddit()
 
