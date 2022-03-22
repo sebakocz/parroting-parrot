@@ -13,7 +13,8 @@ class FetcherCog(commands.Cog):
             "et": Fetcher.eternal.EternalFetcher(),
             "ygo": Fetcher.ygo.YugiohFetcher(),
             'hs': Fetcher.hs.HsFetcher(),
-            "lor": Fetcher.lor.LorFetcher()
+            "lor": Fetcher.lor.LorFetcher(),
+            "hero": Fetcher.collective.CollectiveHeroFetcher()
         }
 
     def get_card_name(self, text):
@@ -49,6 +50,9 @@ class FetcherCog(commands.Cog):
         links = []  # here are the card links stored
         for card in cards:
             mod, card = card
+            if mod == "hero":
+                await message.channel.send(embed=self.card_fetchers[mod][card])
+                continue
             if mod in self.card_fetchers:
                 try:
                     links.append(self.card_fetchers[mod][card])

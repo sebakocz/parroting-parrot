@@ -1,0 +1,225 @@
+{
+  "heros":[{
+    "name": "Baldwin",
+    "affinity": "Strength",
+    "passive": "+2 EXP each turn if you control two units in your main tribe.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(3) Core Sequence\nEntomb: Herald 3 for the next unit of your main tribe.\n[2/2]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "Hero Active: Destroy a unit of your main tribe to give its stats and keywords to another unit in your main tribe."
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(6) Genesis Strain\nImmortal\nActive: If you have two or more units from your main tribe, choose a unit from your main tribe in your deck and play it.\n[2/5]"
+      }
+  }},
+  {
+  "name": "Hawkins",
+    "affinity": "Spirit",
+    "passive": "Passive: +2 EXP each turn if you control two units in your main tribe.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(3) Experimental Sequence\nEntomb: Deal damage equal to the number of units in your main tribe you control.\n[2/2]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "Hero Active: Pay 1 mana. Revive the bottom unit in your main tribe in your graveyard. (Fast)"
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(6) Genesis Strain\nImmortal\nActive: If you have two or more units from your main tribe, choose a unit from your main tribe in your deck and play it.\n[2/5]"
+      }
+    }
+},
+{
+  "name": "Kyung Mi",
+    "affinity": "Neutral",
+    "passive": "Your Outfit determines your Affinity. Scout when you level up.\nStrength Outfit: Give a Strength unit in play or in your hand +1 ATK and Duelist.\nSpirit Outfit: Give a Spirit unit in play or your hand +1 HP and 'Entomb: Draw a card.'\nMind Outfit: Your next Mind card costs 1 less.",
+    "rewards": {
+      "lvl2": {
+        "exp": 3,
+        "text": "Change to the Outfit of your choice, and gain 'Hero Active: Banish a card to switch to your next affinity and trigger its Outfit effect. Gain 1 EXP. (Fast)'"
+      },
+      "lvl3": {
+        "exp": 7,
+        "text": "-"
+      },
+      "lvl4": {
+        "exp":11,
+        "text": "-"
+      },
+      "lvl5": {
+        "exp": 15,
+        "text": "-"
+      },
+      "lvl6": {
+        "exp": 19,
+        "text": "-"
+      },
+      "lvl7": {
+        "exp": 23,
+        "text": "Your units get +1/+1, Duelist, and 'Entomb: Draw a card.' Your cards cost 1 less."
+      }
+    }
+},
+{
+    "name": "Lazaro",
+    "affinity": "Mind",
+    "passive": "+2 EXP each turn if you control two units in your main tribe.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(3) Experimental Sequence\nEntomb: Draw a unit from your main tribe.\n[2/2]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "Hero Active: Pay 1 mana, Give all units in your main tribe +1/+1."
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(6) Genesis Strain\nImmortal\nActive: If you have two or more units from your main tribe, choose a unit from your main tribe in your deck and play it.\n[2/5]"
+      }
+    }
+},
+{
+    "name": "Marie",
+    "affinity": "Spirit",
+    "passive": "Passive: +2 EXP if two or more units enter your graveyard each turn. Banish all actions that enter your graveyard.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(2) Eau D'Ange\nWhen you play or discard this, gain 3 HP and Choose a friendly unit to give 3 HP. When you level up, return this to your hand."
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "Hero Active: Pay 1 Mana. Banish the top unit of your graveyard. Play its Summon, Entomb, and Active abilities."
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(6) House of Zombi\nImmortal\nYour Active, Summon, and Entomb abilities happen twice.\n[0/4]"
+      }
+    }
+},
+{
+    "name": "Pearlmaw",
+    "affinity": "Strength",
+    "passive": "Passive: At the end of each turn, if you have any unused mana, create a Doubloon.\n(0) Doubloon\nGain 1 mana and 1 EXP.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(2) Spectral Dragonfire\nDeal damage equal to your level to a unit. When you play three Doubloons in one turn, return this to your hand from the graveyard."
+      },
+      "lvl3": {
+        "exp": 11,
+        "text": "(4) Geistwing Raiders\nWhen this deals damage, create a Doubloon.\n[3/3]"
+      },
+      "lvl4": {
+        "exp": 19,
+        "text": "(5) Wasburn's Cannoneers\nActive: Silence a unit.\n[2/5]"
+      },
+      "lvl5": {
+        "exp": 28,
+        "text": "(8) Captain Washburn\nImmortal\nWhen this enters play, create 2 Doubloons. You win when you have 10 Doubloons in your hand.\n[8/8]"
+      }
+    }
+},
+{
+    "name": "Vriktik",
+    "affinity": "Mind",
+    "passive": "+2 EXP when you play your second action each turn.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(2) Centien Ghoul\nDeadly\nWhenever this kills a unit, create a 1/1 copy of that unit.\n[1/2]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "(3) From the Dark\nDestroy a unit."
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "Play a copy of the first card you play each turn. Repeat for each level you've gained beyond four."
+      }
+  }},
+  {
+    "name": "Buluc",
+    "affinity": "Spirit",
+    "passive": "+3 EXP when you attack with 3 or more units.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(3) Enkindler of Strife\nActive: Create a 1/1 Artifact.\n[1/2]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "Your units have +1 ATK forever."
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(6) Kukul, Feathered God\nImmortal, Agile, Overrun\nWhen this attacks, return two random units. in your graveyard to play, They attack.\n[6/6]"
+      }
+  }},
+  {
+    "name": "Heldim",
+    "affinity": "Strength",
+    "passive": "+2 EXP when you attack with exactly one unit. When you level up, revive Cassiel and she gets +2/+2.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(2) Cassiel\nFlying\n[2/2]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "Cassiel gains Overrun."
+      },
+      "lvl4": {
+        "exp": 19,
+        "text": "Cassiel gains Regenerate."
+      },
+      "lvl5": {
+        "exp": 28,
+        "text": "Whenever a friendly unit dies, revive Cassiel and she attacks."
+      }
+  }},
+  {
+    "name": "Ashgerdy",
+    "affinity": "Mind",
+    "passive":"+5 EXP when you damage the enemy player three times in one turn.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(2) Courier Knight\nEntomb: +2 mana next turn.\n[2/1]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "(5) Give the Order\nCreate two attacking Courier Knights. Your units have +1 ATK this turn."
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nAt the end of each turn, your opponent loses HP equal to the EXP you gained this turn.\n[0/5]"
+      }
+  }},
+  {
+    "name": "Dhat",
+    "affinity": "Spirit",
+    "passive":"At the start of each turn, if you control the unit with the highest HP, +2 EXP.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "(2) Bip and Bop\nWhen a friendly unit with 4 or more HP enters play, deal 1 damage to your opponent and gain 1 EXP.\n[0/3]"
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "(4) Sezark\nDuelist\nWhen this destroys an enemy unit, it gets +1/+1 and the keywords of that unit.\n[4/4]"
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "(7) Great Landwyrm\nImmortal, Ward\nIf your units have 16 or more total HP, they get +5 ATK and Overrun.\n[7/7]"
+      }
+  }}
+]}
