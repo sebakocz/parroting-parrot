@@ -5,6 +5,7 @@ from discord.ext import commands
 
 import Utils.reddit
 import Utils.googleSheet
+import Utils.collectiveApi
 
 from Utils.reddit import submit
 
@@ -12,6 +13,14 @@ from Utils.reddit import submit
 class MiscCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    async def art(self, ctx, card_link):
+        try:
+            art = Utils.collectiveApi.getArt(card_link)
+            await ctx.send(art)
+        except:
+            await ctx.send("That's not a valid card, sorry.")
 
     @commands.command()
     async def card(self, ctx, *name):
