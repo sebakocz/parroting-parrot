@@ -39,7 +39,7 @@
 {
   "name": "Kyung Mi",
     "affinity": "Neutral",
-    "passive": "Your Outfit determines your Affinity. Scout when you level up.\nStrength Outfit: Give a Strength unit in play or in your hand +1 ATK and Duelist.\nSpirit Outfit: Give a Spirit unit in play or your hand +1 HP and 'Entomb: Draw a card.'\nMind Outfit: Your next Mind card costs 1 less.",
+    "passive": "Your Outfit determines your Affinity. Scout when you level up.\n\nStrength Outfit: Give a Strength unit in play or in your hand +1 ATK and Duelist.\n\nSpirit Outfit: Give a Spirit unit in play or your hand +1 HP and 'Entomb: Draw a card.'\n\nMind Outfit: Your next Mind card costs 1 less.",
     "rewards": {
       "lvl2": {
         "exp": 3,
@@ -108,7 +108,7 @@
 {
     "name": "Pearlmaw",
     "affinity": "Strength",
-    "passive": "Passive: At the end of each turn, if you have any unused mana, create a Doubloon.\n(0) Doubloon\nGain 1 mana and 1 EXP.",
+    "passive": "At the end of each turn, if you have any unused mana, create a Doubloon.\n\n(0) Doubloon\nGain 1 mana and 1 EXP.",
     "rewards": {
       "lvl2": {
         "exp": 4,
