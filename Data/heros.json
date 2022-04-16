@@ -221,5 +221,24 @@
         "exp": 25,
         "text": "(7) Great Landwyrm\nImmortal, Ward\nIf your units have 16 or more total HP, they get +5 ATK and Overrun.\n[7/7]"
       }
-  }}
+  }},
+  {
+    "name": "Fortuno",
+    "affinity": "Mind",
+    "passive": "When 3 or more cards enter your hand in a turn, gain +2 EXP.",
+    "rewards": {
+      "lvl2": {
+        "exp": 4,
+        "text": "Hero Active: Pay 2 mana to draw a card. Create a copy of it at the bottom of your deck with permanent -2 cost."
+      },
+      "lvl3": {
+        "exp": 13,
+        "text": "(3) Fast Ricky Slick\nImmortal\nStart of Turn: Draw the bottom card of your deck.\n[3/3]"
+      },
+      "lvl4": {
+        "exp": 25,
+        "text": "When you play your first card each turn, play the bottom card of your deck. For each level beyond 4, this can trigger an additional time per turn."
+      }
+    }
+}
 ]}
