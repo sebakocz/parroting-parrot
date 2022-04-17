@@ -15,6 +15,13 @@ class MiscCog(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    async def artToCard(self, ctx):
+        try:
+            await ctx.send(Utils.collectiveApi.artToCard(ctx.message.attachments[0].url))
+        except:
+            await ctx.send("Something went wrong...")
+
+    @commands.command()
     async def art(self, ctx, card_link):
         try:
             art = Utils.collectiveApi.getArt(card_link)
