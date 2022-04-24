@@ -25,6 +25,18 @@ bot = commands.Bot(
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
 
+@bot.check_once
+def exclude_dms(ctx):
+    return ctx.guild is not None
+
+@bot.check_once
+def exclude_banned_users(ctx):
+    with open("Data/banlist.txt", "r") as f:
+        for line in f.readlines():
+            if line.strip("\n") == str(ctx.author.id):
+                return False
+        return True
+
 
 for filename in os.listdir('Cogs'):
     if filename.endswith('.py'):
