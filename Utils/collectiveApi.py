@@ -19,6 +19,7 @@ def findProperty(properties, target):
 def getArt(card_link):
     card = jsonFromLink(card_link)
     art = findProperty(card["Text"]["Properties"], "PortraitUrl")
+    return art
 
 def artToCard(art_link):
     # session is required for authentication

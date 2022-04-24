@@ -26,8 +26,9 @@ class MiscCog(commands.Cog):
         try:
             art = Utils.collectiveApi.getArt(card_link)
             await ctx.send(art)
-        except:
-            await ctx.send("That's not a valid card, sorry.")
+        except Exception as e:
+            print(e)
+            await ctx.send("Something went wrong.")
 
     @commands.command()
     async def card(self, ctx, *name):
