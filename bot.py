@@ -31,11 +31,16 @@ def exclude_dms(ctx):
 
 @bot.check_once
 def exclude_banned_users(ctx):
-    with open("Data/banlist.txt", "r") as f:
-        for line in f.readlines():
-            if line.strip("\n") == str(ctx.author.id):
-                return False
-        return True
+    # previously would prevent cmds from running if banlist.txt doesn't exist
+    # 'x+' mode raises FileExistsError if the file already exists
+    try:
+        f = open('Data/banlist.txt', 'x+')
+    except FileExistsError:
+        with open("Data/banlist.txt", "r") as f:
+            for line in f.readlines():
+                if line.strip("\n") == str(ctx.author.id):
+                    return False
+    return True
 
 
 for filename in os.listdir('Cogs'):
