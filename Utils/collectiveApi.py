@@ -1,5 +1,6 @@
 import json
 import os
+import random
 import re
 import requests
 
@@ -47,3 +48,17 @@ def artToCard(art_link):
     # print(json.loads(submit_post.text)["redditLink"])
 
     return json.loads(submit_post.text)["redditLink"]
+
+def fetchRandomCardNames():
+    # names fetching for bot activity
+    # get a pool of 100 random card names from public cards api
+
+    request_url = 'https://server.collective.gg/api/public-cards/'
+
+    cards = []
+    for card_info in requests.get(request_url).json()['cards']:
+        cards.append(card_info["name"])
+
+    cards = random.sample(cards, 100)
+
+    return cards

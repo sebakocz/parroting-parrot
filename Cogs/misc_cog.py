@@ -1,7 +1,8 @@
 import random
+from itertools import cycle
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 import Utils.reddit
 import Utils.googleSheet
@@ -13,6 +14,17 @@ from Utils.reddit import submit
 class MiscCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+        # update card names list
+        self.card_list = cycle(Utils.collectiveApi.fetchRandomCardNames())
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.change_activity.start()
+
+    @tasks.loop(seconds=10)
+    async def change_activity(self):
+        await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
     @commands.command()
     async def artToCard(self, ctx):
