@@ -88,6 +88,10 @@ class MiscCog(commands.Cog):
         await ctx.send("Tails!" if (0.5 < random.random()) else "Head!")
 
     @commands.command()
+    async def github(self, ctx):
+        await ctx.send("https://github.com/sebakocz/parroting-parrot")
+
+    @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(title="Commands", description="List of usable commands. Case sensitive.", color=0x2eaed4)
 
@@ -99,6 +103,7 @@ class MiscCog(commands.Cog):
         embed.add_field(name="!art card_link", value="Returns the full image used for the card art.")
         embed.add_field(name="!artToCard", value="Creates an empty card. (Attach an image to the same message.)")
         embed.add_field(name="!coinflip", value="Flips a coin. Returns either 'Tails' or 'Head'.")
+        embed.add_field(name="!github", value="Show Parrot's code.")
 
         await ctx.send(embed=embed)
 

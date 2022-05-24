@@ -8,7 +8,6 @@
 #
 # total_hours_wasted_here = 254
 
-# TODO: create a !github cmd, prettyfy README.md
 # TODO: create a !support cmd, prettyfy coffeeme page
 
 import os
