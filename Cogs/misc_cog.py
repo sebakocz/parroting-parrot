@@ -43,11 +43,6 @@ class MiscCog(commands.Cog):
             await ctx.send("Something went wrong.")
 
     @commands.command()
-    async def card(self, ctx, *name):
-        link = Utils.googleSheet.findCardLink(name)
-        await ctx.send(link)
-
-    @commands.command()
     async def submit(self, ctx, card_link, optional_text="", optional_type="[Card]"):
         submit(card_link, optional_text, optional_type)
         await ctx.send("Submitted!")
@@ -91,6 +86,35 @@ class MiscCog(commands.Cog):
     @commands.command()
     async def coinflip(self, ctx):
         await ctx.send("Tails!" if (0.5 < random.random()) else "Head!")
+
+    @commands.command()
+    async def help(self, ctx):
+        embed = discord.Embed(title="Commands", description="List of usable commands. Case sensitive.", color=0x2eaed4)
+
+        embed.add_field(name="!top10", value="Show a list of the top10 cards from current voting week.")
+        embed.add_field(name="!updates", value="Show a list of updates from current voting week.")
+        embed.add_field(
+            name='!submit card_link "optional card text, default is empty" [submit type, default is [Card]]',
+            value="Submits a card to the subreddit.")
+        embed.add_field(name="!art card_link", value="Returns the full image used for the card art.")
+        embed.add_field(name="!artToCard", value="Creates an empty card. (Attach an image to the same message.)")
+        embed.add_field(name="!coinflip", value="Flips a coin. Returns either 'Tails' or 'Head'.")
+
+        await ctx.send(embed=embed)
+
+        embed = discord.Embed(title="Fetcher", description="You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.", color=0x2eaed4)
+
+        embed.add_field(name="[[name]]", value="a non-token card from Collective")
+        embed.add_field(name="[[tk:name]]", value="a token card from Collective")
+        embed.add_field(name="[[hero:name]]", value="a hero from Collective")
+        embed.add_field(name="[[sub:name]]", value="a card from Collective's subreddit")
+        embed.add_field(name="[[mtg:name]]", value="Magic the Gathering")
+        embed.add_field(name="[[et:name]]", value="Eternal")
+        embed.add_field(name="[[ygo:name]]", value="Yugioh")
+        embed.add_field(name="[[hs:name]]", value="Hearthstone")
+        embed.add_field(name="[[lor:name]]", value="Legends of Runeterra")
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):  # an extension must have a setup function
