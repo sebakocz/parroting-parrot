@@ -92,6 +92,10 @@ class MiscCog(commands.Cog):
         await ctx.send("https://github.com/sebakocz/parroting-parrot")
 
     @commands.command()
+    async def support(selfs, ctx):
+        await ctx.send("https://www.buymeacoffee.com/sevas")
+
+    @commands.command()
     async def help(self, ctx):
         embed = discord.Embed(title="Commands", description="List of usable commands. Case sensitive.", color=0x2eaed4)
 
@@ -104,6 +108,7 @@ class MiscCog(commands.Cog):
         embed.add_field(name="!artToCard", value="Creates an empty card. (Attach an image to the same message.)")
         embed.add_field(name="!coinflip", value="Flips a coin. Returns either 'Tails' or 'Head'.")
         embed.add_field(name="!github", value="Show Parrot's code.")
+        embed.add_field(name="!support", value="Sevas also accepts love, food and shelter.")
 
         await ctx.send(embed=embed)
 

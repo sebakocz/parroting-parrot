@@ -8,8 +8,6 @@
 #
 # total_hours_wasted_here = 254
 
-# TODO: create a !support cmd, prettyfy coffeeme page
-
 import os
 from dotenv import load_dotenv
 
