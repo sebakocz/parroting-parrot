@@ -48,17 +48,15 @@ class MiscCog(commands.Cog):
         await ctx.send(link)
 
     @commands.command()
-    async def submit(self, ctx, card_link, optional_text="", optional_type=""):
+    async def submit(self, ctx, card_link, optional_text="", optional_type="[Card]"):
         submit(card_link, optional_text, optional_type)
         await ctx.send("Submitted!")
 
     @commands.command()
     async def updates(self,ctx):
-        cards = Utils.reddit.fetchCards()
-        cards.sort(key=lambda x: x.score, reverse=True)
+        cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
-        updates = Utils.reddit.fetchUpdates()
-        updates.sort(key=lambda x: x.score, reverse=True)
+        updates = Utils.reddit.fetchPosts(Utils.reddit.PostType.UPDATE)
 
         text = f"Total Updates: {len(updates)}\n\n"
 
@@ -79,8 +77,7 @@ class MiscCog(commands.Cog):
 
     @commands.command()
     async def top10(self,ctx):
-        cards = Utils.reddit.fetchCards()
-        cards.sort(key=lambda x: x.score, reverse=True)
+        cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
         text = ""
         for post in cards[:9]:

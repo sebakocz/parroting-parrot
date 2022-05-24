@@ -5,6 +5,8 @@ import re
 import requests
 
 def jsonFromLink(card_link):
+    # 1. extract ID from the card link
+    # 2. use ID to get the card's json data via an API call
     card_id = re.search('(?<=/p/cards/)(.*?)(?=...png)', card_link)
     api_request = requests.get(f'https://server.collective.gg/api/card/{card_id.group()}')
     card_json = json.loads(api_request.text)["card"]
