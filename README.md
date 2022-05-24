@@ -2,38 +2,41 @@
 
 ## Commands
 List of usable commands. Case sensitive.
+
 ### !top10
 Show a list of the top10 cards from current voting week.
-###!updates
+
+### !updates
 Show a list of updates from current voting week.
-###!submit card_link "optional card text, default is empty" [submit type, default is [Card]]
+
+### !submit card_link "optional card text, default is empty" [submit type, default is [Card]]
 Submits a card to the subreddit.
-###!art card_link
+### !art card_link
 Returns the full image used for the card art.
-###!artToCard
+### !artToCard
 Creates an empty card. (Attach an image to the same message.)
-###!coinflip
+### !coinflip
 Flips a coin. Returns either 'Tails' or 'Head'.
-###!github
+### !github
 Show Parrot's code.
 
 ## Fetcher
 You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.
-###[[name]]
+### [[name]]
 a non-token card from Collective
-###[[tk:name]]
+### [[tk:name]]
 a token card from Collective
-###[[hero:name]]
+### [[hero:name]]
 a hero from Collective
-###[[sub:name]]
+### [[sub:name]]
 a card from Collective's subreddit
-###[[mtg:name]]
+### [[mtg:name]]
 Magic the Gathering
-###[[et:name]]
+### [[et:name]]
 Eternal
-###[[ygo:name]]
+### [[ygo:name]]
 Yugioh
-###[[hs:name]]
+### [[hs:name]]
 Hearthstone
-###[[lor:name]]
+### [[lor:name]]
 Legends of Runeterra
