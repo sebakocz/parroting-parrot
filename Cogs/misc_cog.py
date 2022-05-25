@@ -27,6 +27,10 @@ class MiscCog(commands.Cog):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
     @commands.command()
+    async def parrot(self, ctx, *, sentence):
+        await ctx.send(f"> {sentence}")
+
+    @commands.command()
     async def artToCard(self, ctx):
         try:
             await ctx.send(Utils.collectiveApi.artToCard(ctx.message.attachments[0].url))
@@ -99,15 +103,16 @@ class MiscCog(commands.Cog):
     async def help(self, ctx):
         embed = discord.Embed(title="Commands", description="List of usable commands. Case sensitive.", color=0x2eaed4)
 
-        embed.add_field(name="!top10", value="Show a list of the top10 cards from current voting week.")
-        embed.add_field(name="!updates", value="Show a list of updates from current voting week.")
+        embed.add_field(name="!top10", value="Shows a list of the top10 cards from current voting week.")
+        embed.add_field(name="!updates", value="Shows a list of updates from current voting week.")
         embed.add_field(
             name='!submit card_link "optional card text, default is empty" [submit type, default is [Card]]',
             value="Submits a card to the subreddit.")
         embed.add_field(name="!art card_link", value="Returns the full image used for the card art.")
         embed.add_field(name="!artToCard", value="Creates an empty card. (Attach an image to the same message.)")
+        embed.add_field(name="!parrot sentence", value="Repeats the sentence.")
         embed.add_field(name="!coinflip", value="Flips a coin. Returns either 'Tails' or 'Head'.")
-        embed.add_field(name="!github", value="Show Parrot's code.")
+        embed.add_field(name="!github", value="Shows Parrot's code.")
         embed.add_field(name="!support", value="Sevas also accepts love, food and shelter.")
 
         await ctx.send(embed=embed)
