@@ -6,7 +6,7 @@ class LorFetcher(dict_fetcher.DictFetcher):
 
     def __init__(self):
         card_set = {}
-        for set in range(1,5):
+        for set in range(1,6):
             for card in requests.get(self.card_set_url(set)).json():
                 if card["rarity"] != "None":
                     card_set[card['name']] = card['assets'][0]["gameAbsolutePath"]
