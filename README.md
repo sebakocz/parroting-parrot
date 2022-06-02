@@ -38,5 +38,7 @@ Eternal
 Yugioh
 ### [[hs:name]]
 Hearthstone
+### [[kf:name]]
+Keyforge
 ### [[lor:name]]
 Legends of Runeterra

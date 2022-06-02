@@ -31,7 +31,6 @@ class MyBot(commands.Bot):
 
 
 intents = discord.Intents.all()
-intents.members = True
 
 bot = MyBot(
     command_prefix="!",

@@ -1,5 +1,5 @@
 from discord.ext import commands
-import Fetcher.collective, Fetcher.reddit, Fetcher.mtg, Fetcher.eternal, Fetcher.ygo, Fetcher.hs, Fetcher.lor
+import Fetcher.collective, Fetcher.reddit, Fetcher.mtg, Fetcher.eternal, Fetcher.ygo, Fetcher.hs, Fetcher.lor, Fetcher.keyforge
 
 class FetcherCog(commands.Cog):
     def __init__(self, bot):
@@ -14,6 +14,7 @@ class FetcherCog(commands.Cog):
             "ygo": Fetcher.ygo.YugiohFetcher(),
             'hs': Fetcher.hs.HsFetcher(),
             "lor": Fetcher.lor.LorFetcher(),
+            "kf": Fetcher.keyforge.KeyforgeFetcher(),
             "hero": Fetcher.collective.CollectiveHeroFetcher()
         }
 
