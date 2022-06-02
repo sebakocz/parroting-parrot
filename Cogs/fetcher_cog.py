@@ -70,5 +70,5 @@ class FetcherCog(commands.Cog):
 
 
 
-def setup(bot):  # an extension must have a setup function
-    bot.add_cog(FetcherCog(bot))  # adding a cog
+async def setup(bot):  # an extension must have a setup function
+    await bot.add_cog(FetcherCog(bot))  # adding a cog

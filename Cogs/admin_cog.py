@@ -23,5 +23,5 @@ class AdminCog(commands.Cog):
                 if line.strip("\n") != str(user.id):
                     f.write(line)
 
-def setup(bot):  # an extension must have a setup function
-    bot.add_cog(AdminCog(bot))  # adding a cog
+async def setup(bot):  # an extension must have a setup function
+    await bot.add_cog(AdminCog(bot))  # adding a cog

@@ -132,5 +132,5 @@ class MiscCog(commands.Cog):
         await ctx.send(embed=embed)
 
 
-def setup(bot):  # an extension must have a setup function
-    bot.add_cog(MiscCog(bot))  # adding a cog
+async def setup(bot):  # an extension must have a setup function
+    await bot.add_cog(MiscCog(bot))  # adding a cog

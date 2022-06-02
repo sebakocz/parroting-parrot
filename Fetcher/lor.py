@@ -11,6 +11,7 @@ class LorFetcher(dict_fetcher.DictFetcher):
 
         # this code been working with following json syntax: "nameRef": "Set3"
         # exclude unreachable sets like: "nameRef": "SetEvent"
+        # this part might cause in error in the future if syntax changes
         sets_range = []
         for set in globals_sets:
             if "Set" in set["nameRef"]:

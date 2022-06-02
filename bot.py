@@ -11,13 +11,32 @@
 import os
 from dotenv import load_dotenv
 
+import discord
 from discord.ext import commands
 
 load_dotenv()
 
-bot = commands.Bot(
+
+class MyBot(commands.Bot):
+    async def setup_hook(self):
+        for filename in os.listdir('Cogs'):
+            if filename.endswith('.py'):
+                print(f"Loading Cog: {filename}")
+                await bot.load_extension(f'Cogs.{filename[:-3]}')
+            else:
+                if filename == '__pycache__':
+                    continue
+
+                print(f'Unable to load {filename}')
+
+
+intents = discord.Intents.all()
+intents.members = True
+
+bot = MyBot(
     command_prefix="!",
-    help_command=None
+    help_command=None,
+    intents=intents
 )
 
 
@@ -41,15 +60,5 @@ def exclude_banned_users(ctx):
                 if line.strip("\n") == str(ctx.author.id):
                     return False
     return True
-
-
-for filename in os.listdir('Cogs'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'Cogs.{filename[:-3]}')
-    else:
-        if filename == '__pycache__':
-            continue
-
-        print(f'Unable to load {filename}')
 
 bot.run(os.getenv("DISCORD_TOKEN"))
