@@ -53,8 +53,7 @@ Top 10 most used cards.
 Top 10 cards with heighest win percentage. Card's with a p-value of >= 0.01 are excluded.
 
 **What's a p-value?**
-The p-value measures the probability of obtaining the observed results - the probability that we would encounter something this weird, or weirder, if our assumption is correct. Simply put a low p-value indicates high confidence, high p-value is shifts towards low confidence.
-        """)
+The p-values shown are indicators of how confident we are that the winrate is skewed above 50%. **Low** p values indicate **high** confidence, and **high** p-values indicate **low** confidence.        """)
 
 
 async def setup(bot):  # an extension must have a setup function
