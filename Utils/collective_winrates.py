@@ -113,7 +113,7 @@ async def collect_winrate_data():
         c = row['name']
         w = row['win_rate']
         g = row['played_rate']
-        p = binom_test(w, g)
+        p = binom_test(w, g, alternative='greater')
         pvals[c] = p
     frm['p_val'] = frm['name'].apply(pvals.get)
 
