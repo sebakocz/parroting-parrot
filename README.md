@@ -7,6 +7,8 @@ List of usable commands. Case sensitive.
 Shows a list of the top10 cards from current voting week.
 ### !updates
 Shows a list of updates from current voting week.
+### !stats
+Shows playrates and winrates.
 ### !submit card_link "optional card text, default is empty" [submit type, default is [Card]]
 Submits a card to the subreddit.
 ### !art card_link

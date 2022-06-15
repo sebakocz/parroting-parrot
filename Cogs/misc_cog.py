@@ -105,6 +105,7 @@ class MiscCog(commands.Cog):
 
         embed.add_field(name="!top10", value="Shows a list of the top10 cards from current voting week.")
         embed.add_field(name="!updates", value="Shows a list of updates from current voting week.")
+        embed.add_field(name="!stats", value="Shows playrates and winrates.")
         embed.add_field(
             name='!submit card_link "optional card text, default is empty" [submit type, default is [Card]]',
             value="Submits a card to the subreddit.")
