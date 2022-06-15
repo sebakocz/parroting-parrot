@@ -21,20 +21,34 @@ class StatsCog(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def stats(self, ctx):
         await ctx.send("""  
-`!stats winrate`
-`!stats playrate`
+`!stats winrate optional_length`
+`!stats playrate optional_length`
 `!stats help`
         """)
 
     @stats.command()
-    async def winrate(self, ctx):
-        winrate = analyse.display_current_data_winrate()
+    async def winrate(self, ctx, length=10):
+        winrate = analyse.display_current_data_winrate(length)
+
+        if length != 10:
+            with open("Data/stats_result.txt", "w") as file:
+                file.write(winrate.to_string())
+            await ctx.send(file=discord.File("Data/stats_result.txt"))
+            return
+
         await ctx.send(f"```{winrate}```")
 
 
     @stats.command()
-    async def playrate(self, ctx):
-        playrate = analyse.display_current_data_playrate()
+    async def playrate(self, ctx, length=10):
+        playrate = analyse.display_current_data_playrate(length)
+
+        if length != 10:
+            with open("Data/stats_result.txt", "w") as file:
+                file.write(playrate.to_string())
+            await ctx.send(file=discord.File("Data/stats_result.txt"))
+            return
+
         await ctx.send(f"```{playrate}```")
 
 

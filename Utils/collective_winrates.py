@@ -119,7 +119,7 @@ async def collect_winrate_data():
 
     frm.to_csv('Data/collective_winrates_no_mirrors.csv')
 
-def display_current_data_playrate():
+def display_current_data_playrate(length):
 
     # read csv
     data = pd.read_csv("Data/collective_winrates_no_mirrors.csv", index_col=False)
@@ -128,7 +128,7 @@ def display_current_data_playrate():
     data = data[['name', 'played_rate', 'win_pct', 'p_val']]
 
     # show top 10 played cards with descending order
-    data = data.sort_values('played_rate', ascending=False).head(10)
+    data = data.sort_values('played_rate', ascending=False).head(length)
 
     # show winrate as percentage
     data['win_pct'] = data['win_pct'].astype(float).map("{:.2%}".format)
@@ -143,7 +143,7 @@ def display_current_data_playrate():
 
     return data
 
-def display_current_data_winrate():
+def display_current_data_winrate(length):
     # read csv
     data = pd.read_csv("Data/collective_winrates_no_mirrors.csv", index_col=False)
 
@@ -154,7 +154,7 @@ def display_current_data_winrate():
     data = data[data['p_val'] <= 0.01]
 
     # sort and show top 10 winning cards
-    data = data.sort_values('win_pct', ascending=False).head(10)
+    data = data.sort_values('win_pct', ascending=False).head(length)
 
     # show winrate as percentage
     data['win_pct'] = data['win_pct'].astype(float).map("{:.2%}".format)
