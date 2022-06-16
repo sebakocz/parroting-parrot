@@ -21,8 +21,8 @@ class StatsCog(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def stats(self, ctx):
         await ctx.send("""  
-`!stats winrate optional_length`
-`!stats playrate optional_length`
+`!stats winrate <length>`
+`!stats playrate <length>`
 `!stats help`
         """)
 

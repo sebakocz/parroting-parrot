@@ -29,16 +29,20 @@ def getSubreddit():
 
     return subreddit
 
-def getLastWeekUnixStamp():
+def getWeekUnixStamp(week_number=1):
     # https://stackoverflow.com/questions/1622038/find-mondays-date-with-python
     # get last Wednesday Midnight PST stamp depending on which day is today
     # transfer to UTC in order to work on local machine as well as server in the same manner
-    today = datetime.datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
-    stamp = today - datetime.timedelta(days=(today.weekday() + 4) % 7)
+    # UTC is 7 hours ahead of PST
+    today = datetime.datetime.utcnow().replace(hour=7, minute=0, second=0, microsecond=0)
+    stamp = today + datetime.timedelta(days=(today.weekday() + 4) % 7)
+
+    # offset stamp by week number
+    stamp += datetime.timedelta(days=7*week_number)
 
     # convert to Unix
-    # UTC is 7 hours ahead of PST
-    unix_stamp = calendar.timegm(stamp.timetuple()) + 7 * 3600
+    unix_stamp = calendar.timegm(stamp.timetuple())
+    # unix_stamp = calendar.timegm(stamp.timetuple()) + 7 * 3600
 
     # Debug
     # print("getLastWeekUnixStamp() DEBUG")
@@ -67,7 +71,8 @@ def submit(card_link, optional_text="", type="[Card]"):
 
 def fetchPosts(type):
 
-    unix_stamp = getLastWeekUnixStamp()
+    # 0 = starting timestamp of current running week
+    unix_stamp = getWeekUnixStamp(0)
 
     subreddit = getSubreddit()
 

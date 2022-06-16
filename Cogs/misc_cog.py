@@ -28,8 +28,14 @@ class MiscCog(commands.Cog):
 
 
     @commands.command()
-    async def week(self, ctx):
-        await ctx.send(f"<t:{Utils.reddit.getLastWeekUnixStamp()}>")
+    async def week(self, ctx, week_number="1"):
+        print("1")
+        if week_number == "last".lower():
+            week_number = 0
+        if week_number == "next".lower():
+            week_number = 2
+        print("2")
+        await ctx.send(f"<t:{Utils.reddit.getWeekUnixStamp(int(week_number))}>")
 
 
     @commands.command()
@@ -116,8 +122,9 @@ class MiscCog(commands.Cog):
         embed.add_field(name="!top10", value="Shows a list of the top10 cards from current voting week.")
         embed.add_field(name="!updates", value="Shows a list of updates from current voting week.")
         embed.add_field(name="!stats", value="Shows playrates and winrates.")
+        embed.add_field(name="!week <last|next|number>", value="Shows when the submission week is over.")
         embed.add_field(
-            name='!submit card_link "optional card text, default is empty" [submit type, default is [Card]]',
+            name='!submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>',
             value="Submits a card to the subreddit.")
         embed.add_field(name="!art card_link", value="Returns the full image used for the card art.")
         embed.add_field(name="!artToCard", value="Creates an empty card. (Attach an image to the same message.)")

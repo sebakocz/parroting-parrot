@@ -9,7 +9,9 @@ Shows a list of the top10 cards from current voting week.
 Shows a list of updates from current voting week.
 ### !stats
 Shows playrates and winrates.
-### !submit card_link "optional card text, default is empty" [submit type, default is [Card]]
+### !week <last|next|number>
+Shows when the submission week is over.
+### !submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>
 Submits a card to the subreddit.
 ### !art card_link
 Returns the full image used for the card art.
