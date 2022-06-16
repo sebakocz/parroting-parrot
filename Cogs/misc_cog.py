@@ -63,7 +63,11 @@ class MiscCog(commands.Cog):
         try:
             top10card = cards[9]
         except IndexError:
-            top10card = cards[-1]
+            try:
+                top10card = cards[-1]
+            except IndexError:
+                await ctx.send("No updates found for this week. Go post some!")
+                return
 
         text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
         for post in updates:

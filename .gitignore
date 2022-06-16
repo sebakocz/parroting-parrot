@@ -358,3 +358,4 @@ collective-data-341513-51d04bcf3387.json
 banlist.txt
 Data/collective_winrates_no_mirrors.csv
 Data/stats_result.txt
+Cogs/dev_cog.py
