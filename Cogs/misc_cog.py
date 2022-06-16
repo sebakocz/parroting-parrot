@@ -26,6 +26,12 @@ class MiscCog(commands.Cog):
     async def change_activity(self):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
+
+    @commands.command()
+    async def week(self, ctx):
+        await ctx.send(f"<t:{Utils.reddit.getLastWeekUnixStamp()}>")
+
+
     @commands.command()
     async def parrot(self, ctx, *, sentence):
         await ctx.send(f"> {sentence}")
