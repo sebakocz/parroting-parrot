@@ -7,18 +7,26 @@
 # please increase this counter as a warning for the next person:
 #
 # total_hours_wasted_here = 254
-
 import os
+
+from discord import app_commands
 from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
 
-load_dotenv()
+import asyncio
+import platform
+# prevent event loop is closed error
+# https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
+if platform.system()=='Windows':
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+load_dotenv()
 
 class MyBot(commands.Bot):
     async def setup_hook(self):
+
         for filename in os.listdir('Cogs'):
             if filename.endswith('.py'):
                 print(f"Loading Cog: {filename}")
@@ -29,13 +37,21 @@ class MyBot(commands.Bot):
 
                 print(f'Unable to load {filename}')
 
+        # await bot.load_extension('Cogs.dev_cog')
+        # await bot.load_extension('Cogs.misc_cog')
+        # await bot.load_extension('Cogs.stats_cog')
+        # await bot.load_extension('Cogs.admin_cog')
+
+        # self.tree.copy_global_to(guild=discord.Object(id=guild_id))
+        # await self.tree.sync(guild=discord.Object(id=guild_id))
+
 
 intents = discord.Intents.all()
 
 bot = MyBot(
     command_prefix="!",
     help_command=None,
-    intents=intents
+    intents=intents,
 )
 
 

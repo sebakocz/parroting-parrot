@@ -15,7 +15,7 @@ Shows when the submission week is over.
 Submits a card to the subreddit.
 ### !art card_link
 Returns the full image used for the card art.
-### !artToCard
+### !art_to_card
 Creates an empty card. (Attach an image to the same message.)
 ### !parrot
 Repeats the sentence.

@@ -3,12 +3,14 @@ from itertools import cycle
 
 import discord
 from discord.ext import commands, tasks
+from discord import app_commands
 
 import Utils.reddit
 import Utils.googleSheet
 import Utils.collectiveApi
 
 from Utils.reddit import submit
+import Data.command_descriptions as cmds
 
 
 class MiscCog(commands.Cog):
@@ -27,29 +29,35 @@ class MiscCog(commands.Cog):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
 
-    @commands.command()
+    @commands.hybrid_command(name="week", description=cmds.list["week"])
+    @app_commands.describe(week_number="X weeks away from ongoing week")
     async def week(self, ctx, week_number="1"):
-        print("1")
         if week_number == "last".lower():
             week_number = 0
         if week_number == "next".lower():
             week_number = 2
-        print("2")
         await ctx.send(f"<t:{Utils.reddit.getWeekUnixStamp(int(week_number))}>")
 
 
-    @commands.command()
+    @commands.hybrid_command(name="parrot", description=cmds.list["parrot"])
+    @app_commands.describe(sentence="type something for parrot to repeat")
     async def parrot(self, ctx, *, sentence):
         await ctx.send(f"> {sentence}")
 
-    @commands.command()
-    async def artToCard(self, ctx):
+
+    @commands.hybrid_command(name="art_to_card", description=cmds.list["art_to_card"])
+    async def art_to_card(self, ctx, image: discord.Attachment):
+
         try:
-            await ctx.send(Utils.collectiveApi.artToCard(ctx.message.attachments[0].url))
+            await ctx.defer()
+            await ctx.send(Utils.collectiveApi.artToCard(image.proxy_url))
+            # await ctx.send(Utils.collectiveApi.artToCard(ctx.message.attachments[0].url))
         except:
             await ctx.send("Something went wrong...")
 
-    @commands.command()
+
+    @commands.hybrid_command(name="art", description=cmds.list["art"])
+    @app_commands.describe(card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png")
     async def art(self, ctx, card_link):
         try:
             art = Utils.collectiveApi.getArt(card_link)
@@ -58,84 +66,97 @@ class MiscCog(commands.Cog):
             print(e)
             await ctx.send("Something went wrong.")
 
-    @commands.command()
-    async def submit(self, ctx, card_link, optional_text="", optional_type="[Card]"):
-        submit(card_link, optional_text, optional_type)
+
+    @commands.hybrid_command(name="submit", description=cmds.list["submit"])
+    @app_commands.describe(
+        card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png",
+        text="optional text displayed in parentheses",
+        type="optional type like [Card], [DC] or [Update] - default is [Card]"
+    )
+    async def submit(self, ctx, card_link, text="", type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
+        submit(card_link, text, type.value)
         await ctx.send("Submitted!")
 
-    @commands.command()
-    async def updates(self,ctx):
+
+    @commands.hybrid_command(name="updates", description=cmds.list["updates"])
+    async def updates(self, ctx):
+        await ctx.defer()
         cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
         updates = Utils.reddit.fetchPosts(Utils.reddit.PostType.UPDATE)
 
         text = f"Total Updates: {len(updates)}\n\n"
 
-        # prevent index out of range errors
         try:
             top10card = cards[9]
         except IndexError:
-            try:
+            if len(cards) > 0:
                 top10card = cards[-1]
-            except IndexError:
-                await ctx.send("No updates found for this week. Go post some!")
-                return
 
-        text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
+        if len(cards) > 0:
+            text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
         for post in updates:
             # slice "[Update]" away
             text += f"{post.title[9:]}\nScore: {post.score}\n\n"
 
-        text = "```"+text+"```"
+        text = "```" + text + "```"
 
         await ctx.send(text)
 
-    @commands.command()
-    async def top10(self,ctx):
+
+    @commands.hybrid_command(name="top10", description=cmds.list["top10"])
+    async def top10(self, ctx):
+        await ctx.defer()
         cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+
+        if len(cards) <= 0:
+            await ctx.send("No cards found for this week. Go post some!")
+            return
 
         text = ""
         for post in cards[:9]:
             # slice "[Card]" away
             text += f"{post.title[7:]}\nScore: {post.score}\n\n"
-        text = "```"+text+"```"
+        text = "```" + text + "```"
 
         await ctx.send(text)
 
 
-    @commands.command()
+    @commands.hybrid_command(name="coinflip", description=cmds.list["coinflip"])
     async def coinflip(self, ctx):
         await ctx.send("Tails!" if (0.5 < random.random()) else "Head!")
 
-    @commands.command()
+    @commands.hybrid_command(name="github", description=cmds.list["github"])
     async def github(self, ctx):
         await ctx.send("https://github.com/sebakocz/parroting-parrot")
 
-    @commands.command()
+    @commands.hybrid_command(name="support", description=cmds.list["support"])
     async def support(selfs, ctx):
         await ctx.send("https://www.buymeacoffee.com/sevas")
 
-    @commands.command()
+    @commands.hybrid_command(name="help", description=cmds.list["help"])
     async def help(self, ctx):
         embed = discord.Embed(title="Commands", description="List of usable commands. Case sensitive.", color=0x2eaed4)
 
-        embed.add_field(name="!top10", value="Shows a list of the top10 cards from current voting week.")
-        embed.add_field(name="!updates", value="Shows a list of updates from current voting week.")
-        embed.add_field(name="!stats", value="Shows playrates and winrates.")
-        embed.add_field(name="!week <last|next|number>", value="Shows when the submission week is over.")
+        embed.add_field(name="!top10", value=cmds.list["top10"])
+        embed.add_field(name="!updates", value=cmds.list["updates"])
+        embed.add_field(name="!stats", value=cmds.list["stats"])
+        embed.add_field(name="!week <last|next|number>", value=cmds.list["week"])
         embed.add_field(
             name='!submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>',
-            value="Submits a card to the subreddit.")
-        embed.add_field(name="!art card_link", value="Returns the full image used for the card art.")
-        embed.add_field(name="!artToCard", value="Creates an empty card. (Attach an image to the same message.)")
-        embed.add_field(name="!parrot sentence", value="Repeats the sentence.")
-        embed.add_field(name="!coinflip", value="Flips a coin. Returns either 'Tails' or 'Head'.")
-        embed.add_field(name="!github", value="Shows Parrot's code.")
-        embed.add_field(name="!support", value="Sevas also accepts love, food and shelter.")
+            value=cmds.list["submit"])
+        embed.add_field(name="!art card_link", value=cmds.list["art"])
+        embed.add_field(name="!art_to_card", value=cmds.list["art_to_card"])
+        embed.add_field(name="!parrot sentence", value=cmds.list["parrot"])
+        embed.add_field(name="!coinflip", value=cmds.list["coinflip"])
+        embed.add_field(name="!github", value=cmds.list["github"])
+        embed.add_field(name="!support", value=cmds.list["support"])
 
         await ctx.send(embed=embed)
 
-        embed = discord.Embed(title="Fetcher", description="You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.", color=0x2eaed4)
+        embed = discord.Embed(title="Fetcher",
+                              description="You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.",
+                              color=0x2eaed4)
 
         embed.add_field(name="[[name]]", value="a non-token card from Collective")
         embed.add_field(name="[[tk:name]]", value="a token card from Collective")

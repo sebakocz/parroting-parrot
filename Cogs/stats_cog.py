@@ -3,11 +3,14 @@
 import discord
 from discord.ext import commands, tasks
 import Utils.collective_winrates as analyse
+from discord import app_commands
+
 
 class StatsCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.fetch_winrate_data.start()
+
 
     def cog_unload(self):
         self.fetch_winrate_data.stop()
@@ -18,7 +21,7 @@ class StatsCog(commands.Cog):
         await analyse.collect_winrate_data()
 
 
-    @commands.group(invoke_without_command=True)
+    @commands.hybrid_group(name="stats")
     async def stats(self, ctx):
         await ctx.send("""  
 `!stats winrate <length>`
@@ -26,7 +29,8 @@ class StatsCog(commands.Cog):
 `!stats help`
         """)
 
-    @stats.command()
+    @stats.command(name="winrate", description="top 10 cards with highest win percentage. Card's with a p-value of >= 0.01 are excluded")
+    @app_commands.describe(length="choose to size of the dataset, default is 10")
     async def winrate(self, ctx, length=10):
         winrate = analyse.display_current_data_winrate(length)
 
@@ -39,7 +43,8 @@ class StatsCog(commands.Cog):
         await ctx.send(f"```{winrate}```")
 
 
-    @stats.command()
+    @stats.command(name="playrate", description="top 10 most used cards")
+    @app_commands.describe(length="choose to size of the dataset, default is 10")
     async def playrate(self, ctx, length=10):
         playrate = analyse.display_current_data_playrate(length)
 
@@ -52,7 +57,7 @@ class StatsCog(commands.Cog):
         await ctx.send(f"```{playrate}```")
 
 
-    @stats.command()
+    @stats.command(description="full explanation on stats")
     async def help(self, ctx):
         await ctx.send("""
 **•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•**
@@ -64,7 +69,7 @@ The following data uses game records from the multiplayer queue that happened in
 Top 10 most used cards.
 
 **Winrate:**
-Top 10 cards with heighest win percentage. Card's with a p-value of >= 0.01 are excluded.
+Top 10 cards with highest win percentage. Card's with a p-value of >= 0.01 are excluded.
 
 **What's a p-value?**
 The p-values shown are indicators of how confident we are that the winrate is skewed above 50%. **Low** p values indicate **high** confidence, and **high** p-values indicate **low** confidence.        """)

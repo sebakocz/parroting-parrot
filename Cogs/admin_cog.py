@@ -10,6 +10,14 @@ class AdminCog(commands.Cog):
         return await ctx.bot.is_owner(ctx.author)
 
     @commands.command()
+    async def sync(self, ctx):
+        await ctx.send("Wait for it...")
+        self.bot.tree.copy_global_to(guild=ctx.guild)
+        await self.bot.tree.sync(guild=ctx.guild)
+        await ctx.send("Synced!")
+
+
+    @commands.command()
     async def ban(self, ctx, user: discord.User):
         with open('Data/banlist.txt', 'a') as f:
             f.write(str(user.id)+"\n")
