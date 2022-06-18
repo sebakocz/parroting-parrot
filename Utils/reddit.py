@@ -35,7 +35,7 @@ def getWeekUnixStamp(week_number=1):
     # transfer to UTC in order to work on local machine as well as server in the same manner
     # UTC is 7 hours ahead of PST
     today = datetime.datetime.utcnow().replace(hour=7, minute=0, second=0, microsecond=0)
-    stamp = today + datetime.timedelta(days=(today.weekday() + 4) % 7)
+    stamp = today - datetime.timedelta(days=(today.weekday() + 4) % 7)
 
     # offset stamp by week number
     stamp += datetime.timedelta(days=7*week_number)
