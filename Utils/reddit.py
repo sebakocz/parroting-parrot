@@ -87,3 +87,12 @@ def fetchPosts(type):
     posts.sort(key=lambda x: x.score, reverse=True)
 
     return posts
+
+def change_flair(season=1, week=1):
+    automod = getSubreddit().wiki["config/automoderator"]
+
+    content = re.sub(
+        r'(?<=title: \["\[Card]", "\[Update]", "\[Cosmetic Update]", "\[DC]","\[DCDC]",]\ndomain: "files.collective.gg"\nset_flair: ")(.*?)(?=")',
+        f"Season {season} - Week {week}", automod.content_md)
+
+    automod.edit(content=content)

@@ -16,6 +16,12 @@ class AdminCog(commands.Cog):
         await self.bot.tree.sync(guild=ctx.guild)
         await ctx.send("Synced!")
 
+    @commands.command()
+    async def clear_sync(self, ctx):
+        self.bot.tree.clear_commands(guild=ctx.guild)
+        await self.bot.tree.sync(guild=ctx.guild)
+        await ctx.send("Cleared!")
+
 
     @commands.command()
     async def ban(self, ctx, user: discord.User):
