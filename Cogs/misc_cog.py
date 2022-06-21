@@ -174,16 +174,14 @@ class MiscCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, msg):
-        try:
-            if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
-                embed_content_in_dict = msg.embeds[0].to_dict()
-                winner = embed_content_in_dict['fields']['name']
-                session = Utils.collectiveApi.login()
-                winner_id = json.loads(session.get(f'https://server.collective.gg/api/users/search?query={winner}').text)['results']['id']
-                print(winner_id)
-
-        except Exception:
-            pass
+        if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
+            embed_content_in_dict = msg.embeds[0].to_dict()
+            winner = embed_content_in_dict['fields']['name']
+            session = Utils.collectiveApi.login()
+            winner_id = \
+            json.loads(session.get(f'https://server.collective.gg/api/users/search?query={winner}').text)['results'][
+                'id']
+            print(winner_id)
 
 async def setup(bot):  # an extension must have a setup function
     await bot.add_cog(MiscCog(bot))  # adding a cog
