@@ -173,31 +173,31 @@ class MiscCog(commands.Cog):
 
         await ctx.send(embed=embed)
 
-        # credits to Gokun for the idea
-        @commands.hybrid_command(name="daily_challenge")
-        async def daily_challenge(self, ctx):
-            text = "**Daily Brew Challenge**\n"
+    # credits to Gokun for the idea
+    @commands.hybrid_command(name="daily_challenge")
+    async def daily_challenge(self, ctx):
+        text = "**Daily Brew Challenge**\n"
 
-            with open("Data/challenge_players.txt") as file:
-                lines = file.readlines()
-                lines = [line.rstrip() for line in lines]
-            if len(lines) > 0:
-                for line in lines:
-                    text += "\nToday's Challengers:"
-                    text += f"\n{line}"
-            else:
-                text += "\nNobody finished this quest yet! Be the first one!"
+        with open("Data/challenge_players.txt") as file:
+            lines = file.readlines()
+            lines = [line.rstrip() for line in lines]
+        if len(lines) > 0:
+            for line in lines:
+                text += "\nToday's Challengers:"
+                text += f"\n{line}"
+        else:
+            text += "\nNobody finished this quest yet! Be the first one!"
 
-            text += "\n\nWin a multiplayer game while having x3 copies of each of the following cards."
+        text += "\n\nWin a multiplayer game while having x3 copies of each of the following cards."
 
-            with open('Data/challenge_cards.json') as json_file:
-                cards = json.load(json_file)
-            for card in cards:
-                text += "\n" + card['imgurl']
-                # embed = discord.Embed(title=card['name'], color=0x2eaed4)
-                # embed.set_image(url=)
-                # await ctx.send(embed=embed)
-            await ctx.send(text)
+        with open('Data/challenge_cards.json') as json_file:
+            cards = json.load(json_file)
+        for card in cards:
+            text += "\n" + card['imgurl']
+            # embed = discord.Embed(title=card['name'], color=0x2eaed4)
+            # embed.set_image(url=)
+            # await ctx.send(embed=embed)
+        await ctx.send(text)
 
     @commands.Cog.listener()
     async def on_message(self, msg):
