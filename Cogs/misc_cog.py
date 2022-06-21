@@ -176,7 +176,7 @@ class MiscCog(commands.Cog):
     async def on_message(self, msg):
         if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
             embed_content_in_dict = msg.embeds[0].to_dict()
-            winner = embed_content_in_dict['fields']['name']
+            winner = embed_content_in_dict['fields'][0]['name']
             session = Utils.collectiveApi.login()
             winner_id = \
             json.loads(session.get(f'https://server.collective.gg/api/users/search?query={winner}').text)['results'][
