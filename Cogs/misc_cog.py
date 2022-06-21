@@ -179,8 +179,7 @@ class MiscCog(commands.Cog):
             winner = embed_content_in_dict['fields'][0]['name']
             session = Utils.collectiveApi.login()
             winner_id = \
-            session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['results'][
-                'id']
+            session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
             print(winner_id)
 
 async def setup(bot):  # an extension must have a setup function
