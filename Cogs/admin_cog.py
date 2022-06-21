@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+import Utils.collective_misc
 
 class AdminCog(commands.Cog):
     def __init__(self, bot):
@@ -21,6 +21,12 @@ class AdminCog(commands.Cog):
         self.bot.tree.clear_commands(guild=ctx.guild)
         await self.bot.tree.sync(guild=ctx.guild)
         await ctx.send("Cleared!")
+
+    @commands.command()
+    async def reset_challenge(self, ctx):
+        open('Data/challenge_players.txt', 'w').close()
+        await Utils.collective_misc.setChallengeCards()
+        await ctx.send("Done.")
 
 
     @commands.command()

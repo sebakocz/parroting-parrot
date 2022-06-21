@@ -9,6 +9,7 @@ from discord import app_commands
 import Utils.reddit
 import Utils.googleSheet
 import Utils.collectiveApi
+import Utils.collective_db
 
 from Utils.reddit import submit
 import Data.command_descriptions as cmds
@@ -176,11 +177,25 @@ class MiscCog(commands.Cog):
     async def on_message(self, msg):
         if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
             embed_content_in_dict = msg.embeds[0].to_dict()
-            winner = embed_content_in_dict['fields'][0]['name']
-            session = Utils.collectiveApi.login()
-            winner_id = \
-            session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
-            print(winner_id)
+            match_id = embed_content_in_dict['footer']['text']
+            deck = Utils.collective_db.getDeckFromMatch(match_id)
+
+            with open('Data/challenge_cards.json') as json_file:
+                challenge_cards = json.load(json_file)
+            for card in challenge_cards:
+                if 3 > deck.count(card['uid']):
+                    print("Non-Challenge Deck Winner: " + match_id)
+                    return
+            print("Challenge Deck Winner Found! " + match_id)
+
+            with open('Data/challenge_players.txt', 'a') as outfile:
+                outfile.write(embed_content_in_dict['fields'][0]['name'])
+
+            # tried to make it work via api but sadly the api doesn't get updated quickly enough
+            # session = Utils.collectiveApi.login()
+            # winner_id = \
+            # session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
+            # print(winner_id)
 
 async def setup(bot):  # an extension must have a setup function
     await bot.add_cog(MiscCog(bot))  # adding a cog
