@@ -2,6 +2,10 @@ import json
 import os
 import random
 import re
+from datetime import datetime
+
+import aiohttp
+import dateutil.parser
 import requests
 
 def jsonFromLink(card_link):
@@ -24,12 +28,11 @@ def getArt(card_link):
     art = findProperty(card["Text"]["Properties"], "PortraitUrl")
     return art
 
-def artToCard(art_link):
+def login():
     # session is required for authentication
     session = requests.Session()
 
     login_url = 'https://server.collective.gg/api/auth/login'
-    submit_url = 'https://server.collective.gg/api/submit-card'
 
     login_data = {
         "email": os.getenv("COLLECTIVE_EMAIL"),
@@ -37,8 +40,14 @@ def artToCard(art_link):
         "username": ""
     }
 
-    # login
-    login_post = session.post(login_url, data=login_data)
+    session.post(login_url, data=login_data)
+
+    return session
+
+def artToCard(art_link):
+    submit_url = 'https://server.collective.gg/api/submit-card'
+
+    session = login()
 
     card_json = '{"Text":{"Name":"Card Name","Rarity":"Common","ObjectType":"Action","PlayAbility":{"Properties":[{"Symbol":{"Name":"AbilityText","Type":{"RootType":"String","Multiple":false},"Readonly":false},"Expression":{"$type":"StringLiteral","Value":""}}],"Statements":[],"$type":"Ability","Type":"Active","Parent":{"$type":"Predefines.PlaySpell"}},"Properties":[{"Symbol":{"Name":"IGOCost","Type":{"RootType":"Number","Multiple":false},"Readonly":false},"Expression":{"$type":"NumberLiteral","Value":1}},{"Symbol":{"Name":"TribalType","Type":{"RootType":"String","Multiple":false},"Readonly":false},"Expression":{"$type":"StringLiteral","Value":"Tribal Type"}},{"Symbol":{"Name":"CreatorName","Type":{"RootType":"String","Multiple":false},"Readonly":false},"Expression":{"$type":"StringLiteral","Value":"(Card Designer Name)"}},{"Symbol":{"Name":"ArtistName","Type":{"RootType":"String","Multiple":false},"Readonly":false},"Expression":{"$type":"StringLiteral","Value":"(Card Artist Name)"}},{"Symbol":{"Name":"PortraitUrl","Type":{"RootType":"String","Multiple":false},"Readonly":false},"Expression":{"$type":"StringLiteral","Value":"'+art_link+'"}}],"CustomSymbols":[],"Abilities":[],"Affinity":"None","AffinityExclusive":false,"ExternalCardReferences":[]},"collaborators":[]}'
 
@@ -64,3 +73,11 @@ def fetchRandomCardNames():
     cards = random.sample(cards, 100)
 
     return cards
+
+async def fetchRandomCards():
+    async with aiohttp.ClientSession() as session:
+        async with session.get('https://server.collective.gg/api/public-cards/') as response:
+            return random.sample([card for card in json.loads(await response.text())['cards']
+                                  if card['approval_state'] == 0
+                                  and datetime.today().replace(day=1) > dateutil.parser.isoparse(card['dtreleased']).replace(tzinfo=None)
+                                  and card['rarity'] != 'Undraftable'], 3)
