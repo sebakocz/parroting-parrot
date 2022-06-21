@@ -174,8 +174,8 @@ class MiscCog(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, msg):
         print(msg.channel.id)
-        print(msg.user.id)
-        if msg.channel.id == 655541513740091393 and msg.user.id == 651119952748871694:
+        print(msg.author.id)
+        if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
             embed_content_in_dict = msg.embeds[0].to_dict()
             print(embed_content_in_dict)
         # try:
