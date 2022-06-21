@@ -1,3 +1,4 @@
+import itertools
 import os
 
 import psycopg2
@@ -31,7 +32,7 @@ def getDeckFromMatch(match_id):
 
         query = cursor.fetchall()
 
-        return list(query)
+        return list(itertools.chain(*query))
 
     except (Exception, Error) as error:
         print("Error while connecting to PostgreSQL", error)
