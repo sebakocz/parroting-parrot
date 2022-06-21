@@ -218,7 +218,7 @@ class MiscCog(commands.Cog):
             with open('Data/challenge_players.txt', 'r') as file:
                 for line in file:
                     if player_name in line:
-                        break
+                        return
             with open('Data/challenge_players.txt', 'a') as outfile:
                 outfile.write(player_name)
 
