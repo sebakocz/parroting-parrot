@@ -215,7 +215,7 @@ class MiscCog(commands.Cog):
             print("Challenge Deck Winner Found! " + match_id)
 
             player_name = embed_content_in_dict['fields'][0]['name']
-            with open('Data/challenge_players.txt', 'a') as outfile:
+            with open('Data/challenge_players.txt', 'r+') as outfile:
                 for line in outfile:
                     if player_name in line:
                         break
