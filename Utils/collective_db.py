@@ -11,18 +11,13 @@ def getDeckFromMatch(match_id):
         cursor = connection.cursor()
 
         cursor.execute("""
-            SELECT DISTINCT ON (cg.ended_at) cg.id, cg.winning_player_id, cgu.deck_id
-            FROM completed_games cg
-                LEFT JOIN completed_game_users cgu
-                ON cgu.user_id = cg.winning_player_id
-            WHERE cg.duel_mode_type = 1
-            AND cg.id = %s
-            ORDER BY cg.ended_at DESC
-
-        """, [match_id])
+                SELECT deck_id
+                FROM completed_game_users cgu
+                WHERE completed_game_id = %s
+            """, [match_id])
 
         query = cursor.fetchone()
-        deck_id = query[2]
+        deck_id = query[0]
 
         cursor.execute("""
             SELECT dlc.card_id
