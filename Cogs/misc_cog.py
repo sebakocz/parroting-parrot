@@ -179,7 +179,7 @@ class MiscCog(commands.Cog):
             winner = embed_content_in_dict['fields'][0]['name']
             session = Utils.collectiveApi.login()
             winner_id = \
-            json.loads(session.get(f'https://server.collective.gg/api/users/search?query={winner}').text)['results'][
+            session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['results'][
                 'id']
             print(winner_id)
 
