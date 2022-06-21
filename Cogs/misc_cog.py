@@ -215,12 +215,12 @@ class MiscCog(commands.Cog):
             print("Challenge Deck Winner Found! " + match_id)
 
             player_name = embed_content_in_dict['fields'][0]['name']
-            with open('Data/challenge_players.txt', 'r+') as outfile:
-                for line in outfile:
+            with open('Data/challenge_players.txt', 'r') as file:
+                for line in file:
                     if player_name in line:
                         break
-                    else:
-                        outfile.write(player_name)
+            with open('Data/challenge_players.txt', 'a') as outfile:
+                outfile.write(player_name)
 
             # tried to make it work via api but sadly the api doesn't get updated quickly enough
             # session = Utils.collectiveApi.login()
