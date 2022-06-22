@@ -89,7 +89,6 @@ class MiscCog(commands.Cog):
         cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
         updates = Utils.reddit.fetchPosts(Utils.reddit.PostType.UPDATE)
-
         text = f"Total Updates: {len(updates)}\n\n"
 
         try:
@@ -104,9 +103,14 @@ class MiscCog(commands.Cog):
             # slice "[Update]" away
             text += f"{post.title[9:]}\nScore: {post.score}\n\n"
 
-        text = "```" + text + "```"
-
-        await ctx.send(text)
+        if len(text) >= 2000:
+            with open("Data/stats_result.txt", "w") as file:
+                file.write(text)
+            # await ctx.send(file=discord.File("Data/stats_result.txt"))
+            await ctx.send("", file=discord.File("Data/stats_result.txt"))
+        else:
+            text = "```" + text + "```"
+            await ctx.send(text)
 
 
     @commands.hybrid_command(name="top10", description=cmds.list["top10"])
