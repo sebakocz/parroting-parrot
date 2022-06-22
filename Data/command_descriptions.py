@@ -12,5 +12,6 @@ list = {
     "coinflip": "Flips a coin. Returns either 'Tails' or 'Head'.",
     "github": "Shows Parrot's code.",
     "support": "Sevas also accepts love, food and shelter.",
-    "help": "Shows description of all commands."
+    "help": "Shows description of all commands.",
+    "daily_challenge": "Shows today's brew challenge."
 }

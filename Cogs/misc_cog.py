@@ -1,5 +1,6 @@
 import json
 import random
+import datetime
 from itertools import cycle
 
 import discord
@@ -10,6 +11,7 @@ import Utils.reddit
 import Utils.googleSheet
 import Utils.collectiveApi
 import Utils.collective_db
+import Utils.collective_misc
 
 from Utils.reddit import submit
 import Data.command_descriptions as cmds
@@ -24,10 +26,11 @@ class MiscCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.change_activity.start()
+        self.task_change_activity.start()
+        self.task_reset_challenge.start()
 
     @tasks.loop(seconds=10)
-    async def change_activity(self):
+    async def task_change_activity(self):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
 
@@ -144,6 +147,7 @@ class MiscCog(commands.Cog):
         embed.add_field(name="!updates", value=cmds.list["updates"])
         embed.add_field(name="!stats", value=cmds.list["stats"])
         embed.add_field(name="!week <last|next|number>", value=cmds.list["week"])
+        embed.add_field(name="!daily_challenge", value=cmds.list["daily_challenge"])
         embed.add_field(
             name='!submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>',
             value=cmds.list["submit"])
@@ -174,7 +178,7 @@ class MiscCog(commands.Cog):
         await ctx.send(embed=embed)
 
     # credits to Gokun for the idea
-    @commands.hybrid_command(name="daily_challenge")
+    @commands.hybrid_command(name="daily_challenge", description=cmds.list["daily_challenge"])
     async def daily_challenge(self, ctx):
         text = "**Daily Brew Challenge**\n"
 
@@ -198,6 +202,11 @@ class MiscCog(commands.Cog):
             # embed.set_image(url=)
             # await ctx.send(embed=embed)
         await ctx.send(text)
+
+    @tasks.loop(time=datetime.time(hour=6, minute=30))
+    async def task_reset_challenge(self):
+        open('Data/challenge_players.txt', 'w').close()
+        await Utils.collective_misc.setChallengeCards()
 
     @commands.Cog.listener()
     async def on_message(self, msg):

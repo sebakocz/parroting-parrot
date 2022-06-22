@@ -11,6 +11,8 @@ Shows a list of updates from current voting week.
 Shows playrates and winrates.
 ### !week <last|next|number>
 Shows when the submission week is over.
+### !daily_challenge
+Shows today's brew challenge.
 ### !submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>
 Submits a card to the subreddit.
 ### !art card_link
