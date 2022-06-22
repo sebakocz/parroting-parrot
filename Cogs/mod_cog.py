@@ -13,7 +13,7 @@ class ModCog(commands.Cog):
     @commands.hybrid_command(name="set_flair", description="changes current flair on the subreddit")
     @app_commands.default_permissions(manage_messages=True)
     async def set_flair(self, ctx, season: int, week: int):
-        reddit.change_flair(season, week)
+        await reddit.change_flair(season, week)
         await ctx.send(f"Changed to 'Season {season} - Week {week}'")
 
 

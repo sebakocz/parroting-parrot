@@ -79,16 +79,16 @@ class MiscCog(commands.Cog):
         type="optional type like [Card], [DC] or [Update] - default is [Card]"
     )
     async def submit(self, ctx, card_link, text="", type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
-        submit(card_link, text, type.value)
+        await submit(card_link, text, type.value)
         await ctx.send("Submitted!")
 
 
     @commands.hybrid_command(name="updates", description=cmds.list["updates"])
     async def updates(self, ctx):
         await ctx.defer()
-        cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+        cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
-        updates = Utils.reddit.fetchPosts(Utils.reddit.PostType.UPDATE)
+        updates = await Utils.reddit.fetchPosts(Utils.reddit.PostType.UPDATE)
         text = f"Total Updates: {len(updates)}\n\n"
 
         try:
@@ -116,7 +116,7 @@ class MiscCog(commands.Cog):
     @commands.hybrid_command(name="top10", description=cmds.list["top10"])
     async def top10(self, ctx):
         await ctx.defer()
-        cards = Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+        cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
         if len(cards) <= 0:
             await ctx.send("No cards found for this week. Go post some!")
