@@ -92,11 +92,11 @@ async def fetchPosts(type):
 async def change_flair(season=1, week=1):
     subreddit, reddit = await getSubreddit()
 
-    automod = subreddit.wiki["config/automoderator"]
+    automod = await subreddit.wiki.get_page("config/automoderator")
 
     content = re.sub(
         r'(?<=title: \["\[Card]", "\[Update]", "\[Cosmetic Update]", "\[DC]","\[DCDC]",]\ndomain: "files.collective.gg"\nset_flair: ")(.*?)(?=")',
         f"Season {season} - Week {week}", automod.content_md)
 
-    automod.edit(content=content)
+    await automod.edit(content=content)
     await reddit.close()
