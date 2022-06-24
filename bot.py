@@ -38,6 +38,7 @@ class MyBot(commands.Bot):
                 print(f'Unable to load {filename}')
 
         # await bot.load_extension('Cogs.dev_cog')
+        # await bot.load_extension('Cogs.reaction_cog')
         # await bot.load_extension('Cogs.mod_cog')
         # await bot.load_extension('Cogs.misc_cog')
         # await bot.load_extension('Cogs.stats_cog')
