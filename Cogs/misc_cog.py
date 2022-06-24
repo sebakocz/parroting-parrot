@@ -233,7 +233,7 @@ class MiscCog(commands.Cog):
                     if player_name in line:
                         return
             with open('Data/challenge_players.txt', 'a') as outfile:
-                outfile.write(player_name)
+                outfile.write("\n"+player_name)
 
             # tried to make it work via api but sadly the api doesn't get updated quickly enough
             # session = Utils.collectiveApi.login()
