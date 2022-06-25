@@ -190,8 +190,8 @@ class MiscCog(commands.Cog):
             lines = file.readlines()
             lines = [line.rstrip() for line in lines]
         if len(lines) > 0:
+            text += "\nToday's Challengers:"
             for line in lines:
-                text += "\nToday's Challengers:"
                 text += f"\n{line}"
         else:
             text += "\nNobody finished this quest yet! Be the first one!"
