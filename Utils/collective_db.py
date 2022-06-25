@@ -11,10 +11,13 @@ def getDeckFromMatch(match_id):
         cursor = connection.cursor()
 
         cursor.execute("""
-                SELECT deck_id
-                FROM completed_game_users cgu
-                WHERE completed_game_id = %s
-            """, [match_id])
+                            SELECT deck_id
+                            FROM completed_games cg
+                                INNER JOIN completed_game_users cgu
+                                ON cg.winning_player_id = cgu.user_id
+                            WHERE completed_game_id = %s
+                            AND cgu.completed_game_id = cg.id
+                        """, [match_id])
 
         query = cursor.fetchone()
         deck_id = query[0]
