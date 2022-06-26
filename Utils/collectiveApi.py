@@ -2,7 +2,7 @@ import json
 import os
 import random
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import aiohttp
 import dateutil.parser
@@ -79,5 +79,5 @@ async def fetchRandomCards():
         async with session.get('https://server.collective.gg/api/public-cards/') as response:
             return random.sample([card for card in json.loads(await response.text())['cards']
                                   if card['approval_state'] == 0
-                                  and datetime.today().replace(day=1) > dateutil.parser.isoparse(card['dtreleased']).replace(tzinfo=None)
+                                  and datetime.today().replace(day=1) - timedelta(days=10) > dateutil.parser.isoparse(card['dtreleased']).replace(tzinfo=None)
                                   and card['rarity'] != 'Undraftable'], 3)
