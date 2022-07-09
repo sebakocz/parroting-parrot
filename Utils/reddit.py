@@ -13,7 +13,8 @@ import Utils.collectiveApi
 class PostType(Enum):
     # PostType.value returns the strings
     CARD = "[Card]"
-    UPDATE = "[Update]"
+    STANDARD_UPDATE = "[Standard Update]"
+    LEGACY_UPDATE = "[Legacy Update]"
     DC = "[DC]"
 
 async def getSubreddit():

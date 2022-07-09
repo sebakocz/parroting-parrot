@@ -76,7 +76,7 @@ class MiscCog(commands.Cog):
     @app_commands.describe(
         card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png",
         text="optional text displayed in parentheses",
-        type="optional type like [Card], [DC] or [Update] - default is [Card]"
+        type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
     )
     async def submit(self, ctx, card_link, text="", type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
         await submit(card_link, text, type.value)
