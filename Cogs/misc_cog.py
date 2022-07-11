@@ -88,8 +88,8 @@ class MiscCog(commands.Cog):
         await ctx.defer()
         cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
 
-        updates = await Utils.reddit.fetchPosts(Utils.reddit.PostType.UPDATE)
-        text = f"Total Updates: {len(updates)}\n\n"
+        updates = await Utils.reddit.fetchPosts(Utils.reddit.PostType.STANDARD_UPDATE)
+        text = f"Total Standard Updates: {len(updates)}\n\n"
 
         try:
             top10card = cards[9]
@@ -101,7 +101,7 @@ class MiscCog(commands.Cog):
             text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
         for post in updates:
             # slice "[Update]" away
-            text += f"{post.title[9:]}\nScore: {post.score}\n\n"
+            text += f"{post.title[18:]}\nScore: {post.score}\n\n"
 
         if len(text) >= 2000:
             with open("Data/stats_result.txt", "w") as file:
