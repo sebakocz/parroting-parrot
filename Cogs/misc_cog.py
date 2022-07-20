@@ -131,7 +131,7 @@ class MiscCog(commands.Cog):
             text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
         for post in updates:
             # slice "[Update]" away
-            text += f"{post.title[18:]}\nScore: {post.score}\n\n"
+            text += f"{post.title[16:]}\nScore: {post.score}\n\n"
 
         if len(text) >= 2000:
             with open("Data/stats_result.txt", "w") as file:
