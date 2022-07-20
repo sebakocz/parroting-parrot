@@ -112,6 +112,35 @@ class MiscCog(commands.Cog):
             text = "```" + text + "```"
             await ctx.send(text)
 
+    # TODO: refactor this, I just copy & pasted updates, this should be more modular but I'm tired now
+    @commands.hybrid_command(name="legacyupdates", description="Legacy Updates")
+    async def legacyupdates(self, ctx):
+        await ctx.defer()
+        cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+
+        updates = await Utils.reddit.fetchPosts(Utils.reddit.PostType.LEGACY_UPDATE)
+        text = f"Total Legacy Updates: {len(updates)}\n\n"
+
+        try:
+            top10card = cards[9]
+        except IndexError:
+            if len(cards) > 0:
+                top10card = cards[-1]
+
+        if len(cards) > 0:
+            text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
+        for post in updates:
+            # slice "[Update]" away
+            text += f"{post.title[18:]}\nScore: {post.score}\n\n"
+
+        if len(text) >= 2000:
+            with open("Data/stats_result.txt", "w") as file:
+                file.write(text)
+            # await ctx.send(file=discord.File("Data/stats_result.txt"))
+            await ctx.send("", file=discord.File("Data/stats_result.txt"))
+        else:
+            text = "```" + text + "```"
+            await ctx.send(text)
 
     @commands.hybrid_command(name="top10", description=cmds.list["top10"])
     async def top10(self, ctx):
