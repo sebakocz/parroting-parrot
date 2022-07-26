@@ -24,7 +24,7 @@
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(3) Experimental Sequence\nEntomb: Deal damage equal to the number of units in your main tribe you control.\n[2/2]"
+        "text": "(3) Experimental Sequence\nEntomb: You may deal damage to a unit equal to the number of units in your main tribe you control.\n[2/2]"
       },
       "lvl3": {
         "exp": 13,
@@ -108,22 +108,18 @@
 {
     "name": "Pearlmaw",
     "affinity": "Strength",
-    "passive": "At the end of each turn, if you have any unused mana, create a Doubloon.\n\n(0) Doubloon\nGain 1 mana and 1 EXP.",
+    "passive": "At the end of each turn, if you have any unused mana, gain +1  EXP. If you’re level 2 or higher, create a Doubloon.\n\n(0) Doubloon\nGain 1 mana.",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(2) Spectral Dragonfire\nDeal damage equal to your level to a unit. When you play three Doubloons in one turn, return this to your hand from the graveyard."
+        "text": "(2) Spectral Dragonfire\nDeal damage equal to your level to an enemy. When you’ve created three Doubloons, return this to your hand from the graveyard."
       },
       "lvl3": {
-        "exp": 11,
-        "text": "(4) Geistwing Raiders\nWhen this deals damage, create a Doubloon.\n[3/3]"
+        "exp": 13,
+        "text": "(4) Geistwing Raiders\nWhen this deals damage, create a Doubloon. When you’ve created three Doubloons, return this to your hand from the graveyard.\n[3/3]"
       },
       "lvl4": {
-        "exp": 19,
-        "text": "(5) Wasburn's Cannoneers\nActive: Silence a unit.\n[2/5]"
-      },
-      "lvl5": {
-        "exp": 28,
+        "exp": 25,
         "text": "(8) Captain Washburn\nImmortal\nWhen this enters play, create 2 Doubloons. You win when you have 10 Doubloons in your hand.\n[8/8]"
       }
     }
@@ -131,7 +127,7 @@
 {
     "name": "Vriktik",
     "affinity": "Mind",
-    "passive": "+2 EXP when you play your second action each turn.",
+    "passive": "+1 EXP for each action you play. (up to +2 per turn).",
     "rewards": {
       "lvl2": {
         "exp": 4,
@@ -149,11 +145,11 @@
   {
     "name": "Buluc",
     "affinity": "Spirit",
-    "passive": "+3 EXP when you attack with 3 or more units.",
+    "passive": "+1 EXP for each unit you attack with. (up to 3 per turn).",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(3) Enkindler of Strife\nActive: Create a 1/1 Artifact.\n[1/2]"
+        "text": "(3) Enkindler of Strife\nActive: Pay 1 Mana. Create a 2/1 Artifact.\n[1/2]"
       },
       "lvl3": {
         "exp": 13,
@@ -161,13 +157,13 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Kukul, Feathered God\nImmortal, Agile, Overrun\nWhen this attacks, return two random units. in your graveyard to play, They attack.\n[6/6]"
+        "text": "(6) Kukul, Feathered God\nImmortal, Agile, Overrun\nWhen this attacks, move two random units in your graveyard to play, They attack. For each level you’ve gained past 4 move two more.\n[6/6]"
       }
   }},
   {
     "name": "Heldim",
     "affinity": "Strength",
-    "passive": "+2 EXP when you attack with exactly one unit. When you level up, revive Cassiel and she gets +2/+2.",
+    "passive": "+2 EXP when you attack with exactly one unit.",
     "rewards": {
       "lvl2": {
         "exp": 4,
@@ -175,25 +171,21 @@
       },
       "lvl3": {
         "exp": 13,
-        "text": "Cassiel gains Overrun."
+        "text": "Hero Active: Pay 2 Mana. Give Cassiel +2/+2. If she’s not in play, move her into play instead."
       },
       "lvl4": {
-        "exp": 19,
-        "text": "Cassiel gains Regenerate."
-      },
-      "lvl5": {
-        "exp": 28,
-        "text": "Whenever a friendly unit dies, revive Cassiel and she attacks."
+        "exp": 25,
+        "text": "Whenever Cassiel attacks double her ATK and HP and draw a card. Repeat for each level you’ve gained past 4."
       }
   }},
   {
     "name": "Ashgerdy",
     "affinity": "Mind",
-    "passive":"+5 EXP when you damage the enemy player three times in one turn.",
+    "passive":"+1 EXP when you damage the opponent (up to 3 times per turn). When you damage the opponent three times in a turn gain an extra +1 EXP.",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(2) Courier Knight\nEntomb: +2 mana next turn.\n[2/1]"
+        "text": "(2) Courier Knight\nEntomb: Draw a card.\n[2/1]"
       },
       "lvl3": {
         "exp": 13,
@@ -201,7 +193,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nAt the end of each turn, your opponent loses HP equal to the EXP you gained this turn.\n[0/5]"
+        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nBefore combat, create 2 Courier Knights. For each level you’ve gained past 4 create 2 more..\n[0/5]"
       }
   }},
   {
@@ -225,11 +217,11 @@
   {
     "name": "Fortuno",
     "affinity": "Mind",
-    "passive": "When 3 or more cards enter your hand in a turn, gain +2 EXP.",
+    "passive": "+3 EXP if 3 cards enter your hand each turn.",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "Hero Active: Pay 2 mana to draw a card. Create a copy of it at the bottom of your deck with permanent -2 cost."
+        "text": "Hero Active: Pay 2 Mana. Draw a card, then create a copy of it at the bottom of your deck that permanently costs 2 less. (Fast)"
       },
       "lvl3": {
         "exp": 13,
