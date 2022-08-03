@@ -27,6 +27,8 @@ load_dotenv()
 class MyBot(commands.Bot):
     async def setup_hook(self):
 
+        # TODO: switch between dev and production
+
         for filename in os.listdir('Cogs'):
             if filename.endswith('.py'):
                 print(f"Loading Cog: {filename}")
