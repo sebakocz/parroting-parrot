@@ -79,8 +79,10 @@ class MiscCog(commands.Cog):
         type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
     )
     async def submit(self, ctx, card_link, text="", type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
-        await submit(card_link, text, type.value)
-        await ctx.send("Submitted!")
+        # grief told me to disable this for now
+        # await submit(card_link, text, type.value)
+        # await ctx.send("Submitted!")
+        await ctx.send("Disabled!")
 
 
     @commands.hybrid_command(name="updates", description=cmds.list["updates"])
