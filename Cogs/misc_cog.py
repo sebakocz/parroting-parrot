@@ -79,10 +79,12 @@ class MiscCog(commands.Cog):
         type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
     )
     async def submit(self, ctx, card_link, text="", type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
-        # grief told me to disable this for now
-        # await submit(card_link, text, type.value)
-        # await ctx.send("Submitted!")
-        await ctx.send("Disabled!")
+        # Grief's request: limit submissions to the submission channel
+        if ctx.channel.id != 430071237104893964:
+            await ctx.send("Please use the submission channel for submissions.")
+            return
+        await submit(card_link, text, type.value)
+        await ctx.send("Submitted!")
 
 
     @commands.hybrid_command(name="updates", description=cmds.list["updates"])
