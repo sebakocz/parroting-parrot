@@ -89,19 +89,19 @@
 {
     "name": "Marie",
     "affinity": "Spirit",
-    "passive": "Passive: +2 EXP if two or more units enter your graveyard each turn. Banish all actions that enter your graveyard.",
+    "passive": "Passive: +1 EXP for each unit that enters your graveyard. (Max 2 per turn)",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(2) Eau D'Ange\nWhen you play or discard this, gain 3 HP and Choose a friendly unit to give 3 HP. When you level up, return this to your hand."
+        "text": "Hero Active: Draw a card, Discard a card."
       },
       "lvl3": {
         "exp": 13,
-        "text": "Hero Active: Pay 1 Mana. Banish the top unit of your graveyard. Play its Summon, Entomb, and Active abilities."
+        "text": "(6) House of Zombi\nImmortal\nWhen you discard a card, return the bottom card of your GY to hand.\n[0/4]."
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) House of Zombi\nImmortal\nYour Active, Summon, and Entomb abilities happen twice.\n[0/4]"
+        "text": "After you use your active, Choose a unit in your graveyard, Banish that unit and play its Summon, Entomb, and Active abilities."
       }
     }
 },
