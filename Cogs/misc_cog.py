@@ -12,6 +12,7 @@ import Utils.googleSheet
 import Utils.collectiveApi
 import Utils.collective_db
 import Utils.collective_misc
+import Utils.tenor_api
 
 from Utils.reddit import submit
 import Data.command_descriptions as cmds
@@ -191,6 +192,7 @@ class MiscCog(commands.Cog):
         embed.add_field(name="!art card_link", value=cmds.list["art"])
         embed.add_field(name="!art_to_card", value=cmds.list["art_to_card"])
         embed.add_field(name="!parrot sentence", value=cmds.list["parrot"])
+        embed.add_field(name="!gif", value=cmds.list["gif"])
         embed.add_field(name="!coinflip", value=cmds.list["coinflip"])
         embed.add_field(name="!github", value=cmds.list["github"])
         embed.add_field(name="!support", value=cmds.list["support"])
@@ -273,6 +275,10 @@ class MiscCog(commands.Cog):
             # winner_id = \
             # session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
             # print(winner_id)
+
+    @commands.hybrid_command(name="gif", description=cmds.list["gif"])
+    async def gif(self, ctx):
+        await ctx.send(Utils.tenor_api.getRandomParrotGif())
 
 async def setup(bot):  # an extension must have a setup function
     await bot.add_cog(MiscCog(bot))  # adding a cog

@@ -13,5 +13,6 @@ list = {
     "github": "Shows Parrot's code.",
     "support": "Sevas also accepts love, food and shelter.",
     "help": "Shows description of all commands.",
-    "daily_challenge": "Shows today's brew challenge."
+    "daily_challenge": "Shows today's brew challenge.",
+    "gif": "Shows a random parrot.",
 }

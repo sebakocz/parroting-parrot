@@ -21,6 +21,8 @@ Returns the full image used for the card art.
 Creates an empty card. (Attach an image to the same message.)
 ### !parrot
 Repeats the sentence.
+### !gif
+Returns a random parrot.
 ### !coinflip
 Flips a coin. Returns either 'Tails' or 'Head'.
 ### !github
