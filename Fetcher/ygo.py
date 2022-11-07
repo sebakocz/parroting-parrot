@@ -1,15 +1,13 @@
 import requests
 
-class YugiohFetcher():
+from Fetcher import dict_fetcher
 
-    def __getitem__(self, card_name):
-        # checks using the ygoprices api if the cards exists at all.
-        # if it does, the api will return a link with the full name as one of the query string.
-        # we can rip out that name, and return a card image with the same name.
-        query = requests.get('https://yugiohprices.com/search_card?search_text=' + card_name)
-        if query:
-            return 'https://static-3.studiobebop.net/ygo_data/card_images/{}.jpg'.format(
-                query.url.split('name=')[-1].replace('+', '_').replace('-', '_').replace('%22', '_')
-                )
-        else:
-            raise KeyError("Card not found")
+
+class YugiohFetcher(dict_fetcher.DictFetcher):
+
+    def __init__(self):
+        cards = {}
+        request_url = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'
+        for card_info in requests.get(request_url).json()['data']:
+            cards[card_info['name'].lower()] = card_info['card_images'][0]['image_url']
+        super().__init__(cards)
