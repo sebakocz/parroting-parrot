@@ -213,6 +213,7 @@ class MiscCog(commands.Cog):
         embed.add_field(name="[[hs:name]]", value="Hearthstone")
         embed.add_field(name="[[kf:name]]", value="Keyforge")
         embed.add_field(name="[[lor:name]]", value="Legends of Runeterra")
+        embed.add_field(name="[[ms:name]]", value="Marvel Snap")
 
         await ctx.send(embed=embed)
 

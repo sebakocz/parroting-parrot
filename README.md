@@ -50,3 +50,5 @@ Hearthstone
 Keyforge
 ### [[lor:name]]
 Legends of Runeterra
+### [[ms:name]]
+Marvel Snap
