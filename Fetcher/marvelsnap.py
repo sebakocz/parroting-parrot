@@ -2,6 +2,8 @@ import json
 
 import discord
 import requests
+from slugify import slugify
+
 from Fetcher import dict_fetcher
 
 class MarvelSnapFetcher(dict_fetcher.DictFetcher):
@@ -12,8 +14,8 @@ class MarvelSnapFetcher(dict_fetcher.DictFetcher):
     def __init__(self):
         cards = {}
         request_url = 'https://marvelsnap.pro/snap/do.php?cmd=getcards'
-        for card_info in requests.get(request_url).json():
-            cards[card_info] = self.getImg(card_info)
+        for card_info in requests.get(request_url).json().values():
+            cards[card_info['name']] = self.getImg(slugify(card_info['name']))
         super().__init__(cards)
 
     def getImg(self, card_name):
