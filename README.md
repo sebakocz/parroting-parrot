@@ -52,3 +52,5 @@ Keyforge
 Legends of Runeterra
 ### [[ms:name]]
 Marvel Snap
+### [[meme:keyword]]
+Collective Memes

@@ -1,5 +1,14 @@
 from discord.ext import commands
-import Fetcher.collective, Fetcher.reddit, Fetcher.mtg, Fetcher.eternal, Fetcher.ygo, Fetcher.hs, Fetcher.lor, Fetcher.keyforge, Fetcher.marvelsnap
+import Fetcher.collective,\
+    Fetcher.reddit,\
+    Fetcher.mtg,\
+    Fetcher.eternal,\
+    Fetcher.ygo,\
+    Fetcher.hs,\
+    Fetcher.lor,\
+    Fetcher.keyforge,\
+    Fetcher.marvelsnap,\
+    Fetcher.meme
 
 class FetcherCog(commands.Cog):
     def __init__(self, bot):
@@ -16,7 +25,8 @@ class FetcherCog(commands.Cog):
             "lor": Fetcher.lor.LorFetcher(),
             "kf": Fetcher.keyforge.KeyforgeFetcher(),
             "hero": Fetcher.collective.CollectiveHeroFetcher(),
-            "ms": Fetcher.marvelsnap.MarvelSnapFetcher()
+            "ms": Fetcher.marvelsnap.MarvelSnapFetcher(),
+            "meme": Fetcher.meme.MemeFetcher()
         }
 
     def get_card_name(self, text):

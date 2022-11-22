@@ -214,6 +214,7 @@ class MiscCog(commands.Cog):
         embed.add_field(name="[[kf:name]]", value="Keyforge")
         embed.add_field(name="[[lor:name]]", value="Legends of Runeterra")
         embed.add_field(name="[[ms:name]]", value="Marvel Snap")
+        embed.add_field(name="[[meme:keyword]]", value="Collective Memes")
 
         await ctx.send(embed=embed)
 
