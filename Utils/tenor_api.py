@@ -16,7 +16,9 @@ def get_random_parrot_gif():
 
     # get the top 50 GIFs for the search term and randomize the selection
     r = requests.get(
-        "https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s&random=true" % (search_term, apikey, ckey, lmt))
+        "https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s&random=true"
+        % (search_term, apikey, ckey, lmt)
+    )
 
     if r.status_code == 200:
         # load the GIFs using the urls for the smaller GIF sizes

@@ -9,6 +9,8 @@ class MemeFetcher(dict_fetcher.DictFetcher):
 
     def __init__(self):
         cards = {}
-        for index, row in get_google_sheet("1Qa-bbX2JQSGDbqkAiZZOyOfMP4MBdwOpTW-RVHdcIZw", 0).iterrows():
-            cards[row['keyword']] = row['url']
+        for index, row in get_google_sheet(
+            "1Qa-bbX2JQSGDbqkAiZZOyOfMP4MBdwOpTW-RVHdcIZw", 0
+        ).iterrows():
+            cards[row["keyword"]] = row["url"]
         super().__init__(cards)

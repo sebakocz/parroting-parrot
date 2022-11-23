@@ -15,7 +15,7 @@ class MarvelSnapFetcher(dict_fetcher.DictFetcher):
 
     def __init__(self):
         cards = {}
-        request_url = 'https://marvelsnap.pro/snap/do.php?cmd=getcards'
+        request_url = "https://marvelsnap.pro/snap/do.php?cmd=getcards"
         for card_info in requests.get(request_url).json().values():
-            cards[card_info['name']] = get_img(slugify(card_info['name']))
+            cards[card_info["name"]] = get_img(slugify(card_info["name"]))
         super().__init__(cards)

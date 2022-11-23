@@ -6,7 +6,9 @@ def get_card_json():
     """
     This method downloads the json file from the eternal warcry website
     """
-    return requests.get("https://eternalwarcry.com/content/cards/eternal-cards.json").json()
+    return requests.get(
+        "https://eternalwarcry.com/content/cards/eternal-cards.json"
+    ).json()
 
 
 def filter_card_json(warcry_json):
@@ -15,11 +17,10 @@ def filter_card_json(warcry_json):
     """
     cards = {}
     for card_info in warcry_json:
-        cards[card_info['Name']] = card_info['ImageUrl']
+        cards[card_info["Name"]] = card_info["ImageUrl"]
     return cards
 
 
 class EternalFetcher(dict_fetcher.DictFetcher):
-
     def __init__(self):
         super().__init__(filter_card_json(get_card_json()))

@@ -2,6 +2,7 @@
 from discord.ext import commands
 import json
 
+
 class ReactionCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -27,9 +28,9 @@ class ReactionCog(commands.Cog):
         with open("Data/reaction_role_config.json", "r") as config_file:
             config = json.load(config_file)
             for setting in config:
-                if setting['msg_id'] == payload.message_id:
-                    guild = self.bot.get_guild(setting['guild_id'])
-                    for emote,roles in setting['emoji_roles_map'].items():
+                if setting["msg_id"] == payload.message_id:
+                    guild = self.bot.get_guild(setting["guild_id"])
+                    for emote, roles in setting["emoji_roles_map"].items():
                         for role_id in roles:
                             if emote == str(payload.emoji):
                                 await payload.member.add_roles(guild.get_role(role_id))
@@ -39,14 +40,14 @@ class ReactionCog(commands.Cog):
         with open("Data/reaction_role_config.json", "r") as config_file:
             config = json.load(config_file)
             for setting in config:
-                if setting['msg_id'] == payload.message_id:
-                    guild = self.bot.get_guild(setting['guild_id'])
-                    for emote, roles in setting['emoji_roles_map'].items():
+                if setting["msg_id"] == payload.message_id:
+                    guild = self.bot.get_guild(setting["guild_id"])
+                    for emote, roles in setting["emoji_roles_map"].items():
                         for role_id in roles:
                             if emote == str(payload.emoji):
-                                await guild.get_member(payload.user_id).remove_roles(guild.get_role(role_id))
-
-
+                                await guild.get_member(payload.user_id).remove_roles(
+                                    guild.get_role(role_id)
+                                )
 
 
 async def setup(bot):  # an extension must have a setup function

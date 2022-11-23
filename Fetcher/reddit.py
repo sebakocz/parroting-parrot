@@ -7,10 +7,12 @@ class CollectiveSub:
     """
 
     def __init__(self):
-        reddit = praw.Reddit(client_id=os.getenv("REDDIT_CLIENT_ID"),
-                             client_secret=os.getenv("REDDIT_API_SECRET"),
-                             user_agent='Card fetcher for Collective.')
-        self.sub = reddit.subreddit('collectivecg')
+        reddit = praw.Reddit(
+            client_id=os.getenv("REDDIT_CLIENT_ID"),
+            client_secret=os.getenv("REDDIT_API_SECRET"),
+            user_agent="Card fetcher for Collective.",
+        )
+        self.sub = reddit.subreddit("collectivecg")
 
     def __getitem__(self, card_name):
         """
@@ -19,7 +21,7 @@ class CollectiveSub:
         # searches the subreddit for a card with the given name
         # and grabs the first result whose name starts with "["
         for post in self.sub.search(card_name, limit=1):
-            if post.title.startswith('['):
+            if post.title.startswith("["):
                 return post.url
         raise KeyError("Card Not found")
 
@@ -33,10 +35,19 @@ class CollectiveSub:
             return "You requested too many posts at once. please try to ask for less posts next time!"
         # takes the top 1000 cards of this week and sorts them in order of upvotes
         posts = sorted(
-            self.sub.search('flair:' + week, limit=1000, sort='top'),
+            self.sub.search("flair:" + week, limit=1000, sort="top"),
             key=lambda x: x.score,
-            reverse=True
+            reverse=True,
         )
-        for post in list(filter(lambda x: x.title.lower().startswith(submit_type), posts))[:num]:
-            ret.append(post.url + ' | ' + str(post.score) + ' | ' + str(int(post.upvote_ratio * 100)) + '%')
+        for post in list(
+            filter(lambda x: x.title.lower().startswith(submit_type), posts)
+        )[:num]:
+            ret.append(
+                post.url
+                + " | "
+                + str(post.score)
+                + " | "
+                + str(int(post.upvote_ratio * 100))
+                + "%"
+            )
         return ret

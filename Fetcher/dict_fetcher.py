@@ -1,5 +1,6 @@
 from fuzzywuzzy import fuzz
 
+
 class DictFetcher:
     """
     This is a helper class that already implements a search algorithm
@@ -9,9 +10,9 @@ class DictFetcher:
     def __init__(self, card_set):
         self.card_set = card_set
 
-    def __getitem__(self ,card):
-        max_ratio = (' ', 0)  # maximum score in ratio exam
-        max_partial = (' ', 0)  # maximum sort in partial ratio exam
+    def __getitem__(self, card):
+        max_ratio = (" ", 0)  # maximum score in ratio exam
+        max_partial = (" ", 0)  # maximum sort in partial ratio exam
         list_ratio = []
         list_partial = []
         for entry in self.card_set:

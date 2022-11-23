@@ -16,27 +16,29 @@ from discord.ext import commands
 
 import asyncio
 import platform
+
 # prevent event loop is closed error
 # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
-if platform.system()=='Windows':
+if platform.system() == "Windows":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 load_dotenv()
+
 
 class MyBot(commands.Bot):
     async def setup_hook(self):
 
         # TODO: switch between dev and production
 
-        for filename in os.listdir('Cogs'):
-            if filename.endswith('.py'):
+        for filename in os.listdir("Cogs"):
+            if filename.endswith(".py"):
                 print(f"Loading Cog: {filename}")
-                await bot.load_extension(f'Cogs.{filename[:-3]}')
+                await bot.load_extension(f"Cogs.{filename[:-3]}")
             else:
-                if filename == '__pycache__':
+                if filename == "__pycache__":
                     continue
 
-                print(f'Unable to load {filename}')
+                print(f"Unable to load {filename}")
 
         # await bot.load_extension('Cogs.dev_cog')
         # await bot.load_extension('Cogs.reaction_cog')
@@ -60,23 +62,26 @@ bot = MyBot(
 
 @bot.event
 async def on_ready():
-    print(f'{bot.user} has connected to Discord!')
+    print(f"{bot.user} has connected to Discord!")
+
 
 @bot.check_once
 def exclude_dms(ctx):
     return ctx.guild is not None
+
 
 @bot.check_once
 def exclude_banned_users(ctx):
     # previously would prevent cmds from running if banlist.txt doesn't exist
     # 'x+' mode raises FileExistsError if the file already exists
     try:
-        open('Data/banlist.txt', 'x+')
+        open("Data/banlist.txt", "x+")
     except FileExistsError:
         with open("Data/banlist.txt", "r") as f:
             for line in f.readlines():
                 if line.strip("\n") == str(ctx.author.id):
                     return False
     return True
+
 
 bot.run(os.getenv("DISCORD_TOKEN"))

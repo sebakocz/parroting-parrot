@@ -11,25 +11,27 @@ class StatsCog(commands.Cog):
         self.bot = bot
         self.fetch_winrate_data.start()
 
-
     def cog_unload(self):
         self.fetch_winrate_data.stop()
-
 
     @tasks.loop(seconds=86400)
     async def fetch_winrate_data(self):
         await analyse.collect_winrate_data()
 
-
     @commands.hybrid_group(name="stats")
     async def stats(self, ctx):
-        await ctx.send("""  
+        await ctx.send(
+            """
 `!stats winrate <length>`
 `!stats playrate <length>`
 `!stats help`
-        """)
+        """
+        )
 
-    @stats.command(name="winrate", description="top 10 cards with highest win percentage. Card's with a p-value of >= 0.01 are excluded")
+    @stats.command(
+        name="winrate",
+        description="top 10 cards with highest win percentage. Card's with a p-value of >= 0.01 are excluded",
+    )
     @app_commands.describe(length="choose to size of the dataset, default is 10")
     async def winrate(self, ctx, length=10):
         winrate = analyse.display_current_data_winrate(length)
@@ -41,7 +43,6 @@ class StatsCog(commands.Cog):
             return
 
         await ctx.send(f"```{winrate}```")
-
 
     @stats.command(name="playrate", description="top 10 most used cards")
     @app_commands.describe(length="choose to size of the dataset, default is 10")
@@ -56,10 +57,10 @@ class StatsCog(commands.Cog):
 
         await ctx.send(f"```{playrate}```")
 
-
     @stats.command(description="full explanation on stats")
     async def help(self, ctx):
-        await ctx.send("""
+        await ctx.send(
+            """
 **•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•━•**
 **Collective Stat Analysis**
 
@@ -72,7 +73,8 @@ Top 10 most used cards.
 Top 10 cards with highest win percentage. Card's with a p-value of >= 0.01 are excluded.
 
 **What's a p-value?**
-The p-values shown are indicators of how confident we are that the winrate is skewed above 50%. **Low** p values indicate **high** confidence, and **high** p-values indicate **low** confidence.        """)
+The p-values shown are indicators of how confident we are that the winrate is skewed above 50%. **Low** p values indicate **high** confidence, and **high** p-values indicate **low** confidence.        """
+        )
 
 
 async def setup(bot):  # an extension must have a setup function

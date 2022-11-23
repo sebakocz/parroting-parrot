@@ -1,5 +1,3 @@
-
-
 string_list = {
     "top10": "Shows a list of the top10 cards from current voting week.",
     "updates": "Shows a list of updates from current voting week.",
