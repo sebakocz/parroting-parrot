@@ -1,15 +1,14 @@
 # Dear programmer:
-# When I wrote this code, only god and I knew how it worked
+# When I wrote this code, only god, and I knew how it worked
 # Now, only god knows it!
 #
-# Therefore, if you are trying to optimize this
+# Therefore, if you are trying to optimize this,
 # and it fails (most surely)
 # please increase this counter as a warning for the next person:
 #
 # total_hours_wasted_here = 254
 import os
 
-from discord import app_commands
 from dotenv import load_dotenv
 
 import discord
@@ -72,7 +71,7 @@ def exclude_banned_users(ctx):
     # previously would prevent cmds from running if banlist.txt doesn't exist
     # 'x+' mode raises FileExistsError if the file already exists
     try:
-        f = open('Data/banlist.txt', 'x+')
+        open('Data/banlist.txt', 'x+')
     except FileExistsError:
         with open("Data/banlist.txt", "r") as f:
             for line in f.readlines():

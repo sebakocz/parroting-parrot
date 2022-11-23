@@ -1,6 +1,3 @@
-import json
-
-import discord
 import requests
 from Fetcher import dict_fetcher
 

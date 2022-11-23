@@ -5,7 +5,7 @@ import random
 import requests
 
 
-def getRandomParrotGif():
+def get_random_parrot_gif():
     # set the apikey and limit
     apikey = os.getenv("TENOR_API_KEY")
     lmt = 50

@@ -4,7 +4,9 @@ import os
 import psycopg2
 from psycopg2 import Error
 
-def getDeckFromMatch(match_id):
+def get_deck_from_match(match_id):
+    connection = None
+    cursor = None
     try:
         connection = psycopg2.connect(os.getenv("COLLECTIVE_DB"))
 
@@ -33,9 +35,8 @@ def getDeckFromMatch(match_id):
         return list(itertools.chain(*query))
 
     except (Exception, Error) as error:
-        print("Error while connecting to PostgreSQL", error)
+        print("Error while connecting to PostgresSQL", error)
     finally:
         if connection:
             cursor.close()
             connection.close()
-            # print("PostgreSQL connection is closed")

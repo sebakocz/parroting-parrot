@@ -39,7 +39,7 @@ class FetcherCog(commands.Cog):
         start = text.find('[[')
         while start != -1:  # until there are no more brackets
             end = text.find(']]')
-            # if there is an opener but no closer then we skip it
+            # if there is an opener but no closer, then we skip it
             if end != -1:
                 query = text[start + 2:end]
                 if query.find(':') > 0:

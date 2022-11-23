@@ -25,17 +25,17 @@ class AdminCog(commands.Cog):
     @commands.command()
     async def reset_challenge(self, ctx):
         open('Data/challenge_players.txt', 'w').close()
-        await Utils.collective_misc.setChallengeCards()
+        await Utils.collective_misc.set_challenge_cards()
         await ctx.send("Done.")
 
 
     @commands.command()
-    async def ban(self, ctx, user: discord.User):
+    async def ban(self, user: discord.User):
         with open('Data/banlist.txt', 'a') as f:
             f.write(str(user.id)+"\n")
 
     @commands.command()
-    async def unban(self, ctx, user:discord.User):
+    async def unban(self, user:discord.User):
         with open("Data/banlist.txt", "r") as f:
             lines = f.readlines()
         with open("Data/banlist.txt", "w") as f:

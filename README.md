@@ -1,7 +1,7 @@
 # ParrotingParrot - A friendly feather of Collective, The Community Created Card Game 
 
 ## Commands
-List of usable commands. Case sensitive.
+List of usable commands. Case-sensitive.
 
 ### !top10
 Shows a list of the top10 cards from current voting week.

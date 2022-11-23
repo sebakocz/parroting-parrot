@@ -53,6 +53,17 @@ class CollectiveAnyFetcher(dict_fetcher.DictFetcher):
                 cards[card_info['name'].lower()] = card_info['imgurl']
         super().__init__(cards)
 
+
+def get_color(affinity):
+    colors = {
+        "Neutral": discord.Color.light_grey(),
+        "Strength": discord.Color.dark_red(),
+        "Mind": discord.Color.dark_blue(),
+        "Spirit": discord.Color.dark_green()
+    }
+    return colors[affinity]
+
+
 class CollectiveHeroFetcher(dict_fetcher.DictFetcher):
     """
     this fetches hero info displayed in an embed
@@ -65,7 +76,7 @@ class CollectiveHeroFetcher(dict_fetcher.DictFetcher):
             for hero in heros_json:
                 embed = discord.Embed(title=hero["name"],
                                       description=f"Passive: {hero['passive']}",
-                                      color=self.getColor(hero["affinity"]))
+                                      color=get_color(hero["affinity"]))
                 embed.set_thumbnail(url=f"https://www.collective.gg/emotes/{hero['name'].lower().replace(' ', '')}_thumb.png")
 
                 counter = 1
@@ -78,11 +89,3 @@ class CollectiveHeroFetcher(dict_fetcher.DictFetcher):
 
             super().__init__(heros)
 
-    def getColor(self, affinity):
-        colors = {
-            "Neutral": discord.Color.light_grey(),
-            "Strength": discord.Color.dark_red(),
-            "Mind": discord.Color.dark_blue(),
-            "Spirit": discord.Color.dark_green()
-        }
-        return colors[affinity]

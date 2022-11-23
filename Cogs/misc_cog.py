@@ -22,7 +22,7 @@ class MiscCog(commands.Cog):
         self.bot = bot
 
         # update card names list
-        self.card_list = cycle(Utils.collectiveApi.fetchRandomCardNames())
+        self.card_list = cycle(Utils.collectiveApi.fetch_random_card_names())
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -34,65 +34,66 @@ class MiscCog(commands.Cog):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
 
-    @commands.hybrid_command(name="week", description=cmds.list["week"])
+    @commands.hybrid_command(name="week", description=cmds.string_list["week"])
     @app_commands.describe(week_number="X weeks away from ongoing week")
     async def week(self, ctx, week_number="1"):
         if week_number == "last".lower():
             week_number = 0
         if week_number == "next".lower():
             week_number = 2
-        await ctx.send(f"<t:{Utils.reddit.getWeekUnixStamp(int(week_number))}>")
+        await ctx.send(f"<t:{Utils.reddit.get_week_unix_stamp(int(week_number))}>")
 
 
-    @commands.hybrid_command(name="parrot", description=cmds.list["parrot"])
+    @commands.hybrid_command(name="parrot", description=cmds.string_list["parrot"])
     @app_commands.describe(sentence="type something for parrot to repeat")
     async def parrot(self, ctx, *, sentence):
         await ctx.send(f"> {sentence}")
 
 
-    @commands.hybrid_command(name="art_to_card", description=cmds.list["art_to_card"])
+    @commands.hybrid_command(name="art_to_card", description=cmds.string_list["art_to_card"])
     async def art_to_card(self, ctx, image: discord.Attachment):
 
         try:
             await ctx.defer()
-            await ctx.send(Utils.collectiveApi.artToCard(image.proxy_url))
-            # await ctx.send(Utils.collectiveApi.artToCard(ctx.message.attachments[0].url))
-        except:
+            await ctx.send(Utils.collectiveApi.art_to_card(image.proxy_url))
+        except Exception as e:
+            print("Error in art_to_card: ", e)
             await ctx.send("Something went wrong...")
 
 
-    @commands.hybrid_command(name="art", description=cmds.list["art"])
+    @commands.hybrid_command(name="art", description=cmds.string_list["art"])
     @app_commands.describe(card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png")
     async def art(self, ctx, card_link):
         try:
-            art = Utils.collectiveApi.getArt(card_link)
+            art = Utils.collectiveApi.get_art(card_link)
             await ctx.send(art)
         except Exception as e:
             print(e)
             await ctx.send("Something went wrong.")
 
 
-    @commands.hybrid_command(name="submit", description=cmds.list["submit"])
+    @commands.hybrid_command(name="submit", description=cmds.string_list["submit"])
     @app_commands.describe(
         card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png",
-        text="optional text displayed in parentheses",
-        type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
+        optional_text="optional text displayed in parentheses",
+        submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
     )
-    async def submit(self, ctx, card_link, text="", type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
+    async def submit(self, ctx, card_link, optional_text="", submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD):
         # Grief's request: limit submissions to the submission channel
         if ctx.channel.id != 430071237104893964:
             await ctx.send("Please use the submission channel for submissions.")
             return
-        await submit(card_link, text, type.value)
+        await submit(card_link, optional_text, submission_type.value)
         await ctx.send("Submitted!")
 
 
-    @commands.hybrid_command(name="updates", description=cmds.list["updates"])
+    @commands.hybrid_command(name="updates", description=cmds.string_list["updates"])
     async def updates(self, ctx):
+        top10card = None
         await ctx.defer()
-        cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+        cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
 
-        updates = await Utils.reddit.fetchPosts(Utils.reddit.PostType.STANDARD_UPDATE)
+        updates = await Utils.reddit.fetch_posts(Utils.reddit.PostType.STANDARD_UPDATE)
         text = f"Total Standard Updates: {len(updates)}\n\n"
 
         try:
@@ -119,10 +120,11 @@ class MiscCog(commands.Cog):
     # TODO: refactor this, I just copy & pasted updates, this should be more modular but I'm tired now
     @commands.hybrid_command(name="legacyupdates", description="Legacy Updates")
     async def legacyupdates(self, ctx):
+        top10card = None
         await ctx.defer()
-        cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+        cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
 
-        updates = await Utils.reddit.fetchPosts(Utils.reddit.PostType.LEGACY_UPDATE)
+        updates = await Utils.reddit.fetch_posts(Utils.reddit.PostType.LEGACY_UPDATE)
         text = f"Total Legacy Updates: {len(updates)}\n\n"
 
         try:
@@ -140,16 +142,15 @@ class MiscCog(commands.Cog):
         if len(text) >= 2000:
             with open("Data/stats_result.txt", "w") as file:
                 file.write(text)
-            # await ctx.send(file=discord.File("Data/stats_result.txt"))
             await ctx.send("", file=discord.File("Data/stats_result.txt"))
         else:
             text = "```" + text + "```"
             await ctx.send(text)
 
-    @commands.hybrid_command(name="top10", description=cmds.list["top10"])
+    @commands.hybrid_command(name="top10", description=cmds.string_list["top10"])
     async def top10(self, ctx):
         await ctx.defer()
-        cards = await Utils.reddit.fetchPosts(Utils.reddit.PostType.CARD)
+        cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
 
         if len(cards) <= 0:
             await ctx.send("No cards found for this week. Go post some!")
@@ -164,37 +165,37 @@ class MiscCog(commands.Cog):
         await ctx.send(text)
 
 
-    @commands.hybrid_command(name="coinflip", description=cmds.list["coinflip"])
+    @commands.hybrid_command(name="coinflip", description=cmds.string_list["coinflip"])
     async def coinflip(self, ctx):
         await ctx.send("Tails!" if (0.5 < random.random()) else "Head!")
 
-    @commands.hybrid_command(name="github", description=cmds.list["github"])
+    @commands.hybrid_command(name="github", description=cmds.string_list["github"])
     async def github(self, ctx):
         await ctx.send("https://github.com/sebakocz/parroting-parrot")
 
-    @commands.hybrid_command(name="support", description=cmds.list["support"])
-    async def support(selfs, ctx):
+    @commands.hybrid_command(name="support", description=cmds.string_list["support"])
+    async def support(self, ctx):
         await ctx.send("https://www.buymeacoffee.com/sevas")
 
-    @commands.hybrid_command(name="help", description=cmds.list["help"])
+    @commands.hybrid_command(name="help", description=cmds.string_list["help"])
     async def help(self, ctx):
         embed = discord.Embed(title="Commands", description="List of usable commands. Case sensitive.", color=0x2eaed4)
 
-        embed.add_field(name="!top10", value=cmds.list["top10"])
-        embed.add_field(name="!updates", value=cmds.list["updates"])
-        embed.add_field(name="!stats", value=cmds.list["stats"])
-        embed.add_field(name="!week <last|next|number>", value=cmds.list["week"])
-        embed.add_field(name="!daily_challenge", value=cmds.list["daily_challenge"])
+        embed.add_field(name="!top10", value=cmds.string_list["top10"])
+        embed.add_field(name="!updates", value=cmds.string_list["updates"])
+        embed.add_field(name="!stats", value=cmds.string_list["stats"])
+        embed.add_field(name="!week <last|next|number>", value=cmds.string_list["week"])
+        embed.add_field(name="!daily_challenge", value=cmds.string_list["daily_challenge"])
         embed.add_field(
             name='!submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>',
-            value=cmds.list["submit"])
-        embed.add_field(name="!art card_link", value=cmds.list["art"])
-        embed.add_field(name="!art_to_card", value=cmds.list["art_to_card"])
-        embed.add_field(name="!parrot sentence", value=cmds.list["parrot"])
-        embed.add_field(name="!gif", value=cmds.list["gif"])
-        embed.add_field(name="!coinflip", value=cmds.list["coinflip"])
-        embed.add_field(name="!github", value=cmds.list["github"])
-        embed.add_field(name="!support", value=cmds.list["support"])
+            value=cmds.string_list["submit"])
+        embed.add_field(name="!art card_link", value=cmds.string_list["art"])
+        embed.add_field(name="!art_to_card", value=cmds.string_list["art_to_card"])
+        embed.add_field(name="!parrot sentence", value=cmds.string_list["parrot"])
+        embed.add_field(name="!gif", value=cmds.string_list["gif"])
+        embed.add_field(name="!coinflip", value=cmds.string_list["coinflip"])
+        embed.add_field(name="!github", value=cmds.string_list["github"])
+        embed.add_field(name="!support", value=cmds.string_list["support"])
 
         await ctx.send(embed=embed)
 
@@ -218,7 +219,7 @@ class MiscCog(commands.Cog):
         await ctx.send(embed=embed)
 
     # credits to Gokun for the idea
-    @commands.hybrid_command(name="daily_challenge", description=cmds.list["daily_challenge"])
+    @commands.hybrid_command(name="daily_challenge", description=cmds.string_list["daily_challenge"])
     async def daily_challenge(self, ctx):
         text = "**Daily Brew Challenge**\n"
 
@@ -246,14 +247,14 @@ class MiscCog(commands.Cog):
     @tasks.loop(time=datetime.time(hour=6, minute=30))
     async def task_reset_challenge(self):
         open('Data/challenge_players.txt', 'w').close()
-        await Utils.collective_misc.setChallengeCards()
+        await Utils.collective_misc.set_challenge_cards()
 
     @commands.Cog.listener()
     async def on_message(self, msg):
         if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
             embed_content_in_dict = msg.embeds[0].to_dict()
             match_id = embed_content_in_dict['footer']['text']
-            deck = Utils.collective_db.getDeckFromMatch(match_id)
+            deck = Utils.collective_db.get_deck_from_match(match_id)
 
             with open('Data/challenge_cards.json') as json_file:
                 challenge_cards = json.load(json_file)
@@ -277,9 +278,9 @@ class MiscCog(commands.Cog):
             # session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
             # print(winner_id)
 
-    @commands.hybrid_command(name="gif", description=cmds.list["gif"])
+    @commands.hybrid_command(name="gif", description=cmds.string_list["gif"])
     async def gif(self, ctx):
-        await ctx.send(Utils.tenor_api.getRandomParrotGif())
+        await ctx.send(Utils.tenor_api.get_random_parrot_gif())
 
 async def setup(bot):  # an extension must have a setup function
     await bot.add_cog(MiscCog(bot))  # adding a cog

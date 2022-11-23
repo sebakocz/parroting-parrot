@@ -15,7 +15,7 @@ class DictFetcher:
         list_ratio = []
         list_partial = []
         for entry in self.card_set:
-            # lets check if an entry is "good enough" to be our card
+            # checks if an entry is "good enough" to be our card
             ratio = fuzz.ratio(card, entry)
             partial = fuzz.partial_ratio(card, entry)
             if ratio > max_ratio[1]:

@@ -8,7 +8,7 @@ import aiohttp
 import dateutil.parser
 import requests
 
-def jsonFromLink(card_link):
+def json_from_link(card_link):
     # 1. extract ID from the card link
     # 2. use ID to get the card's json data via an API call
     card_id = re.search('(?<=/p/cards/)(.*?)(?=...png)', card_link)
@@ -17,15 +17,15 @@ def jsonFromLink(card_link):
     return card_json
 
 
-def findProperty(properties, target):
-    for property in properties:
-        if(property["Symbol"]["Name"] == target):
-            return property["Expression"]["Value"]
+def find_property(properties, target):
+    for json_property in properties:
+        if json_property["Symbol"]["Name"] == target:
+            return json_property["Expression"]["Value"]
     raise ValueError(f"Property not found: {target}")
 
-def getArt(card_link):
-    card = jsonFromLink(card_link)
-    art = findProperty(card["Text"]["Properties"], "PortraitUrl")
+def get_art(card_link):
+    card = json_from_link(card_link)
+    art = find_property(card["Text"]["Properties"], "PortraitUrl")
     return art
 
 def login():
@@ -44,7 +44,7 @@ def login():
 
     return session
 
-def artToCard(art_link):
+def art_to_card(art_link):
     submit_url = 'https://server.collective.gg/api/submit-card'
 
     session = login()
@@ -60,7 +60,7 @@ def artToCard(art_link):
 
     return json.loads(submit_post.text)["redditLink"]
 
-def fetchRandomCardNames():
+def fetch_random_card_names():
     # names fetching for bot activity
     # get a pool of 100 random card names from public cards api
 
@@ -74,7 +74,7 @@ def fetchRandomCardNames():
 
     return cards
 
-async def fetchRandomCards():
+async def fetch_random_cards():
     async with aiohttp.ClientSession() as session:
         async with session.get('https://server.collective.gg/api/public-cards/') as response:
             return random.sample([card for card in json.loads(await response.text())['cards']

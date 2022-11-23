@@ -2,6 +2,14 @@ from Fetcher import dict_fetcher
 import requests
 
 
+def card_set_url(card_set):
+    """
+    returns a correct url based on which set is being used
+    """
+
+    return f"https://dd.b.pvp.net/latest/set{card_set}/en_us/data/set{card_set}-en_us.json"
+
+
 class LorFetcher(dict_fetcher.DictFetcher):
 
     def __init__(self):
@@ -13,24 +21,17 @@ class LorFetcher(dict_fetcher.DictFetcher):
         # exclude unreachable sets like: "nameRef": "SetEvent"
         # this part might cause in error in the future if syntax changes
         sets_range = []
-        for set in globals_sets:
-            if "Set" in set["nameRef"]:
-                set_suffix = set["nameRef"][3:]
-                if(set_suffix.isnumeric()):
+        for card_set in globals_sets:
+            if "Set" in card_set["nameRef"]:
+                set_suffix = card_set["nameRef"][3:]
+                if set_suffix.isnumeric():
                     sets_range.append(set_suffix)
 
         # go through each set, previously the range been set manually
         # this uses official riot api - https://developer.riotgames.com/docs/lor#data-dragon
-        card_set = {}
-        for set in sets_range:
-            for card in requests.get(self.card_set_url(set)).json():
+        cards = {}
+        for card_set in sets_range:
+            for card in requests.get(card_set_url(card_set)).json():
                 if card["rarity"] != "None":
-                    card_set[card['name']] = card['assets'][0]["gameAbsolutePath"]
-        return super().__init__(card_set)
-
-    def card_set_url(self, set):
-        """
-        returns a correct url based on which set is being used
-        """
-
-        return f"http://dd.b.pvp.net/latest/set{set}/en_us/data/set{set}-en_us.json"
+                    cards[card['name']] = card['assets'][0]["gameAbsolutePath"]
+        super().__init__(cards)

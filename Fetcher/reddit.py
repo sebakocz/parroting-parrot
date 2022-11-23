@@ -1,5 +1,6 @@
 import praw, os
 
+
 class CollectiveSub:
     """
     this class is used in order to get data from the collective subreddit.
@@ -15,14 +16,14 @@ class CollectiveSub:
         """
         fetches a card from the subreddit.
         """
-        # searches the usbreddit for a card with the given name
-        # and grabs the first result who's name starts with "["
+        # searches the subreddit for a card with the given name
+        # and grabs the first result whose name starts with "["
         for post in self.sub.search(card_name, limit=1):
             if post.title.startswith('['):
                 return post.url
         raise KeyError("Card Not found")
 
-    def get_top(self, num, type, week):
+    def get_top(self, num, submit_type, week):
         """
         Returns the top <num> post of the subreddit that were posted on week <week> of type <type>.
         for example: get_top(10, "card", 44) will return the top 10 posted cards of week 44.
@@ -36,6 +37,6 @@ class CollectiveSub:
             key=lambda x: x.score,
             reverse=True
         )
-        for post in list(filter(lambda x: x.title.lower().startswith(type), posts))[:num]:
+        for post in list(filter(lambda x: x.title.lower().startswith(submit_type), posts))[:num]:
             ret.append(post.url + ' | ' + str(post.score) + ' | ' + str(int(post.upvote_ratio * 100)) + '%')
         return ret
