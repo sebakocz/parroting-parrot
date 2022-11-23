@@ -2,9 +2,7 @@ import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 
-from fuzzywuzzy import fuzz
-
-def findCardLink(name_input):
+def getGoogleSheet(sheetId, sheetNumber):
     # define the scope
     scope = [
         "https://www.googleapis.com/auth/spreadsheets",
@@ -18,10 +16,10 @@ def findCardLink(name_input):
     client = gspread.authorize(creds)
 
     # get the instance of the Spreadsheet
-    sheet = client.open_by_key("1GqUqHDlW3gSzasXYt8LhhzigXCduWyz_Dvz2rpXzBfM")
+    sheet = client.open_by_key(sheetId)
 
     # get the first sheet of the Spreadsheet
-    sheet_instance = sheet.get_worksheet(1)
+    sheet_instance = sheet.get_worksheet(sheetNumber)
 
     # get all the records of the data
     records_data = sheet_instance.get_all_records()
@@ -29,13 +27,7 @@ def findCardLink(name_input):
     # convert the json to dataframe
     records_df = pd.DataFrame.from_dict(records_data)
 
-    df = records_df.reset_index()  # make sure indexes pair with number of rows
+    # make sure indexes pair with number of rows
+    df = records_df.reset_index()
 
-    # stepwise check similarity of the card name using the list below
-    thresholds = [90, 80, 70]
-    for threshold in thresholds:
-        for index, row in df.iterrows():
-            if (fuzz.partial_ratio(row["name"], " ".join(name_input)) >= threshold):
-                return row["link"]
-
-    return f"Couldn't find '{' '.join(name_input)}'."
+    return df

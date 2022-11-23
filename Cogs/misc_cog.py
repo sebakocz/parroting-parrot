@@ -8,7 +8,6 @@ from discord.ext import commands, tasks
 from discord import app_commands
 
 import Utils.reddit
-import Utils.googleSheet
 import Utils.collectiveApi
 import Utils.collective_db
 import Utils.collective_misc

@@ -1,5 +1,5 @@
 from Fetcher import dict_fetcher
-from Utils.memeSheet import memeCompilation
+from Utils.googleSheetApi import getGoogleSheet
 
 
 class MemeFetcher(dict_fetcher.DictFetcher):
@@ -9,6 +9,6 @@ class MemeFetcher(dict_fetcher.DictFetcher):
 
     def __init__(self):
         cards = {}
-        for index, row in memeCompilation().iterrows():
+        for index, row in getGoogleSheet("1Qa-bbX2JQSGDbqkAiZZOyOfMP4MBdwOpTW-RVHdcIZw", 0).iterrows():
             cards[row['keyword']] = row['url']
         super().__init__(cards)
