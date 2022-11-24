@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import datetime
 from itertools import cycle
@@ -14,6 +15,8 @@ import Utils.collective_misc
 import Utils.tenor_api
 
 from Utils.reddit import submit
+
+isDev = os.getenv("DEV") == "True"
 
 
 async def show_sub_results(ctx, submission_type):
@@ -121,11 +124,11 @@ class MiscCog(commands.Cog):
         submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD,
     ):
         # Grief's request: limit submissions to the submission channel
-        if ctx.channel.id != 430071237104893964:
+        if ctx.channel.id != 430071237104893964 and not isDev:
             await ctx.send("Please use the submission channel for submissions.")
             return
-        await submit(card_link, optional_text, submission_type.value)
-        await ctx.send("Submitted!")
+        link = await submit(card_link, optional_text, submission_type.value)
+        await ctx.send(link)
 
     @commands.hybrid_command(
         name="updates", description="Shows a list of updates from current voting week"

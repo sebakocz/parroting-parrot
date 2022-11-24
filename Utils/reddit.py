@@ -74,8 +74,11 @@ async def submit(card_link, optional_text="", submit_type="[Card]"):
     if optional_text != "":
         title += f" ({optional_text})"
 
-    await subreddit.submit(title, url=card_link)
+    submission = await subreddit.submit(title, url=card_link)
+    await submission.load()
     await reddit.close()
+
+    return f"https://www.reddit.com{submission.permalink}"
 
 
 async def fetch_posts(submit_type):
