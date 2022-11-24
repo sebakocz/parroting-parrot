@@ -1,24 +1,24 @@
 from discord.ext import commands
 import Fetcher.collective, Fetcher.reddit, Fetcher.mtg, Fetcher.eternal, Fetcher.ygo, Fetcher.hs, Fetcher.lor, Fetcher.keyforge, Fetcher.marvelsnap, Fetcher.meme
+from Fetcher.fetcher_list import FetcherList
 
 
 class FetcherCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.card_fetchers = {
-            "none": Fetcher.collective.CollectiveFetcher(),
-            "tk": Fetcher.collective.CollectiveTokenFetcher(),
-            "coll": Fetcher.collective.CollectiveAnyFetcher(),
-            "sub": Fetcher.reddit.CollectiveSub(),
-            "mtg": Fetcher.mtg.MtgFetcher(),
-            "et": Fetcher.eternal.EternalFetcher(),
-            "ygo": Fetcher.ygo.YugiohFetcher(),
-            "hs": Fetcher.hs.HsFetcher(),
-            "lor": Fetcher.lor.LorFetcher(),
-            "kf": Fetcher.keyforge.KeyforgeFetcher(),
-            "hero": Fetcher.collective.CollectiveHeroFetcher(),
-            "ms": Fetcher.marvelsnap.MarvelSnapFetcher(),
-            "meme": Fetcher.meme.MemeFetcher(),
+            FetcherList.col.mod: Fetcher.collective.CollectiveFetcher(),
+            FetcherList.tk.mod: Fetcher.collective.CollectiveTokenFetcher(),
+            FetcherList.sub.mod: Fetcher.reddit.CollectiveSub(),
+            FetcherList.mtg.mod: Fetcher.mtg.MtgFetcher(),
+            FetcherList.et.mod: Fetcher.eternal.EternalFetcher(),
+            FetcherList.ygo.mod: Fetcher.ygo.YugiohFetcher(),
+            FetcherList.hs.mod: Fetcher.hs.HsFetcher(),
+            FetcherList.lor.mod: Fetcher.lor.LorFetcher(),
+            FetcherList.kf.mod: Fetcher.keyforge.KeyforgeFetcher(),
+            FetcherList.hero.mod: Fetcher.collective.CollectiveHeroFetcher(),
+            FetcherList.ms.mod: Fetcher.marvelsnap.MarvelSnapFetcher(),
+            FetcherList.meme.mod: Fetcher.meme.MemeFetcher(),
         }
 
     def get_card_name(self, text):
@@ -42,7 +42,7 @@ class FetcherCog(commands.Cog):
                         mod = "none"
                     cards.append((mod, card))
                 else:
-                    cards.append(("none", query))  # gets the name of the card
+                    cards.append(("", query))  # gets the name of the card
             text = text[end + 2 :]  # cuts out the part with the card
             start = text.find("[[")  # and the circle begins anew
         return cards

@@ -14,7 +14,6 @@ import Utils.collective_misc
 import Utils.tenor_api
 
 from Utils.reddit import submit
-import Data.command_descriptions as cmds
 
 
 class MiscCog(commands.Cog):
@@ -33,7 +32,9 @@ class MiscCog(commands.Cog):
     async def task_change_activity(self):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
 
-    @commands.hybrid_command(name="week", description=cmds.string_list["week"])
+    @commands.hybrid_command(
+        name="week", description="Shows when the submission week is over"
+    )
     @app_commands.describe(week_number="X weeks away from ongoing week")
     async def week(self, ctx, week_number="1"):
         if week_number == "last".lower():
@@ -42,13 +43,14 @@ class MiscCog(commands.Cog):
             week_number = 2
         await ctx.send(f"<t:{Utils.reddit.get_week_unix_stamp(int(week_number))}>")
 
-    @commands.hybrid_command(name="parrot", description=cmds.string_list["parrot"])
+    @commands.hybrid_command(name="parrot", description="Repeats the sentence")
     @app_commands.describe(sentence="type something for parrot to repeat")
     async def parrot(self, ctx, *, sentence):
         await ctx.send(f"> {sentence}")
 
     @commands.hybrid_command(
-        name="art_to_card", description=cmds.string_list["art_to_card"]
+        name="art_to_card",
+        description="Creates an empty card (Attach an image to the same message)",
     )
     async def art_to_card(self, ctx, image: discord.Attachment):
 
@@ -59,7 +61,9 @@ class MiscCog(commands.Cog):
             print("Error in art_to_card: ", e)
             await ctx.send("Something went wrong...")
 
-    @commands.hybrid_command(name="art", description=cmds.string_list["art"])
+    @commands.hybrid_command(
+        name="art", description="Returns the full image used for the card art"
+    )
     @app_commands.describe(
         card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png"
     )
@@ -71,7 +75,9 @@ class MiscCog(commands.Cog):
             print(e)
             await ctx.send("Something went wrong.")
 
-    @commands.hybrid_command(name="submit", description=cmds.string_list["submit"])
+    @commands.hybrid_command(
+        name="submit", description="Submits a card to the subreddit"
+    )
     @app_commands.describe(
         card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png",
         optional_text="optional text displayed in parentheses",
@@ -91,7 +97,9 @@ class MiscCog(commands.Cog):
         await submit(card_link, optional_text, submission_type.value)
         await ctx.send("Submitted!")
 
-    @commands.hybrid_command(name="updates", description=cmds.string_list["updates"])
+    @commands.hybrid_command(
+        name="updates", description="Shows a list of updates from current voting week"
+    )
     async def updates(self, ctx):
         top10card = None
         await ctx.defer()
@@ -151,7 +159,10 @@ class MiscCog(commands.Cog):
             text = "```" + text + "```"
             await ctx.send(text)
 
-    @commands.hybrid_command(name="top10", description=cmds.string_list["top10"])
+    @commands.hybrid_command(
+        name="top10",
+        description="Shows a list of the top10 cards from current voting week",
+    )
     async def top10(self, ctx):
         await ctx.defer()
         cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
@@ -168,71 +179,25 @@ class MiscCog(commands.Cog):
 
         await ctx.send(text)
 
-    @commands.hybrid_command(name="coinflip", description=cmds.string_list["coinflip"])
+    @commands.hybrid_command(
+        name="coinflip", description="Flips a coin. Returns either 'Tails' or 'Head'"
+    )
     async def coinflip(self, ctx):
         await ctx.send("Tails!" if (0.5 < random.random()) else "Head!")
 
-    @commands.hybrid_command(name="github", description=cmds.string_list["github"])
+    @commands.hybrid_command(name="github", description="Shows Parrot's code")
     async def github(self, ctx):
         await ctx.send("https://github.com/sebakocz/parroting-parrot")
 
-    @commands.hybrid_command(name="support", description=cmds.string_list["support"])
+    @commands.hybrid_command(
+        name="support", description="Sevas also accepts love, food and shelter"
+    )
     async def support(self, ctx):
         await ctx.send("https://www.buymeacoffee.com/sevas")
 
-    @commands.hybrid_command(name="help", description=cmds.string_list["help"])
-    async def help(self, ctx):
-        embed = discord.Embed(
-            title="Commands",
-            description="List of usable commands. Case sensitive.",
-            color=0x2EAED4,
-        )
-
-        embed.add_field(name="!top10", value=cmds.string_list["top10"])
-        embed.add_field(name="!updates", value=cmds.string_list["updates"])
-        embed.add_field(name="!stats", value=cmds.string_list["stats"])
-        embed.add_field(name="!week <last|next|number>", value=cmds.string_list["week"])
-        embed.add_field(
-            name="!daily_challenge", value=cmds.string_list["daily_challenge"]
-        )
-        embed.add_field(
-            name='!submit card_link <"card text, default is empty"> <[submit type, default is [Card]]>',
-            value=cmds.string_list["submit"],
-        )
-        embed.add_field(name="!art card_link", value=cmds.string_list["art"])
-        embed.add_field(name="!art_to_card", value=cmds.string_list["art_to_card"])
-        embed.add_field(name="!parrot sentence", value=cmds.string_list["parrot"])
-        embed.add_field(name="!gif", value=cmds.string_list["gif"])
-        embed.add_field(name="!coinflip", value=cmds.string_list["coinflip"])
-        embed.add_field(name="!github", value=cmds.string_list["github"])
-        embed.add_field(name="!support", value=cmds.string_list["support"])
-
-        await ctx.send(embed=embed)
-
-        embed = discord.Embed(
-            title="Fetcher",
-            description="You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.",
-            color=0x2EAED4,
-        )
-
-        embed.add_field(name="[[name]]", value="a non-token card from Collective")
-        embed.add_field(name="[[tk:name]]", value="a token card from Collective")
-        embed.add_field(name="[[hero:name]]", value="a hero from Collective")
-        embed.add_field(name="[[sub:name]]", value="a card from Collective's subreddit")
-        embed.add_field(name="[[mtg:name]]", value="Magic the Gathering")
-        embed.add_field(name="[[et:name]]", value="Eternal")
-        embed.add_field(name="[[ygo:name]]", value="Yugioh")
-        embed.add_field(name="[[hs:name]]", value="Hearthstone")
-        embed.add_field(name="[[kf:name]]", value="Keyforge")
-        embed.add_field(name="[[lor:name]]", value="Legends of Runeterra")
-        embed.add_field(name="[[ms:name]]", value="Marvel Snap")
-        embed.add_field(name="[[meme:keyword]]", value="Collective Memes")
-
-        await ctx.send(embed=embed)
-
     # credits to Gokun for the idea
     @commands.hybrid_command(
-        name="daily_challenge", description=cmds.string_list["daily_challenge"]
+        name="daily_challenge", description="Shows today's brew challenge"
     )
     async def daily_challenge(self, ctx):
         text = "**Daily Brew Challenge**\n"
@@ -292,7 +257,7 @@ class MiscCog(commands.Cog):
             # session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
             # print(winner_id)
 
-    @commands.hybrid_command(name="gif", description=cmds.string_list["gif"])
+    @commands.hybrid_command(name="gif", description="Shows a random parrot")
     async def gif(self, ctx):
         await ctx.send(Utils.tenor_api.get_random_parrot_gif())
 

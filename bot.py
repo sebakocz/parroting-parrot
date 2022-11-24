@@ -17,6 +17,8 @@ from discord.ext import commands
 import asyncio
 import platform
 
+from help import CustomHelpCmd
+
 # prevent event loop is closed error
 # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
 if platform.system() == "Windows":
@@ -55,7 +57,7 @@ intents = discord.Intents.all()
 
 bot = MyBot(
     command_prefix="!",
-    help_command=None,
+    help_command=CustomHelpCmd(),
     intents=intents,
 )
 

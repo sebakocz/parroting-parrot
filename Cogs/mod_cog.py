@@ -13,9 +13,7 @@ class ModCog(commands.Cog):
             discord.utils.get(ctx.author.roles, id=876985473061503046) is not None
         )
 
-    @commands.hybrid_command(
-        name="set_flair", description="changes current flair on the subreddit"
-    )
+    @commands.hybrid_command(name="set_flair")
     @app_commands.default_permissions(manage_messages=True)
     async def set_flair(self, ctx, season: int, week: int):
         await reddit.change_flair(season, week)
