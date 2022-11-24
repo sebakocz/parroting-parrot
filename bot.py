@@ -8,6 +8,7 @@
 #
 # total_hours_wasted_here = 254
 import os
+import logging as log
 
 from dotenv import load_dotenv
 
@@ -25,10 +26,12 @@ from help import CustomHelpCmd
 if platform.system() == "Windows":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+discord.utils.setup_logging()
+
 load_dotenv()
 
 isDev = os.getenv("DEV") == "True"
-print(f"INFO: Running in {'DEV' if isDev else 'PROD'} mode")
+log.info(f"Running in {'DEV' if isDev else 'PROD'} mode")
 
 
 class MyBot(commands.Bot):
@@ -36,13 +39,13 @@ class MyBot(commands.Bot):
 
         for filename in os.listdir("Cogs"):
             if filename.endswith(".py"):
-                print(f"Loading Cog: {filename}")
+                log.info(f"Loading Cog: {filename}")
                 await bot.load_extension(f"Cogs.{filename[:-3]}")
             else:
                 if filename == "__pycache__":
                     continue
 
-                print(f"Unable to load {filename}")
+                log.error(f"Unable to load {filename}")
 
         # await bot.load_extension('Cogs.dev_cog')
         # await bot.load_extension('Cogs.reaction_cog')
@@ -55,7 +58,7 @@ class MyBot(commands.Bot):
         # await self.tree.sync(guild=discord.Object(id=guild_id))
 
         if isDev:
-            print("DEV: Updating README.md")
+            log.info("DEV: Updating README.md")
             with open("README.md", "w") as f:
                 f.write(
                     "# ParrotingParrot - A friendly feather of Collective, The Community Created Card Game"
@@ -91,7 +94,7 @@ bot = MyBot(
 
 @bot.event
 async def on_ready():
-    print(f"{bot.user} has connected to Discord!")
+    log.info(f"{bot.user} has connected to Discord!")
 
 
 @bot.check_once
@@ -113,4 +116,4 @@ def exclude_banned_users(ctx):
     return True
 
 
-bot.run(os.getenv("DISCORD_TOKEN"))
+bot.run(os.getenv("DISCORD_TOKEN"), log_handler=None)

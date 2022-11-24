@@ -8,6 +8,7 @@ import numpy as np
 from collections import Counter, defaultdict
 import pickle as pck
 from scipy.stats import binom_test
+import logging as log
 
 games_url = "https://server.collective.gg/api/public/games"
 decks_url = "https://server.collective.gg/api/public/decklists"
@@ -77,15 +78,15 @@ async def collect_winrate_data():
         with open(card_name_file, "rb") as src:
             card_names = pck.load(src)
     except FileNotFoundError:
-        print("Could not locate names file.")
+        log.error("Could not locate names file.")
         card_names = {}
 
-    print("Getting card data...")
+    # print("Getting card data...")
     for card in winrates.keys():
         if card in card_names:
             continue  # Skip
         clink = f"https://server.collective.gg/api/card/{card}"
-        print(f"Loading {clink}")
+        log.info(f"Loading {clink}")
         async with aiohttp.ClientSession() as session:
             async with session.get(clink) as response:
                 cobj = json.loads(await response.text())
@@ -93,13 +94,13 @@ async def collect_winrate_data():
         #     cobj = json.loads(src.text)
         name = cobj["card"]["name"]
         card_names[card] = name
-        print(f"Found {name}")
+        # print(f"Found {name}")
 
-    print("Saving card file...")
+    # print("Saving card file...")
     with open(card_name_file, "wb") as src:
         pck.dump(card_names, src)
 
-    print("Building frame")
+    # print("Building frame")
     frm = pd.DataFrame(winrates.items(), columns=["card", "win_pct"])
     frm["name"] = frm["card"].apply(card_names.get)
 
@@ -108,7 +109,7 @@ async def collect_winrate_data():
     frm["played_rate"] = frm["card"].apply(card_idx.get).apply(lambda v: played_arry[v])
 
     pvals = {}
-    print("Getting p-vals")
+    # print("Getting p-vals")
     for idx, row in frm.iterrows():
         c = row["name"]
         w = row["win_rate"]
