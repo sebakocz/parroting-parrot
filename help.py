@@ -2,7 +2,6 @@
 import discord
 from discord.ext import commands
 
-from Cogs.fetcher_cog import FetcherCog
 from Fetcher.fetcher_list import FetcherList
 
 
