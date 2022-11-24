@@ -16,6 +16,36 @@ import Utils.tenor_api
 from Utils.reddit import submit
 
 
+async def show_sub_results(ctx, submission_type):
+    top10card = None
+    await ctx.defer()
+    cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
+
+    updates = await Utils.reddit.fetch_posts(submission_type)
+    text = f"Total Updates: {len(updates)}\n\n"
+
+    try:
+        top10card = cards[9]
+    except IndexError:
+        if len(cards) > 0:
+            top10card = cards[-1]
+
+    if len(cards) > 0:
+        text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
+    for post in updates:
+        # slice "[Update]" away
+        text += f"{post.title[18:]}\nScore: {post.score}\n\n"
+
+    if len(text) >= 2000:
+        with open("Data/stats_result.txt", "w") as file:
+            file.write(text)
+        # await ctx.send(file=discord.File("Data/stats_result.txt"))
+        await ctx.send("", file=discord.File("Data/stats_result.txt"))
+    else:
+        text = "```" + text + "```"
+        await ctx.send(text)
+
+
 class MiscCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -101,63 +131,11 @@ class MiscCog(commands.Cog):
         name="updates", description="Shows a list of updates from current voting week"
     )
     async def updates(self, ctx):
-        top10card = None
-        await ctx.defer()
-        cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
+        await show_sub_results(ctx, Utils.reddit.PostType.STANDARD_UPDATE)
 
-        updates = await Utils.reddit.fetch_posts(Utils.reddit.PostType.STANDARD_UPDATE)
-        text = f"Total Standard Updates: {len(updates)}\n\n"
-
-        try:
-            top10card = cards[9]
-        except IndexError:
-            if len(cards) > 0:
-                top10card = cards[-1]
-
-        if len(cards) > 0:
-            text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
-        for post in updates:
-            # slice "[Update]" away
-            text += f"{post.title[18:]}\nScore: {post.score}\n\n"
-
-        if len(text) >= 2000:
-            with open("Data/stats_result.txt", "w") as file:
-                file.write(text)
-            # await ctx.send(file=discord.File("Data/stats_result.txt"))
-            await ctx.send("", file=discord.File("Data/stats_result.txt"))
-        else:
-            text = "```" + text + "```"
-            await ctx.send(text)
-
-    # TODO: refactor this, I just copy & pasted updates, this should be more modular but I'm tired now
     @commands.hybrid_command(name="legacyupdates", description="Legacy Updates")
     async def legacyupdates(self, ctx):
-        top10card = None
-        await ctx.defer()
-        cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
-
-        updates = await Utils.reddit.fetch_posts(Utils.reddit.PostType.LEGACY_UPDATE)
-        text = f"Total Legacy Updates: {len(updates)}\n\n"
-
-        try:
-            top10card = cards[9]
-        except IndexError:
-            if len(cards) > 0:
-                top10card = cards[-1]
-
-        if len(cards) > 0:
-            text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
-        for post in updates:
-            # slice "[Update]" away
-            text += f"{post.title[16:]}\nScore: {post.score}\n\n"
-
-        if len(text) >= 2000:
-            with open("Data/stats_result.txt", "w") as file:
-                file.write(text)
-            await ctx.send("", file=discord.File("Data/stats_result.txt"))
-        else:
-            text = "```" + text + "```"
-            await ctx.send(text)
+        await show_sub_results(ctx, Utils.reddit.PostType.LEGACY_UPDATE)
 
     @commands.hybrid_command(
         name="top10",
