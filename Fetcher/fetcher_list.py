@@ -1,7 +1,10 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class FetcherObject:
-    def __init__(self, mod, description):
-        self.mod = mod
-        self.description = description
+    mod: str
+    description: str
 
 
 class FetcherList:
