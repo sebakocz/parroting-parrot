@@ -31,6 +31,6 @@ def get_google_sheet(sheet_id, sheet_number):
     records_df = pd.DataFrame.from_dict(records_data)
 
     # make sure indexes pair with number of rows
-    df = records_df.reset_index()
+    dataframe = records_df.reset_index()
 
-    return df
+    return dataframe
