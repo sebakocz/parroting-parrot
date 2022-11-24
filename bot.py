@@ -28,6 +28,8 @@ if platform.system() == "Windows":
 
 discord.utils.setup_logging()
 
+discord.VoiceClient.warn_nacl = False
+
 load_dotenv()
 
 isDev = os.getenv("DEV") == "True"
