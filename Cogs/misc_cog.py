@@ -19,36 +19,6 @@ from Utils.reddit import submit
 isDev = os.getenv("DEV") == "True"
 
 
-async def show_sub_results(ctx, submission_type):
-    top10card = None
-    await ctx.defer()
-    cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
-
-    updates = await Utils.reddit.fetch_posts(submission_type)
-    text = f"Total Updates: {len(updates)}\n\n"
-
-    try:
-        top10card = cards[9]
-    except IndexError:
-        if len(cards) > 0:
-            top10card = cards[-1]
-
-    if len(cards) > 0:
-        text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
-    for post in updates:
-        # slice "[Update]" away
-        text += f"{post.title[18:]}\nScore: {post.score}\n\n"
-
-    if len(text) >= 2000:
-        with open("Data/stats_result.txt", "w") as file:
-            file.write(text)
-        # await ctx.send(file=discord.File("Data/stats_result.txt"))
-        await ctx.send("", file=discord.File("Data/stats_result.txt"))
-    else:
-        text = "```" + text + "```"
-        await ctx.send(text)
-
-
 class MiscCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -130,35 +100,67 @@ class MiscCog(commands.Cog):
         link = await submit(card_link, optional_text, submission_type.value)
         await ctx.send(link)
 
-    @commands.hybrid_command(
-        name="updates", description="Shows a list of updates from current voting week"
-    )
+    @commands.hybrid_command(name="updates")
     async def updates(self, ctx):
-        await show_sub_results(ctx, Utils.reddit.PostType.STANDARD_UPDATE)
+        await ctx.send("Deprecated. Use /showsub instead.")
 
-    @commands.hybrid_command(name="legacyupdates", description="Legacy Updates")
+    @commands.hybrid_command(name="legacyupdates")
     async def legacyupdates(self, ctx):
-        await show_sub_results(ctx, Utils.reddit.PostType.LEGACY_UPDATE)
+        await ctx.send("Deprecated. Use /showsub instead.")
+
+    @commands.hybrid_command(name="top10")
+    async def top10(self, ctx):
+        await ctx.send("Deprecated. Use /showsub instead.")
 
     @commands.hybrid_command(
-        name="top10",
-        description="Shows a list of the top10 cards from current voting week",
+        name="showsub", description="Shows a list of reddit submissions of given type"
     )
-    async def top10(self, ctx):
+    @app_commands.describe(
+        submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
+    )
+    async def showsub(
+        self, ctx, submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD
+    ):
+        top10card = None
         await ctx.defer()
-        cards = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
 
-        if len(cards) <= 0:
-            await ctx.send("No cards found for this week. Go post some!")
+        # fetch normal cards since we use the top 10th card as point of reference
+        normal_card_posts = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
+
+        # prevent calling reddit twice
+        if submission_type != Utils.reddit.PostType.CARD:
+            target_posts = await Utils.reddit.fetch_posts(submission_type)
+        else:
+            target_posts = normal_card_posts
+
+        # no cards?
+        if len(target_posts) <= 0:
+            await ctx.send(
+                f"No {submission_type.value} cards found for this week. Go post some!"
+            )
             return
 
-        text = ""
-        for post in cards[:9]:
-            # slice "[Card]" away
-            text += f"{post.title[7:]}\nScore: {post.score}\n\n"
-        text = "```" + text + "```"
+        # build output
+        text = f"Total {submission_type.value}: {len(target_posts)}\n\n"
 
-        await ctx.send(text)
+        try:
+            top10card = normal_card_posts[9]
+        except IndexError:
+            if len(normal_card_posts) > 0:
+                top10card = normal_card_posts[-1]
+
+        if len(normal_card_posts) > 0:
+            text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
+        for post in target_posts:
+            text += f"{post.title}\nScore: {post.score}\n\n"
+
+        if len(text) >= 2000:
+            with open("Data/stats_result.txt", "w") as file:
+                file.write(text)
+            await ctx.send("", file=discord.File("Data/stats_result.txt"))
+        else:
+            text = "```" + text + "```"
+            await ctx.send(text)
 
     @commands.hybrid_command(
         name="coinflip", description="Flips a coin. Returns either 'Tails' or 'Head'"

@@ -15,18 +15,14 @@ Shows today's brew challenge
 Shows a random parrot
 ### !github 
 Shows Parrot's code
-### !legacyupdates 
-Legacy Updates
 ### !parrot <sentence>
 Repeats the sentence
+### !showsub [submission_type=PostType.CARD]
+Shows a list of reddit submissions of given type
 ### !submit <card_link> [optional_text] [submission_type=PostType.CARD]
 Submits a card to the subreddit
 ### !support 
 Sevas also accepts love, food and shelter
-### !top10 
-Shows a list of the top10 cards from current voting week
-### !updates 
-Shows a list of updates from current voting week
 ### !week [week_number=1]
 Shows when the submission week is over
 
