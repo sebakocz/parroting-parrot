@@ -50,6 +50,7 @@ class MyBot(commands.Bot):
                 log.error(f"Unable to load {filename}")
 
         # await bot.load_extension("Cogs.dev_cog")
+        # await bot.load_extension("Cogs.reddit_cog")
         # await bot.load_extension('Cogs.reaction_cog')
         # await bot.load_extension('Cogs.mod_cog')
         # await bot.load_extension('Cogs.misc_cog')

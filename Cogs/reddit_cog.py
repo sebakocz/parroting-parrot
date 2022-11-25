@@ -41,27 +41,38 @@ class RedditCog(commands.Cog):
         name="showsub", description="Shows a list of reddit submissions of given type"
     )
     @app_commands.describe(
-        submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
+        submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]",
+        weeks_ago="optional number of weeks ago to show submissions from - default is 0",
     )
-    async def menu(
+    async def showsub(
         self,
         interaction: Interaction,
         submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD,
+        weeks_ago: int = 0,
     ):
+        # validate input
+        if weeks_ago < 0:
+            await interaction.response.send_message(
+                "weeks_ago must be a positive number or zero", ephemeral=True
+            )
+            return
+
         top10card = None
         await interaction.response.defer()
 
-        # fetch normal cards since we use the top 10th card as point of reference
-        normal_card_posts = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
+        target_posts = await Utils.reddit.fetch_posts(submission_type, -weeks_ago)
 
-        # prevent calling reddit twice
-        if submission_type != Utils.reddit.PostType.CARD:
-            target_posts = await Utils.reddit.fetch_posts(submission_type)
-        else:
-            target_posts = normal_card_posts
+        # # fetch normal cards since we use the top 10th card as point of reference
+        # normal_card_posts = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
+        #
+        # # prevent calling reddit twice
+        # if submission_type != Utils.reddit.PostType.CARD:
+        #     target_posts = await Utils.reddit.fetch_posts(submission_type, -weeks_ago)
+        # else:
+        #     target_posts = normal_card_posts
 
         # no cards?
-        if len(target_posts) <= 0:
+        if weeks_ago == 0 and len(target_posts) <= 0:
             await interaction.followup.send(
                 f"No {submission_type.value} cards found for this week. Go post some!"
             )

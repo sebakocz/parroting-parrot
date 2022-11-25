@@ -7,6 +7,7 @@ from enum import Enum
 import asyncpraw
 
 import Utils.collectiveApi
+import constants
 
 
 class PostType(Enum):
@@ -78,13 +79,13 @@ async def submit(card_link, optional_text="", submit_type="[Card]"):
     await submission.load()
     await reddit.close()
 
-    return f"https://www.reddit.com{submission.permalink}"
+    return f"{constants.REDDIT_BASE_URL}{submission.permalink}"
 
 
-async def fetch_posts(submit_type):
+async def fetch_posts(submit_type, week_number=0):
 
     # 0 = starting timestamp of current running week
-    unix_stamp = get_week_unix_stamp(0)
+    unix_stamp = get_week_unix_stamp(week_number)
 
     subreddit, reddit = await get_subreddit()
     posts = []
@@ -92,7 +93,10 @@ async def fetch_posts(submit_type):
         # Debug
         # print(post.title)
         # print(post.created)
-        if submit_type.value in post.title and post.created > unix_stamp:
+        if (
+            submit_type.value in post.title
+            and unix_stamp < post.created < unix_stamp + constants.SECONDS_IN_WEEK
+        ):
             posts.append(post)
     await reddit.close()
 
