@@ -49,7 +49,7 @@ class MyBot(commands.Bot):
 
                 log.error(f"Unable to load {filename}")
 
-        # await bot.load_extension('Cogs.dev_cog')
+        # await bot.load_extension("Cogs.dev_cog")
         # await bot.load_extension('Cogs.reaction_cog')
         # await bot.load_extension('Cogs.mod_cog')
         # await bot.load_extension('Cogs.misc_cog')
@@ -72,7 +72,7 @@ class MyBot(commands.Bot):
                     [command for command in bot.commands if command.description],
                     key=lambda x: x.name,
                 ):
-                    f.write(f"\n### !{command.name} {command.signature}")
+                    f.write(f"\n### /{command.name} {command.signature}")
                     f.write(f"\n{command.description}")
 
                 f.write("\n\n## Fetcher")

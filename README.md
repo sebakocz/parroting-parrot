@@ -3,27 +3,25 @@
 ## Commands
 List of usable commands. Case-sensitive.
 
-### !art <card_link>
+### /art <card_link>
 Returns the full image used for the card art
-### !art_to_card <image (upload a file)>
+### /art_to_card <image (upload a file)>
 Creates an empty card (Attach an image to the same message)
-### !coinflip 
+### /coinflip 
 Flips a coin. Returns either 'Tails' or 'Head'
-### !daily_challenge 
+### /daily_challenge 
 Shows today's brew challenge
-### !gif 
+### /gif 
 Shows a random parrot
-### !github 
+### /github 
 Shows Parrot's code
-### !parrot <sentence>
+### /parrot <sentence>
 Repeats the sentence
-### !showsub [submission_type=PostType.CARD]
-Shows a list of reddit submissions of given type
-### !submit <card_link> [optional_text] [submission_type=PostType.CARD]
+### /submit <card_link> [optional_text] [submission_type=PostType.CARD]
 Submits a card to the subreddit
-### !support 
+### /support 
 Sevas also accepts love, food and shelter
-### !week [week_number=1]
+### /week [week_number=1]
 Shows when the submission week is over
 
 ## Fetcher

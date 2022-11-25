@@ -8,15 +8,10 @@ import discord
 from discord.ext import commands, tasks
 from discord import app_commands
 
-import Utils.reddit
 import Utils.collectiveApi
 import Utils.collective_db
 import Utils.collective_misc
 import Utils.tenor_api
-
-from Utils.reddit import submit
-
-isDev = os.getenv("DEV") == "True"
 
 
 class MiscCog(commands.Cog):
@@ -34,17 +29,6 @@ class MiscCog(commands.Cog):
     @tasks.loop(seconds=10)
     async def task_change_activity(self):
         await self.bot.change_presence(activity=discord.Game(next(self.card_list)))
-
-    @commands.hybrid_command(
-        name="week", description="Shows when the submission week is over"
-    )
-    @app_commands.describe(week_number="X weeks away from ongoing week")
-    async def week(self, ctx, week_number="1"):
-        if week_number == "last".lower():
-            week_number = 0
-        if week_number == "next".lower():
-            week_number = 2
-        await ctx.send(f"<t:{Utils.reddit.get_week_unix_stamp(int(week_number))}>")
 
     @commands.hybrid_command(name="parrot", description="Repeats the sentence")
     @app_commands.describe(sentence="type something for parrot to repeat")
@@ -77,90 +61,6 @@ class MiscCog(commands.Cog):
         except Exception as e:
             print(e)
             await ctx.send("Something went wrong.")
-
-    @commands.hybrid_command(
-        name="submit", description="Submits a card to the subreddit"
-    )
-    @app_commands.describe(
-        card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png",
-        optional_text="optional text displayed in parentheses",
-        submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]",
-    )
-    async def submit(
-        self,
-        ctx,
-        card_link,
-        optional_text="",
-        submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD,
-    ):
-        # Grief's request: limit submissions to the submission channel
-        if ctx.channel.id != 430071237104893964 and not isDev:
-            await ctx.send("Please use the submission channel for submissions.")
-            return
-        link = await submit(card_link, optional_text, submission_type.value)
-        await ctx.send(link)
-
-    @commands.hybrid_command(name="updates")
-    async def updates(self, ctx):
-        await ctx.send("Deprecated. Use /showsub instead.")
-
-    @commands.hybrid_command(name="legacyupdates")
-    async def legacyupdates(self, ctx):
-        await ctx.send("Deprecated. Use /showsub instead.")
-
-    @commands.hybrid_command(name="top10")
-    async def top10(self, ctx):
-        await ctx.send("Deprecated. Use /showsub instead.")
-
-    @commands.hybrid_command(
-        name="showsub", description="Shows a list of reddit submissions of given type"
-    )
-    @app_commands.describe(
-        submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]"
-    )
-    async def showsub(
-        self, ctx, submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD
-    ):
-        top10card = None
-        await ctx.defer()
-
-        # fetch normal cards since we use the top 10th card as point of reference
-        normal_card_posts = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
-
-        # prevent calling reddit twice
-        if submission_type != Utils.reddit.PostType.CARD:
-            target_posts = await Utils.reddit.fetch_posts(submission_type)
-        else:
-            target_posts = normal_card_posts
-
-        # no cards?
-        if len(target_posts) <= 0:
-            await ctx.send(
-                f"No {submission_type.value} cards found for this week. Go post some!"
-            )
-            return
-
-        # build output
-        text = f"Total {submission_type.value}: {len(target_posts)}\n\n"
-
-        try:
-            top10card = normal_card_posts[9]
-        except IndexError:
-            if len(normal_card_posts) > 0:
-                top10card = normal_card_posts[-1]
-
-        if len(normal_card_posts) > 0:
-            text += f"PS: Top 10 voted [Card] currently is at {top10card.score} votes! ({top10card.title})\n\n"
-        for post in target_posts:
-            text += f"{post.title}\nScore: {post.score}\n\n"
-
-        if len(text) >= 2000:
-            with open("Data/stats_result.txt", "w") as file:
-                file.write(text)
-            await ctx.send("", file=discord.File("Data/stats_result.txt"))
-        else:
-            text = "```" + text + "```"
-            await ctx.send(text)
 
     @commands.hybrid_command(
         name="coinflip", description="Flips a coin. Returns either 'Tails' or 'Head'"
