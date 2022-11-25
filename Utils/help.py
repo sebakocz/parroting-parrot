@@ -2,8 +2,8 @@
 import discord
 from discord.ext import commands
 
-import constants
 from Fetcher.fetcher_list import FetcherList
+from Utils import constants
 
 
 class CustomHelpCmd(commands.HelpCommand):
