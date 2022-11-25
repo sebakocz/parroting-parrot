@@ -2,7 +2,7 @@
 
 import discord
 from discord.ext import commands, tasks
-import Utils.collective_winrates as analyse
+import Utils.Collective.winrates as analyse
 from discord import app_commands
 
 

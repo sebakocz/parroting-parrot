@@ -1,5 +1,4 @@
 import json
-import os
 import random
 import datetime
 from itertools import cycle
@@ -8,9 +7,9 @@ import discord
 from discord.ext import commands, tasks
 from discord import app_commands
 
-import Utils.collectiveApi
-import Utils.collective_db
-import Utils.collective_misc
+import Utils.Collective.api
+import Utils.Collective.db
+import Utils.Collective.misc
 import Utils.tenor_api
 
 
@@ -19,7 +18,7 @@ class MiscCog(commands.Cog):
         self.bot = bot
 
         # update card names list
-        self.card_list = cycle(Utils.collectiveApi.fetch_random_card_names())
+        self.card_list = cycle(Utils.Collective.api.fetch_random_card_names())
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -43,7 +42,7 @@ class MiscCog(commands.Cog):
 
         try:
             await ctx.defer()
-            await ctx.send(Utils.collectiveApi.art_to_card(image.proxy_url))
+            await ctx.send(Utils.Collective.api.art_to_card(image.proxy_url))
         except Exception as e:
             print("Error in art_to_card: ", e)
             await ctx.send("Something went wrong...")
@@ -56,7 +55,7 @@ class MiscCog(commands.Cog):
     )
     async def art(self, ctx, card_link):
         try:
-            art = Utils.collectiveApi.get_art(card_link)
+            art = Utils.Collective.api.get_art(card_link)
             await ctx.send(art)
         except Exception as e:
             print(e)
@@ -109,14 +108,14 @@ class MiscCog(commands.Cog):
     @tasks.loop(time=datetime.time(hour=6, minute=30))
     async def task_reset_challenge(self):
         open("Data/challenge_players.txt", "w").close()
-        await Utils.collective_misc.set_challenge_cards()
+        await Utils.Collective.misc.set_challenge_cards()
 
     @commands.Cog.listener()
     async def on_message(self, msg):
         if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
             embed_content_in_dict = msg.embeds[0].to_dict()
             match_id = embed_content_in_dict["footer"]["text"]
-            deck = Utils.collective_db.get_deck_from_match(match_id)
+            deck = Utils.Collective.db.get_deck_from_match(match_id)
 
             with open("Data/challenge_cards.json") as json_file:
                 challenge_cards = json.load(json_file)

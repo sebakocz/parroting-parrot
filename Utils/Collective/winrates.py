@@ -10,8 +10,10 @@ import pickle as pck
 from scipy.stats import binom_test
 import logging as log
 
-games_url = "https://server.collective.gg/api/public/games"
-decks_url = "https://server.collective.gg/api/public/decklists"
+from Utils.constants import COLLECTIVE_API_BASE_URL
+
+games_url = f"{COLLECTIVE_API_BASE_URL}/public/games"
+decks_url = f"{COLLECTIVE_API_BASE_URL}/public/decklists"
 
 
 async def collect_winrate_data():
@@ -85,7 +87,7 @@ async def collect_winrate_data():
     for card in winrates.keys():
         if card in card_names:
             continue  # Skip
-        clink = f"https://server.collective.gg/api/card/{card}"
+        clink = f"{COLLECTIVE_API_BASE_URL}/card/{card}"
         log.info(f"Loading {clink}")
         async with aiohttp.ClientSession() as session:
             async with session.get(clink) as response:

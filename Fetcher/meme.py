@@ -1,5 +1,5 @@
 from Fetcher import dict_fetcher
-from Utils.googleSheetApi import get_google_sheet
+from Utils.google_sheet_api import get_google_sheet
 
 
 class MemeFetcher(dict_fetcher.DictFetcher):

@@ -8,14 +8,14 @@ import aiohttp
 import dateutil.parser
 import requests
 
+from Utils.constants import COLLECTIVE_API_BASE_URL
+
 
 def json_from_link(card_link):
     # 1. extract ID from the card link
     # 2. use ID to get the card's json data via an API call
     card_id = re.search("(?<=/p/cards/)(.*?)(?=...png)", card_link)
-    api_request = requests.get(
-        f"https://server.collective.gg/api/card/{card_id.group()}"
-    )
+    api_request = requests.get(f"{COLLECTIVE_API_BASE_URL}/card/{card_id.group()}")
     card_json = json.loads(api_request.text)["card"]
     return card_json
 
@@ -37,7 +37,7 @@ def login():
     # session is required for authentication
     session = requests.Session()
 
-    login_url = "https://server.collective.gg/api/auth/login"
+    login_url = f"{COLLECTIVE_API_BASE_URL}/auth/login"
 
     login_data = {
         "email": os.getenv("COLLECTIVE_EMAIL"),
@@ -51,7 +51,7 @@ def login():
 
 
 def art_to_card(art_link):
-    submit_url = "https://server.collective.gg/api/submit-card"
+    submit_url = f"{COLLECTIVE_API_BASE_URL}/submit-card"
 
     session = login()
 
@@ -75,7 +75,7 @@ def fetch_random_card_names():
     # names fetching for bot activity
     # get a pool of 100 random card names from public cards api
 
-    request_url = "https://server.collective.gg/api/public-cards/"
+    request_url = f"{COLLECTIVE_API_BASE_URL}/public-cards/"
 
     cards = []
     for card_info in requests.get(request_url).json()["cards"]:
@@ -88,9 +88,7 @@ def fetch_random_card_names():
 
 async def fetch_random_cards():
     async with aiohttp.ClientSession() as session:
-        async with session.get(
-            "https://server.collective.gg/api/public-cards/"
-        ) as response:
+        async with session.get(f"{COLLECTIVE_API_BASE_URL}/public-cards/") as response:
             return random.sample(
                 [
                     card

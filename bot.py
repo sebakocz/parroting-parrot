@@ -19,7 +19,7 @@ import asyncio
 import platform
 
 from Fetcher.fetcher_list import FetcherList
-from help import CustomHelpCmd
+from Utils.help import CustomHelpCmd
 
 # prevent event loop is closed error
 # https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop

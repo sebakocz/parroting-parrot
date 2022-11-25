@@ -6,8 +6,8 @@ from enum import Enum
 
 import asyncpraw
 
-import Utils.collectiveApi
-import constants
+import Utils.Collective.api
+from Utils import constants
 
 
 class PostType(Enum):
@@ -66,7 +66,7 @@ async def submit(card_link, optional_text="", submit_type="[Card]"):
     # 2. combine card's name and the type (Update, DC, standard=Card) and optional text to create a post
     # ie.: title="[Card] Ila, Seeker of Futures (New cool card!)" url=https://files.collective.gg/p/cards/91c64410-2874-11ec-a560-3dfd4d1fd4c0-m.png
 
-    card_json = Utils.collectiveApi.json_from_link(card_link)
+    card_json = Utils.Collective.api.json_from_link(card_link)
     card_name = card_json["Text"]["Name"]
 
     subreddit, reddit = await get_subreddit()

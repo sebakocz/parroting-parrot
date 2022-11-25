@@ -4,7 +4,7 @@ import os
 from discord import app_commands, Embed, Interaction
 from discord.ext import commands
 import Utils.reddit
-import constants
+from Utils import constants
 from Utils.Views.embed_paginator import EmbedPaginatorView
 from Utils.reddit import submit
 
