@@ -42,25 +42,17 @@ class RedditCog(commands.Cog):
     )
     @app_commands.describe(
         submission_type="optional type like [Card], [DC], [Legacy Update] or [Standard Update] - default is [Card]",
-        weeks_ago="optional number of weeks ago to show submissions from - default is 0",
     )
     async def showsub(
         self,
         interaction: Interaction,
         submission_type: Utils.reddit.PostType = Utils.reddit.PostType.CARD,
-        weeks_ago: int = 0,
     ):
-        # validate input
-        if weeks_ago < 0:
-            await interaction.response.send_message(
-                "weeks_ago must be a positive number or zero", ephemeral=True
-            )
-            return
 
         top10card = None
         await interaction.response.defer()
 
-        target_posts = await Utils.reddit.fetch_posts(submission_type, -weeks_ago)
+        target_posts = await Utils.reddit.fetch_posts(submission_type)
 
         # # fetch normal cards since we use the top 10th card as point of reference
         # normal_card_posts = await Utils.reddit.fetch_posts(Utils.reddit.PostType.CARD)
@@ -72,7 +64,7 @@ class RedditCog(commands.Cog):
         #     target_posts = normal_card_posts
 
         # no cards?
-        if weeks_ago == 0 and len(target_posts) <= 0:
+        if len(target_posts) <= 0:
             await interaction.followup.send(
                 f"No {submission_type.value} cards found for this week. Go post some!"
             )

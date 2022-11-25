@@ -82,10 +82,10 @@ async def submit(card_link, optional_text="", submit_type="[Card]"):
     return f"{constants.REDDIT_BASE_URL}{submission.permalink}"
 
 
-async def fetch_posts(submit_type, week_number=0):
+async def fetch_posts(submit_type):
 
     # 0 = starting timestamp of current running week
-    unix_stamp = get_week_unix_stamp(week_number)
+    unix_stamp = get_week_unix_stamp(0)
 
     subreddit, reddit = await get_subreddit()
     posts = []
