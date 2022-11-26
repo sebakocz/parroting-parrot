@@ -84,7 +84,8 @@ class RedditCog(commands.Cog):
             post_embeds.append(embed)
 
         view = EmbedPaginatorView(post_embeds)
-        await interaction.followup.send(embed=view.initial, view=view)
+        out = await interaction.followup.send(embed=view.initial, view=view)
+        view.response = out
 
     @commands.hybrid_command(
         name="week", description="Shows when the submission week is over"
