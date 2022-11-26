@@ -97,15 +97,15 @@ class RedditCog(commands.Cog):
             week_number = 2
         await ctx.send(f"<t:{Utils.reddit.get_week_unix_stamp(int(week_number))}>")
 
-    @commands.hybrid_command(name="updates")
+    @commands.command(name="updates")
     async def updates(self, ctx):
         await ctx.send("Deprecated. Use /showsub instead.")
 
-    @commands.hybrid_command(name="legacyupdates")
+    @commands.command(name="legacyupdates")
     async def legacyupdates(self, ctx):
         await ctx.send("Deprecated. Use /showsub instead.")
 
-    @commands.hybrid_command(name="top10")
+    @commands.command(name="top10")
     async def top10(self, ctx):
         await ctx.send("Deprecated. Use /showsub instead.")
 
