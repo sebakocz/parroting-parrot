@@ -1,53 +1,64 @@
-# ParrotingParrot - A friendly feather of Collective, The Community Created Card Game
+# 🦜 ParrotingParrot
 
-## Commands
-List of usable commands. Case-sensitive.
+>_A helping feather of [Collective, The Community Created Card Game](https://www.collective.gg/)!_
 
-### /art <card_link>
-Returns the full image used for the card art
-### /art_to_card <image (upload a file)>
-Creates an empty card (Attach an image to the same message)
-### /coinflip 
-Flips a coin. Returns either 'Tails' or 'Head'
-### /daily_challenge 
-Shows today's brew challenge
-### /gif 
-Shows a random parrot
-### /github 
-Shows Parrot's code
-### /parrot <sentence>
-Repeats the sentence
-### /submit <card_link> [optional_text] [submission_type=PostType.CARD]
-Submits a card to the subreddit
-### /support 
-Sevas also accepts love, food and shelter
-### /week [week_number=1]
-Shows when the submission week is over
+## :gear: Features
 
-## Fetcher
-You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.
+### 🥇 Core
 
-### [[name]]
-a non-token card from Collective
-### [[tk:name]]
-a token card from Collective
-### [[sub:name]]
-a card from Collective's subreddit
-### [[hero:name]]
-a hero from Collective
-### [[meme:name]]
-Collective Memes
-### [[ygo:name]]
-Yugioh
-### [[mtg:name]]
-Magic the Gathering
-### [[et:name]]
-Eternal
-### [[hs:name]]
-Hearthstone
-### [[lor:name]]
-Legends of Runeterra
-### [[kf:name]]
-Keyforge
-### [[ms:name]]
-Marvel Snap
+#### ⭐ Submitting new cards for voting!
+
+<!-- used ScreenToGif for capturing this  -->
+![submitting_card](https://user-images.githubusercontent.com/44639352/204095168-5606cc74-2ace-4fde-a3fb-03aa35af247e.gif)
+
+#### ⭐ Viewing submissions!
+
+<img src="https://i.imgur.com/XkUDM96.png" width=400/>
+
+#### ⭐ Analysing winrates and playrates of cards!
+
+<img src="https://i.imgur.com/IHruxhG.png" />
+
+### ⭐ Fetching cards from Collective as well as other card games!
+
+<img src="https://i.imgur.com/nrA7WDy.png" width=400 />
+
+### 🍀 Others
+
+* Managing Member Roles
+* Daily Challenges
+* Utils like coinflips and parrot gifs 🦜
+* [...full list of commands](COMMAND_LIST.md)
+
+### 🚀 Upcoming
+
+* AI supported chatbot
+* Card creation utils
+* More interactive views from newest discord api
+
+## ⚖️ Legal
+
+The code base undergoes the [MIT License](https://github.com/sebakocz/collective-deck-codes/blob/main/LICENCE.md)
+
+_Odious Studios LLC, Collective: The Community Created Card Game, and their logos are trademarks of Odious Studios LLC in the United States and other countries. © 2022 Odious Studios LLC. All Rights Reserved. This web site is not affiliated with, endorsed, sponsored, or specifically approved by Odious Studios LLC. This web site may use the trademarks and other intellectual property of © 2022 Odious Studios LLC._
+
+## :heart: Credits
+
+### 👏 Special Thanks
+
+* to DeadZ0n and Monsterland for excessive and blunt quality assurance
+* to Lovepon, Magneter and Grief for moral support
+
+### 🤓 Info for nerds
+
+* While on the surface this is a simple bot I learned neat things about CI/CD - used tools include supervisor, github actions, pre-commit hooks and auto linting
+* I didn't work on this project _alone_, my loyal friend [Copilot](https://github.com/features/copilot) was helping out too
+* I might start dev-blogging soon™
+
+## :coffee: Support
+
+To ensure that I can keep devoting my sweat, blood and tears into projects like this please consider tossing me a coffee or two.
+ 
+<a href="https://www.buymeacoffee.com/sevas" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+[![Support via PayPal](https://cdn.rawgit.com/twolfson/paypal-github-button/1.0.0/dist/button.svg)](https://www.paypal.me/sebascripts/)
