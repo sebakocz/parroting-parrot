@@ -3,12 +3,22 @@ from discord.ext import commands
 import Utils.Collective.misc
 
 
+class NoOwnerError(commands.CommandError):
+    pass
+
+
 class AdminCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     async def cog_check(self, ctx):
-        return await ctx.bot.is_owner(ctx.author)
+        if await self.bot.is_owner(ctx.author):
+            raise NoOwnerError("You are not strong enough for my potions.")
+        return True
+
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        await ctx.send(error)
 
     @commands.command()
     async def sync(self, ctx):
