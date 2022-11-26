@@ -18,7 +18,6 @@ from discord.ext import commands
 import asyncio
 import platform
 
-from Fetcher.fetcher_list import FetcherList
 from Utils.help import CustomHelpCmd
 
 # prevent event loop is closed error
@@ -51,39 +50,14 @@ class MyBot(commands.Bot):
 
         # await bot.load_extension("Cogs.dev_cog")
         # await bot.load_extension("Cogs.reddit_cog")
-        # await bot.load_extension('Cogs.reaction_cog')
-        # await bot.load_extension('Cogs.mod_cog')
-        # await bot.load_extension('Cogs.misc_cog')
-        # await bot.load_extension('Cogs.stats_cog')
-        # await bot.load_extension('Cogs.admin_cog')
+        # await bot.load_extension("Cogs.reaction_cog")
+        # await bot.load_extension("Cogs.mod_cog")
+        # await bot.load_extension("Cogs.misc_cog")
+        # await bot.load_extension("Cogs.stats_cog")
+        # await bot.load_extension("Cogs.admin_cog")
 
         # self.tree.copy_global_to(guild=discord.Object(id=guild_id))
         # await self.tree.sync(guild=discord.Object(id=guild_id))
-
-        if isDev:
-            log.info("DEV: Updating README.md")
-            with open("README.md", "w") as f:
-                f.write(
-                    "# ParrotingParrot - A friendly feather of Collective, The Community Created Card Game"
-                )
-                f.write("\n\n## Commands")
-                f.write("\nList of usable commands. Case-sensitive.\n")
-
-                for command in sorted(
-                    [command for command in bot.commands if command.description],
-                    key=lambda x: x.name,
-                ):
-                    f.write(f"\n### /{command.name} {command.signature}")
-                    f.write(f"\n{command.description}")
-
-                f.write("\n\n## Fetcher")
-                f.write(
-                    "\nYou can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.\n"
-                )
-
-                for fetcher in FetcherList.all:
-                    f.write(f"\n### [[{fetcher.mod + ':' if fetcher.mod else ''}name]]")
-                    f.write(f"\n{fetcher.description}")
 
 
 intents = discord.Intents.all()
