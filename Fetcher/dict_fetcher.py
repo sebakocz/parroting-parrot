@@ -1,3 +1,5 @@
+import logging
+
 from fuzzywuzzy import fuzz
 
 
@@ -8,6 +10,7 @@ class DictFetcher:
     """
 
     def __init__(self, card_set):
+        logging.info(f"Initializing {self.__class__.__name__}")
         self.card_set = card_set
 
     def __getitem__(self, card):

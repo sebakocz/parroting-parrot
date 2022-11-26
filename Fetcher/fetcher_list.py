@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
 
-@dataclass
+@dataclass(frozen=True)
 class FetcherObject:
     mod: str
     description: str
+    __slots__ = ("mod", "description")
 
 
 class FetcherList:
