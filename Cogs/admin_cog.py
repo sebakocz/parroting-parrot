@@ -12,7 +12,7 @@ class AdminCog(commands.Cog):
         self.bot = bot
 
     async def cog_check(self, ctx):
-        if await self.bot.is_owner(ctx.author):
+        if not await self.bot.is_owner(ctx.author):
             raise NoOwnerError("You are not strong enough for my potions.")
         return True
 
