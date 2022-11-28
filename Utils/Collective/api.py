@@ -11,13 +11,18 @@ import requests
 from Utils.constants import COLLECTIVE_API_BASE_URL
 
 
-def json_from_link(card_link):
+def json_from_link(card_link, head="card"):
     # 1. extract ID from the card link
     # 2. use ID to get the card's json data via an API call
     card_id = re.search("(?<=/p/cards/)(.*?)(?=...png)", card_link)
     api_request = requests.get(f"{COLLECTIVE_API_BASE_URL}/card/{card_id.group()}")
-    card_json = json.loads(api_request.text)["card"]
+    card_json = json.loads(api_request.text)[head]
     return card_json
+
+
+def get_externals(card_link):
+    cards = json_from_link(card_link, "externals")
+    return cards
 
 
 def find_property(properties, target):
