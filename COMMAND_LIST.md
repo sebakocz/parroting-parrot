@@ -2,10 +2,12 @@
 
 ## Commands
 List of usable commands. Case-sensitive.
-### /art <card_link>
-Returns the full image used for the card art
-### /art_to_card <image>
-Creates an empty card (Attach an image to the same message)
+### /card examine <card_link>
+View a card's external cards.
+### /card from_art <image>
+Creates an empty card
+### /card show_art <card_link>
+Show the art of a card
 ### /coinflip
 Flips a coin. Returns either 'Tails' or 'Head'
 ### /daily_challenge
@@ -14,8 +16,6 @@ Shows today's brew challenge
 Shows a random parrot
 ### /github
 Shows Parrot's code
-### /legacyupdates
-…
 ### /parrot <sentence>
 Repeats the sentence
 ### /set_flair <season> <week>
@@ -32,10 +32,6 @@ top 10 cards with highest win percentage. Card's with a p-value of >= 0.01 are e
 Submits a card to the subreddit
 ### /support
 Sevas also accepts love, food and shelter
-### /top10
-…
-### /updates
-…
 ### /week [week_number=1]
 Shows when the submission week is over
 

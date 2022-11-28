@@ -10,7 +10,7 @@ class CardCog(commands.GroupCog, name="card"):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="show_art", description="show the art of a card")
+    @app_commands.command(name="show_art", description="Show the art of a card")
     @app_commands.describe(
         card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png"
     )

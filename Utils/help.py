@@ -8,37 +8,20 @@ from Utils import constants
 
 class CustomHelpCmd(commands.HelpCommand):
     async def send_bot_help(self, mapping):
-        filtered = await self.filter_commands(
-            [command for command in self.context.bot.commands if command.description],
-            sort=True,
-        )
-
-        embed = discord.Embed(
-            title="Commands",
-            description="List of usable commands. Case sensitive.",
+        info_embed = discord.Embed(
+            title="Looking for help?",
             color=constants.EMBED_COLOR,
         )
-        for command in filtered:
-            embed.add_field(
-                name=f"/{command.name} {command.signature}",
-                value=command.description,
-                inline=False,
-            )
+        info_embed.add_field(
+            name="Use slash commands instead!",
+            value="Discord is moving away from the old way of using commands. Gets used to it! Press ``/`` to see the list of commands and browse through them.",
+            inline=False,
+        )
 
-        await self.context.send(embed=embed)
+        info_embed.add_field(
+            name="If you really still want to see all the commands...",
+            value="[Link to full list of cmds](https://github.com/sebakocz/parroting-parrot/blob/master/COMMAND_LIST.md)",
+            inline=False,
+        )
 
-        if self.context.bot.get_cog("FetcherCog"):
-            embed = discord.Embed(
-                title="Fetcher",
-                description="You can fetch heroes and cards from Collective as well as other card games. Names don't have to be accurate and the fetcher will try to find something relating.",
-                color=constants.EMBED_COLOR,
-            )
-
-            for fetcher in FetcherList.all:
-                embed.add_field(
-                    name=f"[[{fetcher.mod+':' if fetcher.mod else ''}name]]",
-                    value=fetcher.description,
-                    inline=False,
-                )
-
-            await self.context.send(embed=embed)
+        await self.context.send(embed=info_embed)
