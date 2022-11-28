@@ -72,6 +72,22 @@ class RedditCog(commands.Cog):
 
         # build output
         post_embeds = []
+
+        # front page with top 10 cards
+        top_10_posts = target_posts[:10]
+        front_page_embed = Embed(
+            title=f"Top 10 {submission_type.value}s of the week",
+            description="Click on the arrows to see the cards!",
+            color=constants.EMBED_COLOR,
+        )
+        for post in top_10_posts:
+            front_page_embed.add_field(
+                name=f"({post.score} points)",
+                value=f"[{post.title[len(submission_type.value)+1:]}]({post.url} '{post.url}')",
+                inline=False,
+            )
+        post_embeds.append(front_page_embed)
+
         for index, post in enumerate(target_posts):
             embed = Embed(
                 title=post.title,
