@@ -35,33 +35,6 @@ class MiscCog(commands.Cog):
         await ctx.send(f"> {sentence}")
 
     @commands.hybrid_command(
-        name="art_to_card",
-        description="Creates an empty card (Attach an image to the same message)",
-    )
-    async def art_to_card(self, ctx, image: discord.Attachment):
-
-        try:
-            await ctx.defer()
-            await ctx.send(Utils.Collective.api.art_to_card(image.proxy_url))
-        except Exception as e:
-            print("Error in art_to_card: ", e)
-            await ctx.send("Something went wrong...")
-
-    @commands.hybrid_command(
-        name="art", description="Returns the full image used for the card art"
-    )
-    @app_commands.describe(
-        card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png"
-    )
-    async def art(self, ctx, card_link):
-        try:
-            art = Utils.Collective.api.get_art(card_link)
-            await ctx.send(art)
-        except Exception as e:
-            print(e)
-            await ctx.send("Something went wrong.")
-
-    @commands.hybrid_command(
         name="coinflip", description="Flips a coin. Returns either 'Tails' or 'Head'"
     )
     async def coinflip(self, ctx):
