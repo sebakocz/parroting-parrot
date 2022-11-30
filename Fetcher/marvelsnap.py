@@ -1,3 +1,5 @@
+import re
+
 import requests
 from slugify import slugify
 
@@ -17,5 +19,9 @@ class MarvelSnapFetcher(dict_fetcher.DictFetcher):
         cards = {}
         request_url = "https://marvelsnap.pro/snap/do.php?cmd=getcards"
         for card_info in requests.get(request_url).json().values():
-            cards[card_info["name"]] = get_img(slugify(card_info["name"]))
+            # remove html markup from card description
+            description = re.sub(r"<[^>]*>", "", card_info["description"])
+            cards[
+                card_info["name"]
+            ] = f"_{description}_\n|{get_img(slugify(card_info['name']))}|"
         super().__init__(cards)
