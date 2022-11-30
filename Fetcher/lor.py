@@ -27,7 +27,7 @@ class LorFetcher(dict_fetcher.DictFetcher):
         for card_set in globals_sets:
             if "Set" in card_set["nameRef"]:
                 set_suffix = card_set["nameRef"][3:]
-                if set_suffix.isnumeric():
+                if set_suffix != "Event":
                     sets_range.append(set_suffix)
 
         # go through each set, previously the range been set manually
