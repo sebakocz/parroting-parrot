@@ -2,7 +2,7 @@
   "heros":[{
     "name": "Baldwin",
     "affinity": "Strength",
-    "passive": "+2 EXP each turn if you control two units in your main tribe.",
+    "passive": "Once per turn, when you play a unit of your main tribe while you control another unit of that tribe, gain +2 EXP.",
     "rewards": {
       "lvl2": {
         "exp": 4,
@@ -10,29 +10,29 @@
       },
       "lvl3": {
         "exp": 13,
-        "text": "Hero Active: Destroy a unit of your main tribe to give its stats and keywords to another unit in your main tribe."
+        "text": "Hero Active: Pay 1 mana to destroy an allied unit. Move a random unit of your main tribe that costs 1 more from your deck into play."
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Genesis Strain\nImmortal\nActive: If you have two or more units from your main tribe, choose a unit from your main tribe in your deck and play it.\n[2/5]"
+        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you’ve gained past 4.\n[5/5]"
       }
   }},
   {
   "name": "Hawkins",
     "affinity": "Spirit",
-    "passive": "Passive: +2 EXP each turn if you control two units in your main tribe.",
+    "passive": "Passive: Once per turn, when you play a unit of your main tribe while you control another unit of that tribe, gain +2 EXP.",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(3) Experimental Sequence\nEntomb: You may deal damage to a unit equal to the number of units in your main tribe you control.\n[2/2]"
+        "text": "(3) Experimental Sequence\nEntomb: Mill the top 3 units of your deck.\n[2/2]"
       },
       "lvl3": {
         "exp": 13,
-        "text": "Hero Active: Pay 1 mana. Revive the bottom unit in your main tribe in your graveyard. (Fast)"
+        "text": "Hero Active: Pay 1 mana. Revive the bottom unit in your main tribe in your graveyard. Banish it when it leaves play. (Fast)"
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Genesis Strain\nImmortal\nActive: If you have two or more units from your main tribe, choose a unit from your main tribe in your deck and play it.\n[2/5]"
+        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you’ve gained past 4.\n[5/5]"
       }
     }
 },
@@ -46,22 +46,18 @@
         "text": "Change to the Outfit of your choice, and gain 'Hero Active: Banish a card to switch to your next affinity and trigger its Outfit effect. Gain 1 EXP. (Fast)'"
       },
       "lvl3": {
-        "exp": 7,
+        "exp": 8,
         "text": "-"
       },
       "lvl4": {
-        "exp":11,
+        "exp": 13,
         "text": "-"
       },
       "lvl5": {
-        "exp": 15,
+        "exp": 18,
         "text": "-"
       },
       "lvl6": {
-        "exp": 19,
-        "text": "-"
-      },
-      "lvl7": {
         "exp": 23,
         "text": "Your units get +1/+1, Duelist, and 'Entomb: Draw a card.' Your cards cost 1 less."
       }
@@ -70,7 +66,7 @@
 {
     "name": "Lazaro",
     "affinity": "Mind",
-    "passive": "+2 EXP each turn if you control two units in your main tribe.",
+    "passive": "Once per turn, when you play a unit of your main tribe while you control another unit of that tribe, gain +2 EXP.",
     "rewards": {
       "lvl2": {
         "exp": 4,
@@ -82,7 +78,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Genesis Strain\nImmortal\nActive: If you have two or more units from your main tribe, choose a unit from your main tribe in your deck and play it.\n[2/5]"
+        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you’ve gained past 4.\n[5/5]"
       }
     }
 },
@@ -97,11 +93,11 @@
       },
       "lvl3": {
         "exp": 13,
-        "text": "(6) House of Zombi\nImmortal\nWhen you discard a card, return the bottom card of your GY to hand.\n[0/4]."
+        "text": "(6) House of Zombi\nRebound\nTwice per turn, when you discard a card, return the bottom card of your GY to hand.\n[0/4]."
       },
       "lvl4": {
         "exp": 25,
-        "text": "After you use your active, Choose a unit in your graveyard, Banish that unit and play its Summon, Entomb, and Active abilities."
+        "text": "After you use your active: Choose a unit in your graveyard, Banish that unit and play its Summon, Entomb, and Active abilities."
       }
     }
 },
@@ -112,11 +108,11 @@
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(2) Spectral Dragonfire\nDeal damage equal to your level to an enemy. When you’ve created three Doubloons, return this to your hand from the graveyard."
+        "text": "(1) Spectral Dragonfire\nDeal damage equal to your level to an enemy. When you’ve created two Doubloons, return this to your hand from the graveyard."
       },
       "lvl3": {
         "exp": 13,
-        "text": "(4) Geistwing Raiders\nWhen this deals damage, create a Doubloon. When you’ve created three Doubloons, return this to your hand from the graveyard.\n[3/3]"
+        "text": "(3) Geistwing Raiders\nWhen this deals damage, create a Doubloon. When you’ve created two Doubloons, return this to your hand from the graveyard.\n[3/3]"
       },
       "lvl4": {
         "exp": 25,
@@ -149,7 +145,7 @@
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(3) Enkindler of Strife\nActive: Pay 1 Mana. Create a 2/1 Artifact.\n[1/2]"
+        "text": "Hero Active: Pay 1 Mana. Create a 2/1 Artifact."
       },
       "lvl3": {
         "exp": 13,
@@ -171,7 +167,7 @@
       },
       "lvl3": {
         "exp": 13,
-        "text": "Hero Active: Pay 2 Mana. Give Cassiel +2/+2. If she’s not in play, move her into play instead."
+        "text": "Hero Active: Pay 1 Mana. Give Cassiel +2/+2. If she’s not in play, move her into play instead and Ready her."
       },
       "lvl4": {
         "exp": 25,
@@ -193,25 +189,25 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nBefore combat, create 2 Courier Knights. For each level you’ve gained past 4 create 2 more..\n[0/5]"
+        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nBefore combat, create 2 Courier Knights. For each level you’ve gained past 4 create 2 more.\n[0/5]"
       }
   }},
   {
     "name": "Dhat",
     "affinity": "Spirit",
-    "passive":"At the start of each turn, if you control the unit with the highest HP, +2 EXP.",
+    "passive":"Once per turn, when you play a unit with more HP than your highest HP unit, gain +2 EXP.",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(2) Bip and Bop\nWhen a friendly unit with 4 or more HP enters play, deal 1 damage to your opponent and gain 1 EXP.\n[0/3]"
+        "text": "(2) Bip and Bop\nWhen a friendly unit with 4 or more HP enters play, give the lowest HP unit in your hand +1/+1.\n[0/3]"
       },
       "lvl3": {
         "exp": 13,
-        "text": "(4) Sezark\nDuelist\nWhen this destroys an enemy unit, it gets +1/+1 and the keywords of that unit.\n[4/4]"
+        "text": "(4) Sezark\nDuelist\nWhen this destroys an enemy unit give a unit in your hand +2/+2.\n[4/4]"
       },
       "lvl4": {
         "exp": 25,
-        "text": "(7) Great Landwyrm\nImmortal, Ward\nIf your units have 16 or more total HP, they get +5 ATK and Overrun.\n[7/7]"
+        "text": "(7) Great Landwyrm\nImmortal\nAllied units have Overrun and +4 ATK. Allied units also get +4 more ATK for each level you’ve gained past 4.\n[7/7]"
       }
   }},
   {
@@ -225,7 +221,7 @@
       },
       "lvl3": {
         "exp": 13,
-        "text": "(3) Fast Ricky Slick\nImmortal\nStart of Turn: Draw the bottom card of your deck.\n[3/3]"
+        "text": "(3) Fast Ricky Slick\nRebound\nStart of Turn: Draw the bottom card of your deck.\n[3/3]"
       },
       "lvl4": {
         "exp": 25,
