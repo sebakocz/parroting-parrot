@@ -14,7 +14,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you’ve gained past 4.\n[5/5]"
+        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you've gained past 4.\n[5/5]"
       }
   }},
   {
@@ -32,7 +32,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you’ve gained past 4.\n[5/5]"
+        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you've gained past 4.\n[5/5]"
       }
     }
 },
@@ -78,7 +78,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you’ve gained past 4.\n[5/5]"
+        "text": "(6) Genesis Strain\nImmortal, Vigilant\nActive: Choose a main tribe unit in your deck. Play it and Ready it. Choose to Play and Ready another for each level you've gained past 4.\n[5/5]"
       }
     }
 },
@@ -104,15 +104,15 @@
 {
     "name": "Pearlmaw",
     "affinity": "Strength",
-    "passive": "At the end of each turn, if you have any unused mana, gain +1  EXP. If you’re level 2 or higher, create a Doubloon.\n\n(0) Doubloon\nGain 1 mana.",
+    "passive": "At the end of each turn, if you have any unused mana, gain +1  EXP. If you're level 2 or higher, create a Doubloon.\n\n(0) Doubloon\nGain 1 mana.",
     "rewards": {
       "lvl2": {
         "exp": 4,
-        "text": "(1) Spectral Dragonfire\nDeal damage equal to your level to an enemy. When you’ve created two Doubloons, return this to your hand from the graveyard."
+        "text": "(1) Spectral Dragonfire\nDeal damage equal to your level to an enemy. When you've created two Doubloons, return this to your hand from the graveyard."
       },
       "lvl3": {
         "exp": 13,
-        "text": "(3) Geistwing Raiders\nWhen this deals damage, create a Doubloon. When you’ve created two Doubloons, return this to your hand from the graveyard.\n[3/3]"
+        "text": "(3) Geistwing Raiders\nWhen this deals damage, create a Doubloon. When you've created two Doubloons, return this to your hand from the graveyard.\n[3/3]"
       },
       "lvl4": {
         "exp": 25,
@@ -153,7 +153,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(6) Kukul, Feathered God\nImmortal, Agile, Overrun\nWhen this attacks, move two random units in your graveyard to play, They attack. For each level you’ve gained past 4 move two more.\n[6/6]"
+        "text": "(6) Kukul, Feathered God\nImmortal, Agile, Overrun\nWhen this attacks, move two random units in your graveyard to play, They attack. For each level you've gained past 4 move two more.\n[6/6]"
       }
   }},
   {
@@ -171,7 +171,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "Whenever Cassiel attacks double her ATK and HP and draw a card. Repeat for each level you’ve gained past 4."
+        "text": "Whenever Cassiel attacks double her ATK and HP and draw a card. Repeat for each level you've gained past 4."
       }
   }},
   {
@@ -189,7 +189,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nBefore combat, create 2 Courier Knights. For each level you’ve gained past 4 create 2 more.\n[0/5]"
+        "text": "(5) Aurora Gate\nCan't attack. Immortal, Ward\nBefore combat, create 2 Courier Knights. For each level you've gained past 4 create 2 more.\n[0/5]"
       }
   }},
   {
@@ -207,7 +207,7 @@
       },
       "lvl4": {
         "exp": 25,
-        "text": "(7) Great Landwyrm\nImmortal\nAllied units have Overrun and +4 ATK. Allied units also get +4 more ATK for each level you’ve gained past 4.\n[7/7]"
+        "text": "(7) Great Landwyrm\nImmortal\nAllied units have Overrun and +4 ATK. Allied units also get +4 more ATK for each level you've gained past 4.\n[7/7]"
       }
   }},
   {
