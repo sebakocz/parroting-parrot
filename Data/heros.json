@@ -39,7 +39,7 @@
 {
   "name": "Kyung Mi",
     "affinity": "Neutral",
-    "passive": "Your Outfit determines your Affinity. Scout when you level up.\n\nStrength Outfit: Give a Strength unit in play or in your hand +1 ATK and Duelist.\n\nSpirit Outfit: Give a Spirit unit in play or your hand +1 HP and 'Entomb: Draw a card.'\n\nMind Outfit: Your next Mind card costs 1 less.",
+    "passive": "Your Outfit determines your Affinity. Scout from your deck when you level up.\n\nStrength Outfit: Give a Strength unit in play or in your hand +1 ATK and Duelist.\n\nSpirit Outfit: Give a Spirit unit in play or your hand +1 HP and 'Entomb: Draw a card.'\n\nMind Outfit: Your next Mind card costs 1 less.",
     "rewards": {
       "lvl2": {
         "exp": 3,
@@ -167,7 +167,7 @@
       },
       "lvl3": {
         "exp": 13,
-        "text": "Hero Active: Pay 1 Mana. Give Cassiel +2/+2. If she’s not in play, move her into play instead and Ready her."
+        "text": "Hero Active: Pay 1 Mana. Give Cassiel +2/+2. If she's not in play, move her into play instead and Ready her."
       },
       "lvl4": {
         "exp": 25,
