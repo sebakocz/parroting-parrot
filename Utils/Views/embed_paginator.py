@@ -21,13 +21,12 @@ class EmbedPaginatorView(ui.View):
         for child in self.children:
             child.disabled = True
 
-        embed = discord.Embed(
-            title="This view has timed out.",
-            description="Just call the command again to get a new view!",
-            color=constants.EMBED_COLOR,
+        new_embed = self._initial
+        new_embed.set_footer(
+            text="This view has timed out. Just call the command again to re-enable it!"
         )
 
-        await self.response.edit(view=self, embed=embed)
+        await self.response.edit(view=self, embed=new_embed)
 
     @ui.button(emoji="\N{LEFTWARDS BLACK ARROW}")
     async def previous_embed(self, interaction: Interaction, _):
