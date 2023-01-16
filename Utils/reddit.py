@@ -15,6 +15,8 @@ class PostType(Enum):
     CARD = "[Card]"
     STANDARD_UPDATE = "[Standard Update]"
     LEGACY_UPDATE = "[Legacy Update]"
+    COSMETIC_UPDATE = "[Cosmetic Update]"
+    UPDATE = "[Update]"
     DC = "[DC]"
 
 
