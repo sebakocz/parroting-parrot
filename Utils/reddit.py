@@ -84,6 +84,20 @@ async def submit(card_link, optional_text="", submit_type="[Card]"):
     return f"{constants.REDDIT_BASE_URL}{submission.permalink}"
 
 
+async def delete_post(post_url):
+    subreddit, reddit = await get_subreddit()
+    submission = await reddit.submission(url=post_url)
+
+    if submission.created_utc < get_week_unix_stamp(0):
+        raise Exception("Post is older than a week.")
+
+    title = submission.title
+    await submission.delete()
+    await reddit.close()
+
+    return title
+
+
 async def fetch_posts(submit_type):
 
     # 0 = starting timestamp of current running week

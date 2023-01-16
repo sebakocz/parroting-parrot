@@ -12,6 +12,8 @@ Show the art of a card
 Flips a coin. Returns either 'Tails' or 'Head'
 ### /daily_challenge
 Shows today's brew challenge
+### /delete_post <post_url>
+Deletes a post from the subreddit
 ### /gif
 Shows a random parrot
 ### /github
