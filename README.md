@@ -47,10 +47,11 @@ _Odious Studios LLC, Collective: The Community Created Card Game, and their logo
 
 * to DeadZ0n and Monsterland for excessive and blunt quality assurance
 * to Lovepon, Magneter and Grief for moral support
+* to StrangerSide for his winrate code courtesy
 
 ### 🤓 Info for nerds
 
-* While on the surface this is a simple bot I learned neat things about CI/CD - used tools include supervisor, github actions, pre-commit hooks and auto linting
+* [supervisor](http://supervisord.org/) & [github actions](https://github.com/features/actions) handle automatic deploys on my [Digital Ocean droplet](https://www.digitalocean.com/products/droplets)
 * I didn't work on this project _alone_, my loyal friend [Copilot](https://github.com/features/copilot) was helping out too
 * I might start dev-blogging soon™
 
