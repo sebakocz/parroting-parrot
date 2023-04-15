@@ -10,8 +10,6 @@ Creates an empty card
 Show the art of a card
 ### /coinflip
 Flips a coin. Returns either 'Tails' or 'Head'
-### /daily_challenge
-Shows today's brew challenge
 ### /delete_post <post_url>
 Deletes a post from the subreddit
 ### /gif

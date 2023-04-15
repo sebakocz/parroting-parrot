@@ -26,7 +26,6 @@
 ### 🍀 Others
 
 * Managing Member Roles
-* Daily Challenges
 * Utils like coinflips and parrot gifs 🦜
 * [...full list of commands](COMMAND_LIST.md)
 

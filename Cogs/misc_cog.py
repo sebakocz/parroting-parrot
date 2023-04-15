@@ -50,67 +50,10 @@ class MiscCog(commands.Cog):
     async def support(self, ctx):
         await ctx.send("https://www.buymeacoffee.com/sevas")
 
-    # credits to Gokun for the idea
-    @commands.hybrid_command(
-        name="daily_challenge", description="Shows today's brew challenge"
-    )
-    async def daily_challenge(self, ctx):
-        text = "**Daily Brew Challenge**\n"
-
-        with open("Data/challenge_players.txt") as file:
-            lines = file.readlines()
-            lines = [line.rstrip() for line in lines]
-        if len(lines) > 0:
-            text += "\nToday's Challengers:"
-            for line in lines:
-                text += f"\n{line}"
-        else:
-            text += "\nNobody finished this quest yet! Be the first one!"
-
-        text += "\n\nWin a multiplayer game while having x3 copies of each of the following cards."
-
-        with open("Data/challenge_cards.json") as json_file:
-            cards = json.load(json_file)
-        for card in cards:
-            text += "\n" + card["imgurl"]
-            # embed = discord.Embed(title=card['name'], color=0x2eaed4)
-            # embed.set_image(url=)
-            # await ctx.send(embed=embed)
-        await ctx.send(text)
-
     @tasks.loop(time=datetime.time(hour=6, minute=30))
     async def task_reset_challenge(self):
         open("Data/challenge_players.txt", "w").close()
         await Utils.Collective.misc.set_challenge_cards()
-
-    @commands.Cog.listener()
-    async def on_message(self, msg):
-        if msg.channel.id == 655541513740091393 and msg.author.id == 651119952748871694:
-            embed_content_in_dict = msg.embeds[0].to_dict()
-            match_id = embed_content_in_dict["footer"]["text"]
-            deck = Utils.Collective.db.get_deck_from_match(match_id)
-
-            with open("Data/challenge_cards.json") as json_file:
-                challenge_cards = json.load(json_file)
-            for card in challenge_cards:
-                if 3 > deck.count(card["uid"]):
-                    print("Non-Challenge Deck Winner: " + match_id)
-                    return
-            print("Challenge Deck Winner Found! " + match_id)
-
-            player_name = embed_content_in_dict["fields"][0]["name"]
-            with open("Data/challenge_players.txt", "r") as file:
-                for line in file:
-                    if player_name in line:
-                        return
-            with open("Data/challenge_players.txt", "a") as outfile:
-                outfile.write("\n" + player_name)
-
-            # tried to make it work via api but sadly the api doesn't get updated quickly enough
-            # session = Utils.collectiveApi.login()
-            # winner_id = \
-            # session.get(f'https://server.collective.gg/api/users/search?query={winner}').json()['result']['id']
-            # print(winner_id)
 
     @commands.hybrid_command(name="gif", description="Shows a random parrot")
     async def gif(self, ctx):
