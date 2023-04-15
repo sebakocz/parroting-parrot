@@ -9,7 +9,6 @@ from discord import app_commands
 
 import Utils.Collective.api
 import Utils.Collective.db
-import Utils.Collective.misc
 import Utils.tenor_api
 
 
@@ -23,7 +22,6 @@ class MiscCog(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         self.task_change_activity.start()
-        self.task_reset_challenge.start()
 
     @tasks.loop(seconds=10)
     async def task_change_activity(self):
@@ -49,11 +47,6 @@ class MiscCog(commands.Cog):
     )
     async def support(self, ctx):
         await ctx.send("https://www.buymeacoffee.com/sevas")
-
-    @tasks.loop(time=datetime.time(hour=6, minute=30))
-    async def task_reset_challenge(self):
-        open("Data/challenge_players.txt", "w").close()
-        await Utils.Collective.misc.set_challenge_cards()
 
     @commands.hybrid_command(name="gif", description="Shows a random parrot")
     async def gif(self, ctx):

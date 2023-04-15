@@ -11,6 +11,30 @@ import requests
 from Utils.constants import COLLECTIVE_API_BASE_URL
 
 
+def get_uid_from_url(url):
+    uid = re.search(
+        r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", url
+    ).group(0)
+    return uid
+
+
+def get_url_from_uid(uid):
+    api_request = requests.get(f"{COLLECTIVE_API_BASE_URL}/card/{uid}")
+    try:
+        externals = json.loads(api_request.text)["externals"]
+    except KeyError:
+        externals = []
+
+    # create card_link
+    # suffix -m or -s is based on whether the card has externals
+    if len(externals) > 0:
+        externals_suffix = "-m"
+    else:
+        externals_suffix = "-s"
+
+    return f"https://files.collective.gg/p/cards/{uid}{externals_suffix}.png"
+
+
 def json_from_link(card_link, head="card"):
     # 1. extract ID from the card link
     # 2. use ID to get the card's json data via an API call

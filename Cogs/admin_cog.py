@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-import Utils.Collective.misc
 
 
 class NoOwnerError(commands.CommandError):
@@ -33,12 +32,6 @@ class AdminCog(commands.Cog):
         self.bot.tree.clear_commands(guild=ctx.guild)
         await self.bot.tree.sync(guild=ctx.guild)
         await ctx.send("Cleared!")
-
-    @commands.command()
-    async def reset_challenge(self, ctx):
-        open("Data/challenge_players.txt", "w").close()
-        await Utils.Collective.misc.set_challenge_cards()
-        await ctx.send("Done.")
 
     @commands.command()
     async def ban(self, user: discord.User):

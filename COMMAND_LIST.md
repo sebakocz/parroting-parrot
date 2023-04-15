@@ -2,10 +2,12 @@
 
 ## Commands
 List of usable commands. Case-sensitive.
-### /card examine <card_link>
+### /card externals <card_link>
 View a card's external cards.
 ### /card from_art <image>
 Creates an empty card
+### /card history <card_link>
+View a card's update history.
 ### /card show_art <card_link>
 Show the art of a card
 ### /coinflip

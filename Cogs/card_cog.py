@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands, Interaction
 import Utils.Collective.api
+import Utils.Collective.db
 from Utils import constants
 from Utils.Views.embed_paginator import EmbedPaginatorView
 
@@ -35,11 +36,11 @@ class CardCog(commands.GroupCog, name="card"):
             print("Error in art_to_card: ", e)
             await interaction.followup.send("Something went wrong...")
 
-    @app_commands.command(name="examine", description="View a card's external cards.")
+    @app_commands.command(name="externals", description="View a card's external cards.")
     @app_commands.describe(
         card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png"
     )
-    async def examine(self, interaction: Interaction, card_link: str):
+    async def externals(self, interaction: Interaction, card_link: str):
         await interaction.response.defer()
 
         try:
@@ -64,6 +65,40 @@ class CardCog(commands.GroupCog, name="card"):
         except Exception as e:
             await interaction.followup.send(
                 "Something went wrong. Maybe the card has no externals?"
+            )
+            return
+
+    @app_commands.command(name="history", description="View a card's update history.")
+    @app_commands.describe(
+        card_link="example: https://files.collective.gg/p/cards/388074b0-ee36-11ec-82cc-cfdbb9e62095-s.png"
+    )
+    async def history(self, interaction: Interaction, card_link: str):
+        await interaction.response.defer()
+
+        try:
+            card_id = Utils.Collective.api.get_uid_from_url(card_link)
+            history = Utils.Collective.db.get_history(card_id)
+
+            embeds = []
+            for index, entry in enumerate(history):
+                embed = discord.Embed(
+                    title=history[index][1].strftime("%d/%m/%Y"),
+                    url=f"https://files.collective.gg/{history[index][0]}",
+                    description=f"{index + 1}/{len(history)}",
+                    color=constants.EMBED_COLOR,
+                )
+                embed.set_image(url=f"https://files.collective.gg/{history[index][0]}")
+                embeds.append(embed)
+
+            view = EmbedPaginatorView(embeds)
+
+            out = await interaction.followup.send(embed=view.initial, view=view)
+            view.response = out
+
+        except Exception as e:
+            print(e)
+            await interaction.followup.send(
+                "Something went wrong. Maybe the card has no history?"
             )
             return
 
