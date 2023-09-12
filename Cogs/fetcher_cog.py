@@ -1,5 +1,5 @@
 from discord.ext import commands
-import Fetcher.collective, Fetcher.reddit, Fetcher.mtg, Fetcher.eternal, Fetcher.ygo, Fetcher.hs, Fetcher.lor, Fetcher.keyforge, Fetcher.marvelsnap, Fetcher.meme
+import Fetcher.mtg, Fetcher.eternal, Fetcher.ygo, Fetcher.hs, Fetcher.lor, Fetcher.keyforge, Fetcher.marvelsnap
 from Fetcher.fetcher_list import FetcherList
 
 
@@ -7,18 +7,18 @@ class FetcherCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.card_fetchers = {
-            FetcherList.col.mod: Fetcher.collective.CollectiveFetcher(),
-            FetcherList.tk.mod: Fetcher.collective.CollectiveTokenFetcher(),
-            FetcherList.sub.mod: Fetcher.reddit.CollectiveSub(),
+            #FetcherList.col.mod: Fetcher.collective.CollectiveFetcher(),
+            #FetcherList.tk.mod: Fetcher.collective.CollectiveTokenFetcher(),
+            #FetcherList.sub.mod: Fetcher.reddit.CollectiveSub(),
             FetcherList.mtg.mod: Fetcher.mtg.MtgFetcher(),
             FetcherList.et.mod: Fetcher.eternal.EternalFetcher(),
             FetcherList.ygo.mod: Fetcher.ygo.YugiohFetcher(),
             FetcherList.hs.mod: Fetcher.hs.HsFetcher(),
             FetcherList.lor.mod: Fetcher.lor.LorFetcher(),
             FetcherList.kf.mod: Fetcher.keyforge.KeyforgeFetcher(),
-            FetcherList.hero.mod: Fetcher.collective.CollectiveHeroFetcher(),
+            #FetcherList.hero.mod: Fetcher.collective.CollectiveHeroFetcher(),
             FetcherList.ms.mod: Fetcher.marvelsnap.MarvelSnapFetcher(),
-            FetcherList.meme.mod: Fetcher.meme.MemeFetcher(),
+            #FetcherList.meme.mod: Fetcher.meme.MemeFetcher(),
         }
 
     def get_card_name(self, text):

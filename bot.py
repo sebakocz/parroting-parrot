@@ -38,17 +38,21 @@ log.info(f"Running in {'DEV' if isDev else 'PROD'} mode")
 class MyBot(commands.Bot):
     async def setup_hook(self):
 
-        for filename in os.listdir("Cogs"):
-            if filename.endswith(".py"):
-                log.info(f"Loading Cog: {filename}")
-                await bot.load_extension(f"Cogs.{filename[:-3]}")
-            else:
-                if filename == "__pycache__":
-                    continue
+        # for filename in os.listdir("Cogs"):
+        #     if filename.endswith(".py"):
+        #         log.info(f"Loading Cog: {filename}")
+        #         await bot.load_extension(f"Cogs.{filename[:-3]}")
+        #     else:
+        #         if filename == "__pycache__":
+        #             continue
+        #
+        #         log.error(f"Unable to load {filename}")
 
-                log.error(f"Unable to load {filename}")
+        await bot.load_extension("Cogs.admin_cog")
+        await bot.load_extension("Cogs.fetcher_cog")
+        await bot.load_extension("Cogs.misc_cog")
+        await bot.load_extension("Cogs.mod_cog")
 
-        # await bot.load_extension("Cogs.dev_cog")
         # await bot.load_extension("Cogs.reddit_cog")
         # await bot.load_extension("Cogs.reaction_cog")
         # await bot.load_extension("Cogs.mod_cog")

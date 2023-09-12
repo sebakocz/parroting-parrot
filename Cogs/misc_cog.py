@@ -7,8 +7,6 @@ import discord
 from discord.ext import commands, tasks
 from discord import app_commands
 
-import Utils.Collective.api
-import Utils.Collective.db
 import Utils.tenor_api
 
 
@@ -17,7 +15,7 @@ class MiscCog(commands.Cog):
         self.bot = bot
 
         # update card names list
-        self.card_list = cycle(Utils.Collective.api.fetch_random_card_names())
+        self.card_list = cycle(["Warshaman"])
 
     @commands.Cog.listener()
     async def on_ready(self):
