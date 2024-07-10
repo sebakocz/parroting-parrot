@@ -2,6 +2,9 @@
 
 >_A helping feather of [Collective, The Community Created Card Game](https://www.collective.gg/)!_
 
+# 🚫 Deprecated
+Project discontinued
+
 ## :gear: Features
 
 ### 🥇 Core
